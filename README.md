@@ -38,6 +38,12 @@ check out those libraries!
 
 ## Install
 
+To install the command-line `unfluff` utility:
+
+    npm install -g unfluff
+
+To install the `unfluff` module for use in your Node.js project:
+
     npm install --save unfluff
 
 ## Usage
