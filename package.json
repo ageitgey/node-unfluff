@@ -1,9 +1,16 @@
 {
   "name": "unfluff",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A web page content extractor",
   "homepage": "https://github.com/ageitgey/node-unfluff",
-  "keywords": ["content extraction", "html", "scraping", "scrape", "web page", "body text"],
+  "keywords": [
+    "content extraction",
+    "html",
+    "scraping",
+    "scrape",
+    "web page",
+    "body text"
+  ],
   "author": {
     "name": "Adam Geitgey",
     "email": "ageitgey@gmail.com"
