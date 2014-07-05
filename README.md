@@ -45,13 +45,13 @@ You can use `unfluff` from node or right on the command line!
 ### Extracted data elements
 
 This is what `unfluff` will try to grab from a web page:
-- title: The document's title (from the &lt;title&gt; tag)
-- text: The main text of the document with all the junk thrown away
-- tags: Any tags or keywords that could be found by checking &lt;rel&gt; tags or by looking at href urls.
-- canonicalLink: The [canonical url](https://support.google.com/webmasters/answer/139066?hl=en) of the document, if given.
-- lang: The language of the document, either detected or supplied by you.
-- description: The description of the document, from &lt;meta&gt; tags
-- favicon: The url of the document's [favicon](http://en.wikipedia.org/wiki/Favicon).
+- `title` - The document's title (from the &lt;title&gt; tag)
+- `text` - The main text of the document with all the junk thrown away
+- `tags`- Any tags or keywords that could be found by checking &lt;rel&gt; tags or by looking at href urls.
+- `canonicalLink` - The [canonical url](https://support.google.com/webmasters/answer/139066?hl=en) of the document, if given.
+- `lang` - The language of the document, either detected or supplied by you.
+- `description` - The description of the document, from &lt;meta&gt; tags
+- `favicon` - The url of the document's [favicon](http://en.wikipedia.org/wiki/Favicon).
 
 This is returned as a simple json object.
 
