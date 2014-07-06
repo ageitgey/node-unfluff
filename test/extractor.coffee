@@ -18,6 +18,8 @@ suite 'Extractor', ->
         eq origText, newText, "#{site}: cleaned text didn't match expected value"
       else if field == 'link'
         eq orig.expected.final_url, data.canonicalLink, "#{site}: canonical link didn't match expected value"
+      else if field == 'image'
+        eq orig.expected.image, data.image, "#{site}: image didn't match expected value"
       else if field == 'description'
         eq orig.expected.meta_description, data.description, "#{site}: meta description didn't match expected value"
       else if field == 'lang'
@@ -88,6 +90,12 @@ suite 'Extractor', ->
     checkFixture('iframe' , ['videos'])
     checkFixture('object' , ['videos'])
     checkFixture('polygon_video' , ['videos'])
+
+  test 'images', ->
+    checkFixture('aolNews' , ['image'])
+    checkFixture('polygon' , ['image'])
+    checkFixture('theverge1' , ['image'])
+
 
   # TODO: Fix these tests
   # test 'gets cleaned text', ->

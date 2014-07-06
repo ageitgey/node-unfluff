@@ -17,6 +17,7 @@ module.exports = extractor = (html, language) ->
     lang: lng
     canonicalLink: canonicalLink(doc)
     tags: extractTags(doc)
+    image: image(doc, topNode)
 
   # Step 1: Clean the doc
   cleaner(doc)
@@ -37,6 +38,18 @@ text = (doc, topNode, lang) ->
     formatter(doc, topNode, lang)
   else
     ""
+
+# Grab an image for the page
+image = (doc, topNode) ->
+  # TODO: We could get images for a wider variety of pages by
+  #       downloading all the images and ranking them by size.
+  #       But so far, this works pretty well and is much faster.
+  images = doc("meta[property='og:image'], meta[itemprop=image], meta[name='twitter:image:src'], meta[name='twitter:image'], meta[name='twitter:image0']")
+
+  if images.length > 0 && images.first().attr('content')
+    return images.first().attr('content')
+
+  null
 
 # Find any embedded videos in the doc
 videos = (doc, topNode) ->
