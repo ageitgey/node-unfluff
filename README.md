@@ -55,6 +55,7 @@ You can use `unfluff` from node or right on the command line!
 This is what `unfluff` will try to grab from a web page:
 - `title` - The document's title (from the &lt;title&gt; tag)
 - `text` - The main text of the document with all the junk thrown away
+- `image` - The main image for the document (what's use by facebook, etc.)
 - `videos` - An array of videos that were embedded in the article. Each video has src, width and height.
 - `tags`- Any tags or keywords that could be found by checking &lt;rel&gt; tags or by looking at href urls.
 - `canonicalLink` - The [canonical url](https://support.google.com/webmasters/answer/139066?hl=en) of the document, if given.
@@ -128,6 +129,7 @@ data = extractor(my_html_data);
 {
   "title": "Shovel Knight review: rewrite history",
   "text": "Shovel Knight is inspired by the past in all the right ways — but it's far from stuck in it. [.. snip ..]",
+  "image": "http://cdn2.vox-cdn.com/uploads/chorus_image/image/34834129/jellyfish_hero.0_cinema_1280.0.png",  
   "tags": [],
   "videos": [],
   "canonicalLink": "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u",
