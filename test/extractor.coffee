@@ -28,6 +28,8 @@ suite 'Extractor', ->
         eq orig.expected.meta_favicon, data.favicon, "#{site}: favicon url didn't match expected value"
       else if field == 'tags'
         arrayEq orig.expected.tags.sort(), data.tags.sort(), "#{site}: meta tags didn't match expected value"
+      else if field == 'videos'
+        deepEq orig.expected.movies.sort(), data.videos.sort(), "#{site}: videos didn't match expected value"
       else
         # Oops!
         eq true, false, "#{site}: Invalid test!"
@@ -80,6 +82,12 @@ suite 'Extractor', ->
     checkFixture('tags_wnyc' , ['tags'])
     checkFixture('tags_cnet' , ['tags'])
     checkFixture('tags_abcau' , ['tags'])
+
+  test 'reads videos', ->
+    checkFixture('embed' , ['videos'])
+    checkFixture('iframe' , ['videos'])
+    checkFixture('object' , ['videos'])
+    checkFixture('polygon_video' , ['videos'])
 
   # TODO: Fix these tests
   # test 'gets cleaned text', ->
