@@ -9,7 +9,7 @@ module.exports = extractor = (html, language) ->
   doc = cheerio.load(html)
   lng = language || lang(doc)
 
-  {
+  pageData =
     title: title(doc)
     favicon: favicon(doc)
     description: description(doc)
@@ -17,24 +17,71 @@ module.exports = extractor = (html, language) ->
     lang: lng
     canonicalLink: canonicalLink(doc)
     tags: extractTags(doc)
-    text: text(doc, lng)
-  }
 
-# Grab the 'main' text chunk of an html document
-text = (doc, lang) ->
-  # Pipeline Step 1: Clean the doc
+  # Step 1: Clean the doc
   cleaner(doc)
 
-  # Pipeline Step 2: Find the doc node with the best ext
-  topNode = calculateBestNode(doc, lang)
+  # Step 2: Find the doc node with the best text
+  topNode = calculateBestNode(doc, lng)
 
+  # Step 3: Extract text, videos, images
+  pageData.videos = videos(doc, topNode)
+  pageData.text = text(doc, topNode, lng)
+
+  pageData
+
+# Grab the 'main' text chunk
+text = (doc, topNode, lang) ->
   if topNode
-    # Pipeline Step 3: Remove any trashy/junky nodes
     topNode = postCleanup(doc, topNode, lang)
-    # Pipeline Step 4: Extract text from the html
     formatter(doc, topNode, lang)
   else
     ""
+
+# Find any embedded videos in the doc
+videos = (doc, topNode) ->
+  videoList = []
+  candidates = doc(topNode).find("iframe, embed, object, video")
+
+  candidates.each () ->
+    candidate = doc(this)
+    tag = candidate[0].name
+
+    if tag == "embed"
+      if candidate.parent() && candidate.parent()[0].name == "object"
+        videoList.push(getObjectTag(doc, candidate))
+      else
+        videoList.push(getVideoAttrs(doc, candidate))
+    else if tag == "object"
+      videoList.push(getObjectTag(doc, candidate))
+    else if tag == "iframe" || tag == "video"
+      videoList.push(getVideoAttrs(doc, candidate))
+
+  # Filter out junky or duplicate videos
+  urls = []
+  results = []
+  _.each videoList, (vid) ->
+    if vid && vid.height && vid.width && urls.indexOf(vid.src) == -1
+      results.push(vid)
+      urls.push(vid.src)
+
+  results
+
+getVideoAttrs = (doc, node) ->
+  el = doc(node)
+  data =
+    src: el.attr('src')
+    height: el.attr('height')
+    width: el.attr('width')
+
+getObjectTag = (doc, node) ->
+  srcNode = node.find('param[name=movie]')
+  return null unless srcNode.length > 0
+
+  src = srcNode.attr("value")
+  video = getVideoAttrs(doc, node)
+  video.src = src
+  video
 
 # Grab the title of an html doc (excluding junk)
 title = (doc) ->

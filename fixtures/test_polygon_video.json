@@ -1,0 +1,12 @@
+{
+    "url": "http://foo.bar/index.html",
+    "expected": {
+        "movies": [
+            {
+              "width": "853",
+              "height": "480",
+              "src": "//www.youtube.com/embed/HdG_WS8v60g"
+            }
+        ]
+    }
+}

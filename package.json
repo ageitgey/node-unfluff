@@ -39,7 +39,8 @@
     "commonjs-everywhere": "0.9.x",
     "mocha": "~1.12.1",
     "scopedfs": "~0.1.0",
-    "semver": "~2.1.0"
+    "semver": "~2.1.0",
+    "deep-equal": "~0.2.1"
   },
   "scripts": {
     "test": "make test"

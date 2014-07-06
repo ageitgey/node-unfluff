@@ -1,7 +1,7 @@
 path = require 'path'
 util = require 'util'
-
 fs = require 'fs'
+deepEqual = require 'deep-equal'
 
 global[name] = func for name, func of require 'assert'
 
@@ -22,7 +22,8 @@ arrayEgal = (a, b) ->
 
 global.inspect = (o) -> util.inspect o, no, 2, yes
 global.eq      = (a, b, msg) -> ok egal(a, b), msg ? "#{inspect a} === #{inspect b}"
-global.arrayEq = (a, b, msg) -> ok arrayEgal(a,b), msg ? "#{inspect a} === #{inspect b}"
+global.arrayEq = (a, b, msg) -> ok arrayEgal(a, b), msg ? "#{inspect a} === #{inspect b}"
+global.deepEq  = (a, b, msg) -> ok deepEqual(a, b), msg ? "#{inspect a} === #{inspect b}"
 
 global.fs = fs
 
