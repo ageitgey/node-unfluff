@@ -139,6 +139,21 @@ data = extractor(my_html_data);
 }
 ```
 
+### Demo
+
+The easiest way to try out `unfluff` is to just install it:
+
+```
+$ npm install -g unfluff
+$ curl -s "http://www.cnn.com/2014/07/07/world/americas/mexico-earthquake/index.html" | unfluff
+```
+
+But if you can't be bothered, you can check out
+[fetch text](http://fetchtext.herokuapp.com/). It's a site by
+[Andy Jiang](https://twitter.com/andyjiang) that uses `unfluff`. You send an
+email with a url and it emails back with the cleaned content of that url. It
+should give you a good idea of how `unfluff` handles different urls.
+
 ### What is broken
 
 - Parsing web pages in languages other than English is poorly tested and probably
