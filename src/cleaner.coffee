@@ -14,6 +14,8 @@ module.exports = cleaner = (doc) ->
   removeNodesRegex(doc, /facebook-broadcasting/)
   removeNodesRegex(doc, /[^-]twitter/)
   cleanParaSpans(doc)
+  cleanUnderlines(doc)
+  cleanErrantLinebreaks(doc)
   divToPara(doc, 'div')
   divToPara(doc, 'span')
   return doc
@@ -66,6 +68,11 @@ removeNodesRegex = (doc, pattern) ->
 
 cleanParaSpans = (doc) ->
   nodes = doc("p span")
+  nodes.each () ->
+    doc(this).replaceWith(doc(this).html())
+
+cleanUnderlines = (doc) ->
+  nodes = doc("u")
   nodes.each () ->
     doc(this).replaceWith(doc(this).html())
 
@@ -155,3 +162,16 @@ divToPara = (doc, domType) ->
 
       div.empty()
       doc(div).replaceWith("#{html}")
+
+# For plain text nodes directly inside of p tags that contain random single
+# line breaks, remove those junky line breaks. They would never be rendered
+# by a browser anyway.
+cleanErrantLinebreaks = (doc) ->
+  doc("p").each () ->
+    node = doc(this)
+    c = node.contents()
+
+    doc(c).each () ->
+      n = doc(this)
+      if n[0].type == 'text'
+        n.replaceWith(n.text().replace(/([^\n])\n([^\n])/g, "$1 $2"))
