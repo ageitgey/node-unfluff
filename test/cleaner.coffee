@@ -60,6 +60,12 @@ suite 'Cleaner', ->
     eq newDoc("p").length, 1
     eq newDoc("p").text(), "text1"
 
+  test 'replaces u tags with plain text', ->
+    origDoc = cheerio.load("<html><body><u>text1</u></body></html>")
+    newDoc = cleaner(origDoc)
+    eq newDoc("u").length, 0
+    eq newDoc("body").html(), "text1"
+
   test 'removes divs by re (ex: /caption/)', ->
     html = fs.readFileSync("./fixtures/test_aolNews.html").toString()
     origDoc = cheerio.load(html)
@@ -79,3 +85,12 @@ suite 'Cleaner', ->
     newDoc = cleaner(origDoc)
     naughty_els = newDoc('.retweet')
     eq naughty_els.length, 0
+
+  test 'removes trash line breaks that wouldn\'t be rendered by the browser', ->
+    html = fs.readFileSync("./fixtures/test_sec1.html").toString()
+    origDoc = cheerio.load(html)
+    newDoc = cleaner(origDoc)
+
+    pEls = newDoc('p')
+    cleanedParaText = pEls[9].children[0].data
+    eq cleanedParaText.trim(), "“This transaction would not only strengthen our global presence, but also demonstrate our commitment to diversify and expand our U.S. commercial portfolio with meaningful new therapies,” said Russell Cox, executive vice president and chief operating officer of Jazz Pharmaceuticals plc. “We look forward to ongoing discussions with the FDA as we continue our efforts toward submission of an NDA for defibrotide in the U.S. Patients in the U.S. with severe VOD have a critical unmet medical need, and we believe that defibrotide has the potential to become an important treatment option for these patients.”"

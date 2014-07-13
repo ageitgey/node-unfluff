@@ -1,6 +1,6 @@
 path = require('path')
 fs = require('fs')
-_ = require('underscore')
+_ = require('lodash')
 
 cache = {}
 

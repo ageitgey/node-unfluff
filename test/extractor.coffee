@@ -1,5 +1,5 @@
 suite 'Extractor', ->
-  _ = require('underscore')
+  _ = require('lodash')
   extractor = require("../src/extractor")
 
   checkFixture = (site, fields) ->

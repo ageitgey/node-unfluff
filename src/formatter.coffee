@@ -1,5 +1,5 @@
 stopwords = require("./stopwords")
-_ = require("underscore")
+_ = require("lodash")
 
 module.exports = formatter = (doc, topNode, language) ->
   removeNegativescoresNodes(doc, topNode)
