@@ -1,5 +1,5 @@
 cheerio = require("cheerio")
-_ = require("underscore")
+_ = require("lodash")
 
 cleaner = require("./cleaner")
 stopwords = require("./stopwords")
