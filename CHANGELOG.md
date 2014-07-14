@@ -1,3 +1,6 @@
+### 0.3.0
+* Better handle html with random line breaks. See [#6](https://github.com/ageitgey/node-unfluff/pull/6).
+
 ### 0.2.0
 * Added ability to extract an image from articles. See [#4](https://github.com/ageitgey/node-unfluff/pull/4).
 
