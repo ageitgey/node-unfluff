@@ -1,6 +1,6 @@
 {
   "name": "unfluff",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A web page content extractor",
   "homepage": "https://github.com/ageitgey/node-unfluff",
   "keywords": [
