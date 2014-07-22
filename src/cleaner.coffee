@@ -4,6 +4,7 @@ module.exports = cleaner = (doc) ->
   removeBodyClasses(doc)
   cleanArticleTags(doc)
   cleanEmTags(doc)
+  cleanCodeBlocks(doc)
   removeDropCaps(doc)
   removeScriptsStyles(doc)
   cleanBadTags(doc)
@@ -36,6 +37,11 @@ cleanEmTags = (doc) ->
     images = ems.find("img")
     if images.length == 0
       doc(this).replaceWith(doc(this).html())
+
+cleanCodeBlocks = (doc) ->
+  nodes = doc("[class*='highlight-'], pre code, code, pre, ul.task-list")
+  nodes.each () ->
+    doc(this).replaceWith(doc(this).text())
 
 removeDropCaps = (doc) ->
   nodes = doc("span[class~=dropcap], span[class~=drop_cap]")
