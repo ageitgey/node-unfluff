@@ -1,5 +1,6 @@
 stopwords = require("./stopwords")
 _ = require("lodash")
+{XRegExp} = require('xregexp')
 
 module.exports = formatter = (doc, topNode, language) ->
   removeNegativescoresNodes(doc, topNode)
@@ -20,22 +21,55 @@ replaceWithText = (doc, topNode) ->
   nodes.each () ->
     doc(this).replaceWith(doc(this).text())
 
+cleanParagraphText = (rawText) ->
+  txt = rawText.trim()
+  txt.replace(/[\s\t]+/g, ' ')
+  txt
+
 # Turn an html element (and children) into nicely formatted text
 convertToText = (doc, topNode) ->
   txts = []
-  nodes = topNode.children()
+  nodes = topNode.contents()
+
+  # To hold any text fragments that end up in text nodes outside of
+  # html elements
+  hangingText = ""
+
   nodes.each () ->
     node = doc(this)
+    nodeType = node[0].type
 
-    txt = node.text().trim()
-    txt.replace(/[\s\t]+/g, ' ')
+    # Handle top level text nodes by adding them to a running list
+    # and then treating all the hanging nodes as one paragraph tag
+    if nodeType == "text"
+      hangingText += node.text()
+      # Same as 'continue'
+      return true
+
+    # If we hit a real node and still have extra acculated text,
+    # pop it out as if it was a paragraph tag
+    if hangingText.length > 0
+      txt = cleanParagraphText(hangingText)
+      txts = txts.concat(txt.split(/\r?\n/))
+      hangingText = ""
+
+    txt = cleanParagraphText(node.text())
+    txts = txts.concat(txt.split(/\r?\n/))
+
+  # Catch any left-over hanging text nodes
+  if hangingText.length > 0
+    txt = cleanParagraphText(hangingText)
     txts = txts.concat(txt.split(/\r?\n/))
 
   txts = _.map txts, (txt) ->
     txt.trim()
 
+  # Make sure each text chunk includes at least one text character or number.
+  # This supports multiple languages words using XRegExp to generate the
+  # regex that matches wranges of unicode characters used in words.
+  regex = XRegExp('[\\p{Number}\\p{Letter}]')
   txts = _.filter txts, (txt) ->
-    (/[a-zA-Z0-9]/.test(txt))
+    regex.test(txt)
 
   txts.join('\n\n')
 
@@ -69,7 +103,6 @@ removeFewwordsParagraphs = (doc, topNode, language) ->
     stopWords = stopwords(text, language)
     if (tag != 'br' || text != '\\r') && stopWords.stopwordCount < 3 && el.find("object").length == 0 && el.find("embed").length == 0
       doc(el).remove()
-
     else
       trimmed = text.trim()
       if trimmed[0] == "(" && trimmed[trimmed.length - 1] == ")"

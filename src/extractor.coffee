@@ -452,7 +452,8 @@ postCleanup = (doc, targetNode, lang) ->
   node.children().each () ->
     e = doc(this)
     eTag = e[0].name
-    if eTag != 'p'
+    if eTag not in ['p', 'a']
       if isHighlinkDensity(doc, e) || isTableAndNoParaExist(doc, e) || !isNodescoreThresholdMet(doc, node, e)
         doc(e).remove()
+
   return node
