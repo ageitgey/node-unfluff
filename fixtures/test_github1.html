@@ -1,0 +1,1069 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html class="   ">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    
+    <title>ageitgey/node-unfluff · GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub" />
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-144.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144.png" />
+    <meta property="fb:app_id" content="1401488693436528"/>
+
+      <meta content="@github" name="twitter:site" /><meta content="summary" name="twitter:card" /><meta content="ageitgey/node-unfluff" name="twitter:title" /><meta content="node-unfluff - Automatically extract body content (and other cool stuff) from an html document" name="twitter:description" /><meta content="https://avatars1.githubusercontent.com/u/896692?s=400" name="twitter:image:src" />
+<meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="https://avatars1.githubusercontent.com/u/896692?s=400" property="og:image" /><meta content="ageitgey/node-unfluff" property="og:title" /><meta content="https://github.com/ageitgey/node-unfluff" property="og:url" /><meta content="node-unfluff - Automatically extract body content (and other cool stuff) from an html document" property="og:description" />
+
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="conduit-xhr" href="https://ghconduit.com:25035">
+    
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="selected-link" value="repo_source" data-pjax-transient />
+      <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="B8B6BE92:18CF:6D539F9:53C718B4" name="octolytics-dimension-request_id" />
+    
+
+    
+    
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico" />
+
+
+    <meta content="authenticity_token" name="csrf-param" />
+<meta content="blkX4Qfc+sw2H51eD1Qx8GuudX4aWpsuHvBXzx4/Sfcy/0uPSOTOmQwfVYQPi6o5aQYLqeKNTRguTGBpiLsDtg==" name="csrf-token" />
+
+    <link href="https://assets-cdn.github.com/assets/github-c534ad575b5bb8c3cc3dce9c571df7aa7400dbe9.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="https://assets-cdn.github.com/assets/github2-84a1b6179d461213455892ab983182bc2052a7b5.css" media="all" rel="stylesheet" type="text/css" />
+    
+
+
+    <meta http-equiv="x-pjax-version" content="ef2e8ad48b4c98b3a1a0065370258ac2">
+
+      
+  <meta name="description" content="node-unfluff - Automatically extract body content (and other cool stuff) from an html document" />
+
+
+  <meta content="896692" name="octolytics-dimension-user_id" /><meta content="ageitgey" name="octolytics-dimension-user_login" /><meta content="21369952" name="octolytics-dimension-repository_id" /><meta content="ageitgey/node-unfluff" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="21369952" name="octolytics-dimension-repository_network_root_id" /><meta content="ageitgey/node-unfluff" name="octolytics-dimension-repository_network_root_nwo" />
+
+  <link href="https://github.com/ageitgey/node-unfluff/commits/master.atom" rel="alternate" title="Recent Commits to node-unfluff:master" type="application/atom+xml" />
+
+  </head>
+
+
+  <body class="logged_out  env-production  vis-public">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+      
+
+
+      
+      <div class="header header-logged-out">
+  <div class="container clearfix">
+
+    <a class="header-logo-wordmark" href="https://github.com/">
+      <span class="mega-octicon octicon-logo-github"></span>
+    </a>
+
+    <div class="header-actions">
+        <a class="button primary" href="/join">Sign up</a>
+      <a class="button signin" href="/login?return_to=%2Fageitgey%2Fnode-unfluff">Sign in</a>
+    </div>
+
+    <div class="command-bar js-command-bar  in-repository">
+
+      <ul class="top-nav">
+          <li class="explore"><a href="/explore">Explore</a></li>
+          <li class="features"><a href="/features">Features</a></li>
+          <li class="enterprise"><a href="https://enterprise.github.com/">Enterprise</a></li>
+          <li class="blog"><a href="/blog">Blog</a></li>
+      </ul>
+        <form accept-charset="UTF-8" action="/search" class="command-bar-form" id="top_search_form" method="get">
+
+<div class="commandbar">
+  <span class="message"></span>
+  <input type="text" data-hotkey="s, /" name="q" id="js-command-bar-field" placeholder="Search or type a command" tabindex="1" autocapitalize="off"
+    
+    
+    data-repo="ageitgey/node-unfluff"
+  >
+  <div class="display hidden"></div>
+</div>
+
+    <input type="hidden" name="nwo" value="ageitgey/node-unfluff" />
+
+    <div class="select-menu js-menu-container js-select-menu search-context-select-menu">
+      <span class="minibutton select-menu-button js-menu-target" role="button" aria-haspopup="true">
+        <span class="js-select-button">This repository</span>
+      </span>
+
+      <div class="select-menu-modal-holder js-menu-content js-navigation-container" aria-hidden="true">
+        <div class="select-menu-modal">
+
+          <div class="select-menu-item js-navigation-item js-this-repository-navigation-item selected">
+            <span class="select-menu-item-icon octicon octicon-check"></span>
+            <input type="radio" class="js-search-this-repository" name="search_target" value="repository" checked="checked" />
+            <div class="select-menu-item-text js-select-button-text">This repository</div>
+          </div> <!-- /.select-menu-item -->
+
+          <div class="select-menu-item js-navigation-item js-all-repositories-navigation-item">
+            <span class="select-menu-item-icon octicon octicon-check"></span>
+            <input type="radio" name="search_target" value="global" />
+            <div class="select-menu-item-text js-select-button-text">All repositories</div>
+          </div> <!-- /.select-menu-item -->
+
+        </div>
+      </div>
+    </div>
+
+  <span class="help tooltipped tooltipped-s" aria-label="Show command bar help">
+    <span class="octicon octicon-question"></span>
+  </span>
+
+
+  <input type="hidden" name="ref" value="cmdform">
+
+</form>
+    </div>
+
+  </div>
+</div>
+
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope itemtype="http://schema.org/WebPage">
+    <div id="js-flash-container">
+      
+    </div>
+    <div class="pagehead repohead instapaper_ignore readability-menu">
+      <div class="container">
+        
+<ul class="pagehead-actions">
+
+
+  <li>
+      <a href="/login?return_to=%2Fageitgey%2Fnode-unfluff"
+    class="minibutton with-count star-button tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <span class="octicon octicon-star"></span>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/ageitgey/node-unfluff/stargazers">
+      668
+    </a>
+
+  </li>
+
+    <li>
+      <a href="/login?return_to=%2Fageitgey%2Fnode-unfluff"
+        class="minibutton with-count js-toggler-target fork-button tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <span class="octicon octicon-repo-forked"></span>
+        Fork
+      </a>
+      <a href="/ageitgey/node-unfluff/network" class="social-count">
+        23
+      </a>
+    </li>
+</ul>
+
+        <h1 itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+          <span class="repo-label"><span>public</span></span>
+          <span class="mega-octicon octicon-repo"></span>
+          <span class="author"><a href="/ageitgey" class="url fn" itemprop="url" rel="author"><span itemprop="title">ageitgey</span></a></span><!--
+       --><span class="path-divider">/</span><!--
+       --><strong><a href="/ageitgey/node-unfluff" class="js-current-repository js-repo-home-link">node-unfluff</a></strong>
+
+          <span class="page-context-loader">
+            <img alt="" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+          </span>
+
+        </h1>
+      </div><!-- /.container -->
+    </div><!-- /.repohead -->
+
+    <div class="container">
+      <div class="repository-with-sidebar repo-container new-discussion-timeline js-new-discussion-timeline with-full-navigation ">
+        <div class="repository-sidebar clearfix">
+            
+
+<div class="sunken-menu vertical-right repo-nav js-repo-nav js-repository-container-pjax js-octicon-loaders">
+  <div class="sunken-menu-contents">
+    <ul class="sunken-menu-group">
+      <li class="tooltipped tooltipped-w" aria-label="Code">
+        <a href="/ageitgey/node-unfluff" aria-label="Code" class="selected js-selected-navigation-item sunken-menu-item" data-hotkey="g c" data-pjax="true" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /ageitgey/node-unfluff">
+          <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+        <li class="tooltipped tooltipped-w" aria-label="Issues">
+          <a href="/ageitgey/node-unfluff/issues" aria-label="Issues" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-hotkey="g i" data-selected-links="repo_issues /ageitgey/node-unfluff/issues">
+            <span class="octicon octicon-issue-opened"></span> <span class="full-word">Issues</span>
+            <span class='counter'>1</span>
+            <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>        </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Pull Requests">
+        <a href="/ageitgey/node-unfluff/pulls" aria-label="Pull Requests" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-hotkey="g p" data-selected-links="repo_pulls /ageitgey/node-unfluff/pulls">
+            <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull Requests</span>
+            <span class='counter'>0</span>
+            <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+
+    </ul>
+    <div class="sunken-menu-separator"></div>
+    <ul class="sunken-menu-group">
+
+      <li class="tooltipped tooltipped-w" aria-label="Pulse">
+        <a href="/ageitgey/node-unfluff/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-pjax="true" data-selected-links="pulse /ageitgey/node-unfluff/pulse">
+          <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Graphs">
+        <a href="/ageitgey/node-unfluff/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-pjax="true" data-selected-links="repo_graphs repo_contributors /ageitgey/node-unfluff/graphs">
+          <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Network">
+        <a href="/ageitgey/node-unfluff/network" aria-label="Network" class="js-selected-navigation-item sunken-menu-item js-disable-pjax" data-selected-links="repo_network /ageitgey/node-unfluff/network">
+          <span class="octicon octicon-repo-forked"></span> <span class="full-word">Network</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+    </ul>
+
+
+  </div>
+</div>
+
+              <div class="only-with-full-nav">
+                
+
+  
+
+<div class="clone-url open"
+  data-protocol-type="http"
+  data-url="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone">
+  <h3><strong>HTTPS</strong> clone URL</h3>
+  <div class="clone-url-box">
+    <input type="text" class="clone js-url-field"
+           value="https://github.com/ageitgey/node-unfluff.git" readonly="readonly">
+    <span class="url-box-clippy">
+    <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-clipboard-text="https://github.com/ageitgey/node-unfluff.git" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+
+<div class="clone-url "
+  data-protocol-type="subversion"
+  data-url="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone">
+  <h3><strong>Subversion</strong> checkout URL</h3>
+  <div class="clone-url-box">
+    <input type="text" class="clone js-url-field"
+           value="https://github.com/ageitgey/node-unfluff" readonly="readonly">
+    <span class="url-box-clippy">
+    <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-clipboard-text="https://github.com/ageitgey/node-unfluff" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+
+<p class="clone-options">You can clone with
+      <a href="#" class="js-clone-selector" data-protocol="http">HTTPS</a>
+      or <a href="#" class="js-clone-selector" data-protocol="subversion">Subversion</a>.
+  <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+    <span class="octicon octicon-question"></span>
+  </a>
+</p>
+
+
+
+                <a href="/ageitgey/node-unfluff/archive/master.zip"
+                   class="minibutton sidebar-button"
+                   aria-label="Download ageitgey/node-unfluff as a zip file"
+                   title="Download ageitgey/node-unfluff as a zip file"
+                   rel="nofollow">
+                  <span class="octicon octicon-cloud-download"></span>
+                  Download ZIP
+                </a>
+              </div>
+        </div><!-- /.repository-sidebar -->
+
+        <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container>
+          
+
+<span id="js-show-full-navigation"></span>
+
+<div class="repository-meta js-details-container ">
+    <div class="repository-description js-details-show">
+      <p>Automatically extract body content (and other cool stuff) from an html document</p>
+    </div>
+
+
+
+</div>
+
+<div class="capped-box overall-summary ">
+
+  <div class="stats-switcher-viewport js-stats-switcher-viewport">
+    <div class="stats-switcher-wrapper">
+    <ul class="numbers-summary">
+      <li class="commits">
+        <a data-pjax href="/ageitgey/node-unfluff/commits/master">
+            <span class="num">
+              <span class="octicon octicon-history"></span>
+              26
+            </span>
+            commits
+        </a>
+      </li>
+      <li>
+        <a data-pjax href="/ageitgey/node-unfluff/branches">
+          <span class="num">
+            <span class="octicon octicon-git-branch"></span>
+            2
+          </span>
+          branches
+        </a>
+      </li>
+
+      <li>
+        <a data-pjax href="/ageitgey/node-unfluff/releases">
+          <span class="num">
+            <span class="octicon octicon-tag"></span>
+            4
+          </span>
+          releases
+        </a>
+      </li>
+
+      <li>
+        
+  <a href="/ageitgey/node-unfluff/graphs/contributors">
+    <span class="num">
+      <span class="octicon octicon-organization"></span>
+      1
+    </span>
+    contributor
+  </a>
+      </li>
+    </ul>
+
+      <div class="repository-lang-stats">
+        <ol class="repository-lang-stats-numbers">
+          <li>
+              <a href="/ageitgey/node-unfluff/search?l=coffeescript">
+                <span class="color-block language-color" style="background-color:#244776;"></span>
+                <span class="lang">CoffeeScript</span>
+                <span class="percent">99.8%</span>
+              </a>
+          </li>
+          <li>
+              <a href="/ageitgey/node-unfluff/search?l=javascript">
+                <span class="color-block language-color" style="background-color:#f1e05a;"></span>
+                <span class="lang">JavaScript</span>
+                <span class="percent">0.2%</span>
+              </a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="tooltipped tooltipped-s" aria-label="Show language statistics">
+    <a href="#"
+     class="repository-lang-stats-graph js-toggle-lang-stats"
+     style="background-color:#f1e05a">
+  <span class="language-color" style="width:99.8%; background-color:#244776;" itemprop="keywords">CoffeeScript</span><span class="language-color" style="width:0.2%; background-color:#f1e05a;" itemprop="keywords">JavaScript</span>
+    </a>
+  </div>
+
+
+
+<div class="file-navigation in-mid-page">
+  <a href="/ageitgey/node-unfluff/find/master"
+        class="js-show-file-finder minibutton empty-icon tooltipped tooltipped-s right"
+        data-pjax
+        data-hotkey="t"
+        aria-label="Quickly jump between files">
+    <span class="octicon octicon-list-unordered"></span>
+  </a>
+    <a href="/ageitgey/node-unfluff/compare" aria-label="Compare, review, create a pull request" class="minibutton compact primary tooltipped tooltipped-s" aria-label="Compare &amp; review" data-pjax>
+      <span class="octicon octicon-git-compare"></span>
+    </a>
+
+  
+
+<div class="select-menu js-menu-container js-select-menu" >
+  <span class="minibutton select-menu-button js-menu-target css-truncate" data-hotkey="w"
+    data-master-branch="master"
+    data-ref="master"
+    title="master"
+    role="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <span class="octicon octicon-git-branch"></span>
+    <i>branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </span>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <span class="select-menu-title">Switch branches/tags</span>
+        <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+      </div> <!-- /.select-menu-header -->
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input type="text" aria-label="Filter branches/tags" id="context-commitish-filter-field" class="js-filterable-field js-navigation-enable" placeholder="Filter branches/tags">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="branches" class="js-select-menu-tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="#" data-tab-filter="tags" class="js-select-menu-tab">Tags</a>
+            </li>
+          </ul>
+        </div><!-- /.select-menu-tabs -->
+      </div><!-- /.select-menu-filters -->
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="/ageitgey/node-unfluff/tree/ag-fix-sec-pages"
+                 data-name="ag-fix-sec-pages"
+                 data-skip-pjax="true"
+                 rel="nofollow"
+                 class="js-navigation-open select-menu-item-text css-truncate-target"
+                 title="ag-fix-sec-pages">ag-fix-sec-pages</a>
+            </div> <!-- /.select-menu-item -->
+            <div class="select-menu-item js-navigation-item selected">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="/ageitgey/node-unfluff/tree/master"
+                 data-name="master"
+                 data-skip-pjax="true"
+                 rel="nofollow"
+                 class="js-navigation-open select-menu-item-text css-truncate-target"
+                 title="master">master</a>
+            </div> <!-- /.select-menu-item -->
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div> <!-- /.select-menu-list -->
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="/ageitgey/node-unfluff/tree/v0.3.0"
+                 data-name="v0.3.0"
+                 data-skip-pjax="true"
+                 rel="nofollow"
+                 class="js-navigation-open select-menu-item-text css-truncate-target"
+                 title="v0.3.0">v0.3.0</a>
+            </div> <!-- /.select-menu-item -->
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="/ageitgey/node-unfluff/tree/v0.2.0"
+                 data-name="v0.2.0"
+                 data-skip-pjax="true"
+                 rel="nofollow"
+                 class="js-navigation-open select-menu-item-text css-truncate-target"
+                 title="v0.2.0">v0.2.0</a>
+            </div> <!-- /.select-menu-item -->
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="/ageitgey/node-unfluff/tree/v0.1.0"
+                 data-name="v0.1.0"
+                 data-skip-pjax="true"
+                 rel="nofollow"
+                 class="js-navigation-open select-menu-item-text css-truncate-target"
+                 title="v0.1.0">v0.1.0</a>
+            </div> <!-- /.select-menu-item -->
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="/ageitgey/node-unfluff/tree/v0.0.2"
+                 data-name="v0.0.2"
+                 data-skip-pjax="true"
+                 rel="nofollow"
+                 class="js-navigation-open select-menu-item-text css-truncate-target"
+                 title="v0.0.2">v0.0.2</a>
+            </div> <!-- /.select-menu-item -->
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div> <!-- /.select-menu-list -->
+
+    </div> <!-- /.select-menu-modal -->
+  </div> <!-- /.select-menu-modal-holder -->
+</div> <!-- /.select-menu -->
+
+
+
+  <div class="breadcrumb"><span class='repo-root js-repo-root'><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/ageitgey/node-unfluff" data-branch="master" data-direction="back" data-pjax="true" itemscope="url"><span itemprop="title">node-unfluff</span></a></span></span><span class="separator"> / </span><form action="/login?return_to=%2Fageitgey%2Fnode-unfluff" aria-label="Sign in to make or propose changes" class="js-new-blob-form tooltipped tooltipped-e new-file-link" method="post"><span aria-label="Sign in to make or propose changes" class="js-new-blob-submit octicon octicon-plus" data-test-id="create-new-git-file" role="button"></span></form></div>
+</div>
+
+
+
+
+  
+  <div class="commit commit-tease js-details-container" >
+    <p class="commit-title ">
+        <a href="/ageitgey/node-unfluff/commit/8138584dcc4e7119df2c96f8ab60573aed163d82" class="message" data-pjax="true" title="Update CHANGELOG.md">Update CHANGELOG.md</a>
+        
+    </p>
+    <div class="commit-meta">
+      <button aria-label="Copy SHA" class="js-zeroclipboard zeroclipboard-link" data-clipboard-text="8138584dcc4e7119df2c96f8ab60573aed163d82" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+      <a href="/ageitgey/node-unfluff/commit/8138584dcc4e7119df2c96f8ab60573aed163d82" class="sha-block" data-pjax>latest commit <span class="sha">8138584dcc</span></a>
+
+      <div class="authorship">
+        <img alt="" class="gravatar js-avatar" data-user="896692" height="20" src="https://avatars2.githubusercontent.com/u/896692?s=140" width="20" />
+        <span class="author-name"><a href="/ageitgey" rel="author">ageitgey</a></span>
+        authored <time class="updated" datetime="2014-07-13T22:17:32-07:00" is="relative-time">July 13, 2014</time>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="file-wrap">
+    <table class="files" data-pjax>
+
+      
+<tbody class=""
+  data-url="/ageitgey/node-unfluff/file-list/master"
+  data-deferred-content-error="Failed to load latest commit information.">
+
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/tree/master/bin" class="js-directory-link" id="c1111bd512b29e821b120b86446026b8-fbfcca3c6847948f65bd44d5d188f5a283aaa181" title="bin">bin</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/818fd49ad6f268c96ca0eae52eccb758f30f406e" class="message" data-pjax="true" title="initial checkin of 0.0.1">initial checkin of 0.0.1</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-05T00:46:39Z" is="time-ago">July 04, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/tree/master/data" class="js-directory-link" id="8d777f385d3dfec8815d20f7496026dc-66f88b6f0dfb3fe89db43e5f0fdfadb98187aeee" title="data">data</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/818fd49ad6f268c96ca0eae52eccb758f30f406e" class="message" data-pjax="true" title="initial checkin of 0.0.1">initial checkin of 0.0.1</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-05T00:46:39Z" is="time-ago">July 05, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/tree/master/fixtures" class="js-directory-link" id="9403e5114acb6bb59791a97291be54b5-02e959156a838220e40ddb916d3bfd6fc3f9f7e4" title="fixtures">fixtures</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/bc49f9a04d2c330d9deda514c10cdc88410400f6" class="message" data-pjax="true" title="Fix issue parsing SEC webpages due to junky line breaks and bad u tags">Fix issue parsing SEC webpages due to junky line breaks and bad u tags</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-13T00:32:31Z" is="time-ago">July 12, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/tree/master/lib" class="js-directory-link" id="e8acc63b1e238f3255c900eed37254b8-dfb865def3238059e3e1a6ea9efd10636f34d768" title="lib">lib</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/5e4ecc2fc14e07e20a9ba038d4a1ccbc421fa8bd" class="message" data-pjax="true" title="Update .js files with lodash">Update .js files with lodash</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-13T00:42:44Z" is="time-ago">July 12, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/tree/master/src" class="js-directory-link" id="25d902c24283ab8cfbac54dfa101ad31-dcc0256e929cc02b62bfbf510a97d3b9adfc5dae" title="src">src</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/97d2a36a51f84bd08478a29f6c99e3405e13e420" class="message" data-pjax="true" title="Switch from underscore to lodash">Switch from underscore to lodash</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-13T00:36:39Z" is="time-ago">July 12, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-directory"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/tree/master/test" class="js-directory-link" id="098f6bcd4621d373cade4e832627b4f6-ecc84ab6ab8bee3f8b1355a6e376114da292ddd1" title="test">test</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/3e48753c77364eea7076f404fd92b8c9c802e45d" class="message" data-pjax="true" title="Update tests to swtich from underscore to lodash">Update tests to swtich from underscore to lodash</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-13T00:39:27Z" is="time-ago">July 12, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/.gitignore" class="js-directory-link" id="a084b794bc0759e7a6b77810e01874f2-922d9c70a456b8470558f7c05aa6e18f2e42834a" title=".gitignore">.gitignore</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/818fd49ad6f268c96ca0eae52eccb758f30f406e" class="message" data-pjax="true" title="initial checkin of 0.0.1">initial checkin of 0.0.1</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-05T00:46:39Z" is="time-ago">July 05, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/.travis.yml" class="js-directory-link" id="354f30a63fb0907d4ad57269548329e3-05d299e676449634733c2040c619a704e735e49a" title=".travis.yml">.travis.yml</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/fba5f505858f5ba0bae10272e99737d9cc2e3413" class="message" data-pjax="true" title="adding travisci config">adding travisci config</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-05T01:28:00Z" is="time-ago">July 04, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/CHANGELOG.md" class="js-directory-link" id="4ac32a78649ca5bdd8e0ba38b7006a1e-8b336b56932edaaca33a616a80202281a277e2aa" title="CHANGELOG.md">CHANGELOG.md</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/8138584dcc4e7119df2c96f8ab60573aed163d82" class="message" data-pjax="true" title="Update CHANGELOG.md">Update CHANGELOG.md</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-14T05:17:32Z" is="time-ago">July 13, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/LICENSE" class="js-directory-link" id="9879d6db96fd29134fc802214163b95a-ad410e11302107da9aa47ce3d46bd5ad011c4c43" title="LICENSE">LICENSE</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/95897afcf6be41a8d97074b128dbcd88e3ef8a0a" class="message" data-pjax="true" title="Initial commit">Initial commit</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-01T00:09:17Z" is="time-ago">June 30, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/Makefile" class="js-directory-link" id="b67911656ef5d18c4ae36cb6741b7965-557d91debef0b1d57044d073506519eb79148cce" title="Makefile">Makefile</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/818fd49ad6f268c96ca0eae52eccb758f30f406e" class="message" data-pjax="true" title="initial checkin of 0.0.1">initial checkin of 0.0.1</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-05T00:46:39Z" is="time-ago">July 05, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/README.md" class="js-directory-link" id="04c6e90faac2675aa89e2176d2eec7d8-53c88c6daa15e80e5f496eaa839a09723cee8fb5" title="README.md">README.md</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/e5bc56f495370afa52948ca18a5848d777cf63a8" class="message" data-pjax="true" title="Link to fetchtext">Link to fetchtext</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T17:15:13Z" is="time-ago">July 07, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/package.json" class="js-directory-link" id="b9cfc7f2cdf78a7f4b91a753d10865a2-41e8d720786da1b1125e3e68e75b37dc5e7d7261" title="package.json">package.json</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/c6a57723711b8738da90cfe882e38d8f9dda7af0" class="message" data-pjax="true" title="Version 0.3.0">Version 0.3.0</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-13T00:47:12Z" is="time-ago">July 12, 2014</time></span>
+      </td>
+    </tr>
+    <tr>
+      <td class="icon">
+        <span class="octicon octicon-file-text"></span>
+        <img alt="" class="spinner" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+      </td>
+      <td class="content">
+        <span class="css-truncate css-truncate-target"><a href="/ageitgey/node-unfluff/blob/master/test-setup.coffee" class="js-directory-link" id="bf8e81c77bae182379cf8f1ee6d2f83d-7f642b6a111f0f4f540045838b50d78ea9362813" title="test-setup.coffee">test-setup.coffee</a></span>
+      </td>
+      <td class="message">
+        <span class="css-truncate css-truncate-target ">
+          <a href="/ageitgey/node-unfluff/commit/5e0a3a2a4d5e572a46a070a800fa63fac1461af2" class="message" data-pjax="true" title="Add support for extracting embedded videos from web pages">Add support for extracting embedded videos from web pages</a>
+        </span>
+      </td>
+      <td class="age">
+        <span class="css-truncate css-truncate-target"><time datetime="2014-07-06T01:22:55Z" is="time-ago">July 05, 2014</time></span>
+      </td>
+    </tr>
+</tbody>
+
+    </table>
+  </div>
+
+
+  <div id="readme" class="clearfix announce instapaper_body md">
+    <span class="name">
+      <span class="octicon octicon-book"></span>
+      README.md
+    </span>
+
+    <article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a name="user-content-unfluff" class="anchor" href="#unfluff" aria-hidden="true"><span class="octicon octicon-link"></span></a>unfluff</h1>
+
+<p>An automatic web page content extractor for Node.js!</p>
+
+<p><a href="https://travis-ci.org/ageitgey/node-unfluff"><img src="https://camo.githubusercontent.com/1db440b56d8feeb36473c63824dff64d3a4da92a/68747470733a2f2f7472617669732d63692e6f72672f61676569746765792f6e6f64652d756e666c7566662e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://travis-ci.org/ageitgey/node-unfluff.svg?branch=master" style="max-width:100%;"></a></p>
+
+<p>Automatically grab the main
+text out of a webpage like this:</p>
+
+<pre><code>extractor = require('unfluff');
+data = extractor(my_html_data);
+console.log(data.text);
+</code></pre>
+
+<p>In other words, it turns pretty webpages into boring plain text/json data:</p>
+
+<p><a href="https://cloud.githubusercontent.com/assets/896692/3478577/b82f39cc-033d-11e4-9e68-226c9a7bc1c0.jpg" target="_blank"><img src="https://cloud.githubusercontent.com/assets/896692/3478577/b82f39cc-033d-11e4-9e68-226c9a7bc1c0.jpg" alt="" style="max-width:100%;"></a></p>
+
+<p>This might be useful for:</p>
+
+<ul class="task-list">
+<li>Writing your own Instapaper clone</li>
+<li>Easily building ML data sets from web pages</li>
+<li>Reading your favorite articles from the console?</li>
+</ul><p>Please don't use this for:</p>
+
+<ul class="task-list">
+<li>Stealing other peoples' web pages</li>
+<li>Making crappy spam sites with stolen content from other sites</li>
+<li>Being a jerk</li>
+</ul><h2>
+<a name="user-content-credits--thanks" class="anchor" href="#credits--thanks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits / Thanks</h2>
+
+<p>This library is largely based on <a href="https://github.com/grangier/python-goose">python-goose</a>
+by <a href="https://github.com/grangier">Xavier Grangier</a> which is in turn based on <a href="https://github.com/GravityLabs/goose">goose</a>
+by <a href="https://github.com/GravityLabs">Gravity Labs</a>. However, it's not an exact
+port so it may behave differently on some pages and the feature set is a little
+bit different.  If you are looking for a python or Scala/Java/JVM solution,
+check out those libraries!</p>
+
+<h2>
+<a name="user-content-install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>To install the command-line <code>unfluff</code> utility:</p>
+
+<pre><code>npm install -g unfluff
+</code></pre>
+
+<p>To install the <code>unfluff</code> module for use in your Node.js project:</p>
+
+<pre><code>npm install --save unfluff
+</code></pre>
+
+<h2>
+<a name="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>You can use <code>unfluff</code> from node or right on the command line!</p>
+
+<h3>
+<a name="user-content-extracted-data-elements" class="anchor" href="#extracted-data-elements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extracted data elements</h3>
+
+<p>This is what <code>unfluff</code> will try to grab from a web page:</p>
+
+<ul class="task-list">
+<li>
+<code>title</code> - The document's title (from the &lt;title&gt; tag)</li>
+<li>
+<code>text</code> - The main text of the document with all the junk thrown away</li>
+<li>
+<code>image</code> - The main image for the document (what's use by facebook, etc.)</li>
+<li>
+<code>videos</code> - An array of videos that were embedded in the article. Each video has src, width and height.</li>
+<li>
+<code>tags</code>- Any tags or keywords that could be found by checking &lt;rel&gt; tags or by looking at href urls.</li>
+<li>
+<code>canonicalLink</code> - The <a href="https://support.google.com/webmasters/answer/139066?hl=en">canonical url</a> of the document, if given.</li>
+<li>
+<code>lang</code> - The language of the document, either detected or supplied by you.</li>
+<li>
+<code>description</code> - The description of the document, from &lt;meta&gt; tags</li>
+<li>
+<code>favicon</code> - The url of the document's <a href="http://en.wikipedia.org/wiki/Favicon">favicon</a>.</li>
+</ul><p>This is returned as a simple json object.</p>
+
+<h3>
+<a name="user-content-command-line-interface" class="anchor" href="#command-line-interface" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command line interface</h3>
+
+<p>You can pass a webpage to unfluff and it will try to parse out the interesting
+bits.</p>
+
+<p>You can either pass in a file name:</p>
+
+<pre><code>unfluff my_file.html
+</code></pre>
+
+<p>Or you can pipe it in:</p>
+
+<pre><code>curl -s "http://somesite.com/page" | unfluff
+</code></pre>
+
+<p>You can easily chain this together with other unix commands to do cool stuff.
+For example, you can download a web page, parse it and then use
+<a href="http://stedolan.github.io/jq/">jq</a> to print it just the body text.</p>
+
+<pre><code>curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | unfluff | jq -r .text
+</code></pre>
+
+<p>And here's how to find the top 10 most common words in an article:</p>
+
+<pre><code>curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | unfluff |  tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -10
+</code></pre>
+
+<h3>
+<a name="user-content-module-interface" class="anchor" href="#module-interface" aria-hidden="true"><span class="octicon octicon-link"></span></a>Module Interface</h3>
+
+<h4>
+<a name="user-content-extractorhtml-language" class="anchor" href="#extractorhtml-language" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>extractor(html, language)</code>
+</h4>
+
+<p>html: The html you want to parse</p>
+
+<p>language (optional): The document's two-letter language code. This will be
+auto-detected as best as possible, but there might be cases where you want to
+override it.</p>
+
+<p>The extraction algorithm depends heavily on the language, so it probably won't work
+if you have the language set incorrectly.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">extractor</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'unfluff'</span><span class="p">);</span>
+
+<span class="nx">data</span> <span class="o">=</span> <span class="nx">extractor</span><span class="p">(</span><span class="nx">my_html_data</span><span class="p">);</span>
+</pre></div>
+
+<p>Or supply the language code yourself:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">extractor</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'unfluff'</span><span class="p">,</span> <span class="s1">'en'</span><span class="p">);</span>
+
+<span class="nx">data</span> <span class="o">=</span> <span class="nx">extractor</span><span class="p">(</span><span class="nx">my_html_data</span><span class="p">);</span>
+</pre></div>
+
+<p><code>data</code> will then be a json object that looks like this:</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"Shovel Knight review: rewrite history"</span><span class="p">,</span>
+  <span class="nt">"text"</span><span class="p">:</span> <span class="s2">"Shovel Knight is inspired by the past in all the right ways — but it's far from stuck in it. [.. snip ..]"</span><span class="p">,</span>
+  <span class="nt">"image"</span><span class="p">:</span> <span class="s2">"http://cdn2.vox-cdn.com/uploads/chorus_image/image/34834129/jellyfish_hero.0_cinema_1280.0.png"</span><span class="p">,</span>  
+  <span class="nt">"tags"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">"videos"</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">"canonicalLink"</span><span class="p">:</span> <span class="s2">"http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u"</span><span class="p">,</span>
+  <span class="nt">"lang"</span><span class="p">:</span> <span class="s2">"en"</span><span class="p">,</span>
+  <span class="nt">"description"</span><span class="p">:</span> <span class="s2">"Shovel Knight is inspired by the past in all the right ways — but it's far from stuck in it."</span><span class="p">,</span>
+  <span class="nt">"favicon"</span><span class="p">:</span> <span class="s2">"http://cdn1.vox-cdn.com/community_logos/42931/favicon.ico"</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="user-content-demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h3>
+
+<p>The easiest way to try out <code>unfluff</code> is to just install it:</p>
+
+<pre><code>$ npm install -g unfluff
+$ curl -s "http://www.cnn.com/2014/07/07/world/americas/mexico-earthquake/index.html" | unfluff
+</code></pre>
+
+<p>But if you can't be bothered, you can check out
+<a href="http://fetchtext.herokuapp.com/">fetch text</a>. It's a site by
+<a href="https://twitter.com/andyjiang">Andy Jiang</a> that uses <code>unfluff</code>. You send an
+email with a url and it emails back with the cleaned content of that url. It
+should give you a good idea of how <code>unfluff</code> handles different urls.</p>
+
+<h3>
+<a name="user-content-what-is-broken" class="anchor" href="#what-is-broken" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is broken</h3>
+
+<ul class="task-list">
+<li>Parsing web pages in languages other than English is poorly tested and probably
+is buggy right now.</li>
+<li>This definitely won't work yet for languages like Chinese / Arabic / Korean /
+etc that need smarter word tokenization.</li>
+<li>This has only been tested on a limited set of web pages. There are probably lots
+of lurking bugs with web pages that haven't been tested yet.</li>
+</ul></article>
+  </div>
+
+
+        </div>
+
+      </div><!-- /.repo-container -->
+      <div class="modal-backdrop"></div>
+    </div><!-- /.container -->
+  </div><!-- /.site -->
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer">
+    <ul class="site-footer-links right">
+      <li><a href="https://status.github.com/">Status</a></li>
+      <li><a href="http://developer.github.com">API</a></li>
+      <li><a href="http://training.github.com">Training</a></li>
+      <li><a href="http://shop.github.com">Shop</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/about">About</a></li>
+
+    </ul>
+
+    <a href="/">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+    </a>
+
+    <ul class="site-footer-links">
+      <li>&copy; 2014 <span title="0.03521s from github-fe118-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="/site/terms">Terms</a></li>
+        <li><a href="/site/privacy">Privacy</a></li>
+        <li><a href="/security">Security</a></li>
+        <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div><!-- /.site-footer -->
+</div><!-- /.container -->
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-fullscreen-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder="" data-suggester="fullscreen_suggester"></textarea>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w"
+      aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="#" class="octicon octicon-x close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-df9e4beac80276ed3dfa56be0d97b536d0f5ee12.js" type="text/javascript"></script>
+      <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github-534eef699bbadaf1454b432e14a2ab0a68c7ddf4.js" type="text/javascript"></script>
+      
+      
+        <script async src="https://www.google-analytics.com/analytics.js"></script>
+  </body>
+</html>
+

@@ -32,7 +32,8 @@
   "dependencies": {
     "cheerio": "~0.16.0",
     "optimist": "~0.6.1",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "xregexp": "~2.0.0"
   },
   "devDependencies": {
     "coffee-script-redux": "2.0.0-beta7",
