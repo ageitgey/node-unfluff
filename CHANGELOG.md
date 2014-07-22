@@ -1,3 +1,6 @@
+### 0.4.0
+* Fix case where text will get dropped accidentally. See [#9](https://github.com/ageitgey/node-unfluff/pull/9).
+
 ### 0.3.0
 * Better handle html with random line breaks. See [#6](https://github.com/ageitgey/node-unfluff/pull/6).
 
