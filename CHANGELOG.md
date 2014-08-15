@@ -1,3 +1,6 @@
+### 0.5.1
+* Added Turkish stopwords (Thanks to ayhankuru)
+
 ### 0.5.0
 * Handle pages with code blocks better (like github pages)
 
