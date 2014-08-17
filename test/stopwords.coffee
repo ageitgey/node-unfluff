@@ -28,3 +28,9 @@ suite 'Stop words', ->
     eq data.wordCount, 3
     eq data.stopwordCount, 2
     arrayEq data.stopWords, [ 'este', 'es' ]
+
+  test 'Safely handles a bad language by falling back to english', ->
+    data = stopwords('this is fun', 'fake-language-to-test-fallbacks')
+    eq data.wordCount, 3
+    eq data.stopwordCount, 2
+    arrayEq data.stopWords, [ 'this', 'is' ]
