@@ -1,3 +1,6 @@
+### 0.6.0
+* If you specify a language that isn't supported, fall back to english and warn the user (Thanks to mhuebert for [#12](https://github.com/ageitgey/node-unfluff/pull/12))
+
 ### 0.5.1
 * Added Turkish stopwords (Thanks to ayhankuru)
 
