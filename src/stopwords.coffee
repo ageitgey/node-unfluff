@@ -4,11 +4,17 @@ _ = require('lodash')
 
 cache = {}
 
+getFilePath = (language) ->
+  path.join(__dirname, "..", "data", "stopwords", "stopwords-#{language}.txt")
+
 # Given a language, loads a list of stop words for that language
 # and then returns which of those words exist in the given content
 module.exports = stopwords = (content, language = 'en') ->
-  filePath = path.join(__dirname, "..", "data", "stopwords", "stopwords-#{language}.txt")
-
+  filePath = getFilePath(language)
+  
+  if !fs.existsSync(filePath)
+    filePath = getFilePath('en')
+  
   if cache.hasOwnProperty(language)
     stopWords = cache[language]
   else
