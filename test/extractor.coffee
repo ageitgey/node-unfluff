@@ -2,47 +2,56 @@ suite 'Extractor', ->
   _ = require('lodash')
   extractor = require("../src/extractor")
 
+  cleanTestingText = (text, origTextLength) ->
+    text.replace(/\n\n/g, " ").replace(/\ \ /g, " ")[0..origTextLength-1]
+
+  cleanOrigText = (text) ->
+    text.replace(/\n\n/g, " ")
+
   checkFixture = (site, fields) ->
     html = fs.readFileSync("./fixtures/test_#{site}.html").toString()
     orig = JSON.parse(fs.readFileSync("./fixtures/test_#{site}.json"))
     data = extractor(html)
+    doc = extractor.from(html)
 
     _.each fields, (field) ->
       if field == 'title'
         eq orig.expected.title, data.title #, "#{site}: title didn't match expected value"
-        eq data.title, extractor.title(html)
+        eq data.title, doc.title()
       else if field == 'cleaned_text'
-        origText = orig.expected.cleaned_text.replace(/\n\n/g, " ")
-        newText = data.text.replace(/\n\n/g, " ").replace(/\ \ /g, " ")[0..origText.length-1]
+        origText = cleanOrigText(orig.expected.cleaned_text)
+        newText = cleanTestingText(data.text, origText.length)
+        partialExtractText = cleanTestingText(doc.text(), origText.length)
         ok newText, "#{site}: no text was found"
         ok data.text.length >= orig.expected.cleaned_text.length , "#{site}: cleaned text was too short"
         eq origText, newText, "#{site}: cleaned text didn't match expected value"
+        eq origText, partialExtractText, "#{site}: cleaned text from partial extract didn't match expected value"
       else if field == 'link'
         eq orig.expected.final_url, data.canonicalLink, "#{site}: canonical link didn't match expected value"
-        eq data.canonicalLink, extractor.canonicalLink(html)
+        eq data.canonicalLink, doc.canonicalLink(), "#{site}: canonical link from partial extraction didn't match expected value"
       else if field == 'image'
         eq orig.expected.image, data.image, "#{site}: image didn't match expected value"
-        eq data.image, extractor.image(html)
+        eq data.image, doc.image(), "#{site}: image from partial extraction didn't match expected value"
       else if field == 'description'
         eq orig.expected.meta_description, data.description, "#{site}: meta description didn't match expected value"
-        eq data.description, extractor.description(html)
+        eq data.description, doc.description(), "#{site}: description from partial extraction didn't match expected value"
       else if field == 'lang'
         eq orig.expected.meta_lang, data.lang, "#{site}: detected langauge didn't match expected value"
-        eq data.lang, extractor.lang(html)
+        eq data.lang, doc.lang(), "#{site}: langauge from partial extraction didn't match expected value"
       else if field == 'keywords'
         eq orig.expected.meta_keywords, data.keywords, "#{site}: meta keywords didn't match expected value"
-        eq data.keywords, extractor.keywords(html)
+        eq data.keywords, doc.keywords(), "#{site}: meta keywords from partial extraction didn't match expected value"
       else if field == 'favicon'
         eq orig.expected.meta_favicon, data.favicon, "#{site}: favicon url didn't match expected value"
-        eq data.favicon, extractor.favicon(html)
+        eq data.favicon, doc.favicon(), "#{site}: favicon url from partial extraction didn't match expected value"
       else if field == 'tags'
         sortedTags = data.tags.sort()
         arrayEq orig.expected.tags.sort(), sortedTags, "#{site}: meta tags didn't match expected value"
-        arrayEq sortedTags, extractor.tags(html).sort()
+        arrayEq sortedTags, doc.tags().sort(), "#{site}: meta tags from partial extraction didn't match expected value"
       else if field == 'videos'
         sortedVideos = data.videos.sort()
         deepEq orig.expected.movies.sort(), sortedVideos, "#{site}: videos didn't match expected value"
-        deepEq sortedVideos, extractor.videos(html).sort()
+        deepEq sortedVideos, doc.videos().sort(), "#{site}: videos from partial extraction didn't match expected value"
       else
         # Oops!
         eq true, false, "#{site}: Invalid test!"

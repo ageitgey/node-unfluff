@@ -17,7 +17,7 @@ module.exports = extractor = (html, language) ->
     lang: lng
     canonicalLink: canonicalLink(doc)
     tags: extractTags(doc)
-    image: image(doc, topNode)
+    image: image(doc)
 
   # Step 1: Clean the doc
   cleaner(doc)
@@ -31,45 +31,47 @@ module.exports = extractor = (html, language) ->
 
   pageData
 
-extractor.title = (html) ->
-  title cheerio.load(html)
+getDoc = (html) ->
+  this.doc_ ?= cheerio.load(html)
 
-extractor.favicon = (html) ->
-  favicon cheerio.load(html)
+getTopNode = (doc, lng) ->
+  this.topNode_ ?= calculateBestNode(doc, lng)
 
-extractor.description = (html) ->
-  description cheerio.load(html)
+getCleanedDoc = (html) ->
+  return this.cleanedDoc_ if this.cleanedDoc_?
+  this.doc_ = cheerio.load(html)
+  this.cleanedDoc_ = cleaner getDoc.call(this, html)
+  this.cleanedDoc_
 
-extractor.keywords = (html) ->
-  keywords cheerio.load(html)
+extractor.from = (html, language) ->
+  title: () ->
+    this.title_ ?= title getDoc.call(this, html)
+  favicon: () ->
+    this.favicon_ ?= favicon getDoc.call(this, html)
+  description: () ->
+    this.description_ ?= description getDoc.call(this, html)
+  keywords: () ->
+    this.keywords_ ?= keywords getDoc.call(this, html)
+  lang: () ->
+    this.language_ ?= language or lang getDoc.call(this, html)
+  canonicalLink: () ->
+    this.canonicalLink_ ?= canonicalLink getDoc.call(this, html)
+  tags: () ->
+    this.tags_ ?= extractTags getDoc.call(this, html)
+  image: () ->
+    this.image_ ?= image getDoc.call(this, html)
 
-extractor.lang = (html) ->
-  lang cheerio.load(html)
+  videos: () ->
+    return this.videos_ if this.videos_?
+    doc = getCleanedDoc.call(this, html)
+    topNode = getTopNode.call this, doc, this.lang()
+    this.videos_ = videos(doc, topNode)
 
-extractor.canonicalLink = (html) ->
-  canonicalLink cheerio.load(html)
-
-extractor.tags = (html) ->
-  extractTags cheerio.load(html)
-
-extractor.image = (html) ->
-  image cheerio.load(html)
-
-extractor.videos = (html, language) ->
-  doc = cheerio.load(html)
-  lng = language || lang(doc)
-
-  cleaner(doc)
-  topNode = calculateBestNode(doc, lng)
-  videos(doc, topNode)
-
-extractor.text = (html, language) ->
-  doc = cheerio.load(html)
-  lng = language || lang(doc)
-
-  cleaner(doc)
-  topNode = calculateBestNode(doc, lng)
-  text(doc, topNode, lng)
+  text: () ->
+    return this.text_ if this.text_?
+    doc = getCleanedDoc.call(this, html)
+    topNode = getTopNode.call this, doc, this.lang()
+    this.text_ = text(doc, topNode, this.lang())
 
 # Grab the 'main' text chunk
 text = (doc, topNode, lang) ->
