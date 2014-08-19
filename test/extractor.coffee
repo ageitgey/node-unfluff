@@ -10,6 +10,7 @@ suite 'Extractor', ->
     _.each fields, (field) ->
       if field == 'title'
         eq orig.expected.title, data.title #, "#{site}: title didn't match expected value"
+        eq data.title, extractor.title(html)
       else if field == 'cleaned_text'
         origText = orig.expected.cleaned_text.replace(/\n\n/g, " ")
         newText = data.text.replace(/\n\n/g, " ").replace(/\ \ /g, " ")[0..origText.length-1]
@@ -18,20 +19,30 @@ suite 'Extractor', ->
         eq origText, newText, "#{site}: cleaned text didn't match expected value"
       else if field == 'link'
         eq orig.expected.final_url, data.canonicalLink, "#{site}: canonical link didn't match expected value"
+        eq data.canonicalLink, extractor.canonicalLink(html)
       else if field == 'image'
         eq orig.expected.image, data.image, "#{site}: image didn't match expected value"
+        eq data.image, extractor.image(html)
       else if field == 'description'
         eq orig.expected.meta_description, data.description, "#{site}: meta description didn't match expected value"
+        eq data.description, extractor.description(html)
       else if field == 'lang'
         eq orig.expected.meta_lang, data.lang, "#{site}: detected langauge didn't match expected value"
+        eq data.lang, extractor.lang(html)
       else if field == 'keywords'
         eq orig.expected.meta_keywords, data.keywords, "#{site}: meta keywords didn't match expected value"
+        eq data.keywords, extractor.keywords(html)
       else if field == 'favicon'
         eq orig.expected.meta_favicon, data.favicon, "#{site}: favicon url didn't match expected value"
+        eq data.favicon, extractor.favicon(html)
       else if field == 'tags'
-        arrayEq orig.expected.tags.sort(), data.tags.sort(), "#{site}: meta tags didn't match expected value"
+        sortedTags = data.tags.sort()
+        arrayEq orig.expected.tags.sort(), sortedTags, "#{site}: meta tags didn't match expected value"
+        arrayEq sortedTags, extractor.tags(html).sort()
       else if field == 'videos'
-        deepEq orig.expected.movies.sort(), data.videos.sort(), "#{site}: videos didn't match expected value"
+        sortedVideos = data.videos.sort()
+        deepEq orig.expected.movies.sort(), sortedVideos, "#{site}: videos didn't match expected value"
+        deepEq sortedVideos, extractor.videos(html).sort()
       else
         # Oops!
         eq true, false, "#{site}: Invalid test!"

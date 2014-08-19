@@ -31,6 +31,46 @@ module.exports = extractor = (html, language) ->
 
   pageData
 
+extractor.title = (html) ->
+  title cheerio.load(html)
+
+extractor.favicon = (html) ->
+  favicon cheerio.load(html)
+
+extractor.description = (html) ->
+  description cheerio.load(html)
+
+extractor.keywords = (html) ->
+  keywords cheerio.load(html)
+
+extractor.lang = (html) ->
+  lang cheerio.load(html)
+
+extractor.canonicalLink = (html) ->
+  canonicalLink cheerio.load(html)
+
+extractor.tags = (html) ->
+  extractTags cheerio.load(html)
+
+extractor.image = (html) ->
+  image cheerio.load(html)
+
+extractor.videos = (html, language) ->
+  doc = cheerio.load(html)
+  lng = language || lang(doc)
+
+  cleaner(doc)
+  topNode = calculateBestNode(doc, lng)
+  videos(doc, topNode)
+
+extractor.text = (html, language) ->
+  doc = cheerio.load(html)
+  lng = language || lang(doc)
+
+  cleaner(doc)
+  topNode = calculateBestNode(doc, lng)
+  text(doc, topNode, lng)
+
 # Grab the 'main' text chunk
 text = (doc, topNode, lang) ->
   if topNode
