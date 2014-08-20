@@ -32,46 +32,46 @@ module.exports = extractor = (html, language) ->
   pageData
 
 getDoc = (html) ->
-  this.doc_ ?= cheerio.load(html)
+  @doc_ ?= cheerio.load(html)
 
 getTopNode = (doc, lng) ->
-  this.topNode_ ?= calculateBestNode(doc, lng)
+  @topNode_ ?= calculateBestNode(doc, lng)
 
 getCleanedDoc = (html) ->
-  return this.cleanedDoc_ if this.cleanedDoc_?
-  this.doc_ = cheerio.load(html)
-  this.cleanedDoc_ = cleaner getDoc.call(this, html)
-  this.cleanedDoc_
+  return @cleanedDoc_ if @cleanedDoc_?
+  @doc_ = cheerio.load(html)
+  @cleanedDoc_ = cleaner getDoc.call(this, html)
+  @cleanedDoc_
 
 extractor.from = (html, language) ->
   title: () ->
-    this.title_ ?= title getDoc.call(this, html)
+    @title_ ?= title getDoc.call(this, html)
   favicon: () ->
-    this.favicon_ ?= favicon getDoc.call(this, html)
+    @favicon_ ?= favicon getDoc.call(this, html)
   description: () ->
-    this.description_ ?= description getDoc.call(this, html)
+    @description_ ?= description getDoc.call(this, html)
   keywords: () ->
-    this.keywords_ ?= keywords getDoc.call(this, html)
+    @keywords_ ?= keywords getDoc.call(this, html)
   lang: () ->
-    this.language_ ?= language or lang getDoc.call(this, html)
+    @language_ ?= language or lang getDoc.call(this, html)
   canonicalLink: () ->
-    this.canonicalLink_ ?= canonicalLink getDoc.call(this, html)
+    @canonicalLink_ ?= canonicalLink getDoc.call(this, html)
   tags: () ->
-    this.tags_ ?= extractTags getDoc.call(this, html)
+    @tags_ ?= extractTags getDoc.call(this, html)
   image: () ->
-    this.image_ ?= image getDoc.call(this, html)
+    @image_ ?= image getDoc.call(this, html)
 
   videos: () ->
-    return this.videos_ if this.videos_?
+    return @videos_ if @videos_?
     doc = getCleanedDoc.call(this, html)
-    topNode = getTopNode.call this, doc, this.lang()
-    this.videos_ = videos(doc, topNode)
+    topNode = getTopNode.call(this, doc, this.lang())
+    @videos_ = videos(doc, topNode)
 
   text: () ->
-    return this.text_ if this.text_?
+    return @text_ if @text_?
     doc = getCleanedDoc.call(this, html)
-    topNode = getTopNode.call this, doc, this.lang()
-    this.text_ = text(doc, topNode, this.lang())
+    topNode = getTopNode.call(this, doc, this.lang())
+    @text_ = text(doc, topNode, this.lang())
 
 # Grab the 'main' text chunk
 text = (doc, topNode, lang) ->
