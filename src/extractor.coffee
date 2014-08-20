@@ -82,7 +82,7 @@ text = (doc, topNode, lang) ->
     ""
 
 # Grab an image for the page
-image = (doc, topNode) ->
+image = (doc) ->
   # TODO: We could get images for a wider variety of pages by
   #       downloading all the images and ranking them by size.
   #       But so far, this works pretty well and is much faster.
