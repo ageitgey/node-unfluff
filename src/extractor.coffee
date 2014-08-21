@@ -17,7 +17,7 @@ module.exports = extractor = (html, language) ->
     lang: lng
     canonicalLink: canonicalLink(doc)
     tags: extractTags(doc)
-    image: image(doc, topNode)
+    image: image(doc)
 
   # Step 1: Clean the doc
   cleaner(doc)
@@ -31,6 +31,48 @@ module.exports = extractor = (html, language) ->
 
   pageData
 
+getDoc = (html) ->
+  @doc_ ?= cheerio.load(html)
+
+getTopNode = (doc, lng) ->
+  @topNode_ ?= calculateBestNode(doc, lng)
+
+getCleanedDoc = (html) ->
+  return @cleanedDoc_ if @cleanedDoc_?
+  @doc_ = cheerio.load(html)
+  @cleanedDoc_ = cleaner getDoc.call(this, html)
+  @cleanedDoc_
+
+extractor.from = (html, language) ->
+  title: () ->
+    @title_ ?= title getDoc.call(this, html)
+  favicon: () ->
+    @favicon_ ?= favicon getDoc.call(this, html)
+  description: () ->
+    @description_ ?= description getDoc.call(this, html)
+  keywords: () ->
+    @keywords_ ?= keywords getDoc.call(this, html)
+  lang: () ->
+    @language_ ?= language or lang getDoc.call(this, html)
+  canonicalLink: () ->
+    @canonicalLink_ ?= canonicalLink getDoc.call(this, html)
+  tags: () ->
+    @tags_ ?= extractTags getDoc.call(this, html)
+  image: () ->
+    @image_ ?= image getDoc.call(this, html)
+
+  videos: () ->
+    return @videos_ if @videos_?
+    doc = getCleanedDoc.call(this, html)
+    topNode = getTopNode.call(this, doc, this.lang())
+    @videos_ = videos(doc, topNode)
+
+  text: () ->
+    return @text_ if @text_?
+    doc = getCleanedDoc.call(this, html)
+    topNode = getTopNode.call(this, doc, this.lang())
+    @text_ = text(doc, topNode, this.lang())
+
 # Grab the 'main' text chunk
 text = (doc, topNode, lang) ->
   if topNode
@@ -40,7 +82,7 @@ text = (doc, topNode, lang) ->
     ""
 
 # Grab an image for the page
-image = (doc, topNode) ->
+image = (doc) ->
   # TODO: We could get images for a wider variety of pages by
   #       downloading all the images and ranking them by size.
   #       But so far, this works pretty well and is much faster.

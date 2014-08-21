@@ -139,6 +139,23 @@ data = extractor(my_html_data);
 }
 ```
 
+#### `extractor.from(html, language)`
+
+Lazy variation of `extractor(html, language)`. Also returns an object but all fields in object provided above are changed to methods:
+
+```javascript
+extractor = require('unfluff', 'en');
+
+data = extractor.from(my_html_data);
+
+console.log(data.title());
+console.log(data.keywords());
+```
+
+This is done to prevent doing additional job when you only need some simple stuff and not interested in grabbing text from a web page which can take a lot of time.
+
+All method results are cached and method will not re-calculate things after it is called more than once.
+
 ### Demo
 
 The easiest way to try out `unfluff` is to just install it:
