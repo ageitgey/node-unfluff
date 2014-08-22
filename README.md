@@ -8,7 +8,7 @@ Automatically grab the main
 text out of a webpage like this:
 
 ```
-extractor = require('unfluff');
+extractor = requivre('unfluff');
 data = extractor(my_html_data);
 console.log(data.text);
 ```
@@ -141,7 +141,7 @@ data = extractor(my_html_data);
 
 #### `extractor.lazy(html, language)`
 
-Lazy variation of `extractor(html, language)`.
+Lazy version of `extractor(html, language)`.
 
 The text extraction algorithm can be somewhat slow on large documents.  If you
 only need access to elements like `title` or `image`, you can use the
