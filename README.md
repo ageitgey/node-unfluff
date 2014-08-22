@@ -118,9 +118,9 @@ data = extractor(my_html_data);
 Or supply the language code yourself:
 
 ```javascript
-extractor = require('unfluff', 'en');
+extractor = require('unfluff');
 
-data = extractor(my_html_data);
+data = extractor(my_html_data, 'en');
 ```
 
 `data` will then be a json object that looks like this:
@@ -153,9 +153,9 @@ are replaced by functions and evaluation is only done when you call those
 functions.
 
 ```javascript
-extractor = require('unfluff', 'en');
+extractor = require('unfluff');
 
-data = extractor.lazy(my_html_data);
+data = extractor.lazy(my_html_data, 'en');
 
 // Access whichever data elements you need directly.
 console.log(data.title());
