@@ -1,3 +1,6 @@
+### 0.7.0
+* Added extractor.lazy() function for lazy access to document properties (Thanks to franza)
+
 ### 0.6.1
 * Added Thai stopwords (Thanks to thangman22)
 
