@@ -1,6 +1,6 @@
 # We use optimist for parsing the CLI arguments
 fs = require('fs')
-extractor = require('./extractor')
+extractor = require('./unfluff')
 
 argvParser = require('optimist')
 .usage(

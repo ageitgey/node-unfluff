@@ -23,7 +23,7 @@
   "engines": {
     "node": "0.8.x || 0.9.x || 0.10.x"
   },
-  "main": "lib/extractor.js",
+  "main": "lib/unfluff.js",
   "directories": {
     "bin": "bin",
     "lib": "lib",
