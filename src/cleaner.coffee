@@ -105,26 +105,26 @@ getReplacementNodes = (doc, div) ->
       kidText = kid.text()
       replaceText = kidText.replace(/\n/g, "\n\n").replace(/\t/g, "").replace(/^\s+$/g, "")
 
-      if(replaceText.length) > 1
-        previousSiblingNode = kidTextNode.prev()
+      return unless replaceText.length > 1
+      previousSiblingNode = kidTextNode.prev()
 
-        while previousSiblingNode[0] && previousSiblingNode[0].name == "a" && previousSiblingNode.attr('grv-usedalready') != 'yes'
-          outer = " " + doc.html(previousSiblingNode) + " "
-          replacementText.push(outer)
-          nodesToRemove.push(previousSiblingNode)
-          previousSiblingNode.attr('grv-usedalready', 'yes')
-          previousSiblingNode = previousSiblingNode.prev()
+      while previousSiblingNode[0] && previousSiblingNode[0].name == "a" && previousSiblingNode.attr('grv-usedalready') != 'yes'
+        outer = " " + doc.html(previousSiblingNode) + " "
+        replacementText.push(outer)
+        nodesToRemove.push(previousSiblingNode)
+        previousSiblingNode.attr('grv-usedalready', 'yes')
+        previousSiblingNode = previousSiblingNode.prev()
 
-        replacementText.push(replaceText)
+      replacementText.push(replaceText)
 
-        nextSiblingNode = kidTextNode.next()
+      nextSiblingNode = kidTextNode.next()
 
-        while nextSiblingNode[0] && nextSiblingNode[0].name == "a" && nextSiblingNode.attr('grv-usedalready') != 'yes'
-          outer = " " + doc.html(nextSiblingNode) + " "
-          replacementText.push(outer)
-          nodesToRemove.push(nextSiblingNode)
-          nextSiblingNode.attr('grv-usedalready', 'yes')
-          previousSiblingNode = nextSiblingNode.next()
+      while nextSiblingNode[0] && nextSiblingNode[0].name == "a" && nextSiblingNode.attr('grv-usedalready') != 'yes'
+        outer = " " + doc.html(nextSiblingNode) + " "
+        replacementText.push(outer)
+        nodesToRemove.push(nextSiblingNode)
+        nextSiblingNode.attr('grv-usedalready', 'yes')
+        previousSiblingNode = nextSiblingNode.next()
 
     # otherwise
     else
@@ -158,16 +158,17 @@ divToPara = (doc, domType) ->
 
     if items.length == 0
       replaceWithPara(doc, this)
-    else
-      replaceNodes = getReplacementNodes(doc, div)
+      return
+      
+    replaceNodes = getReplacementNodes(doc, div)
 
-      html = ""
-      _.each replaceNodes, (node) ->
-        if node != ''
-          html += "<p>#{node}</p>"
+    html = ""
+    _.each replaceNodes, (node) ->
+      if node != ''
+        html += "<p>#{node}</p>"
 
-      div.empty()
-      doc(div).replaceWith("#{html}")
+    div.empty()
+    doc(div).replaceWith("#{html}")
 
 # For plain text nodes directly inside of p tags that contain random single
 # line breaks, remove those junky line breaks. They would never be rendered

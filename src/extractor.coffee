@@ -259,22 +259,22 @@ isBoostable = (doc, node, lang) ->
   nodes.each () ->
     currentNode = doc(this)
     currentNodeTag = currentNode[0].name
+    return unless currentNodeTag == 'p'
+    
+    # Make sure the node isn't more than 3 hops away
+    if stepsAway >= maxStepsawayFromNode
+      boostable = false
+      return false
 
-    if currentNodeTag == "p"
-      # Make sure the node isn't more than 3 hops away
-      if stepsAway >= maxStepsawayFromNode
-        boostable = false
-        return false
+    paraText = currentNode.text()
+    wordStats = stopwords(paraText, lang)
 
-      paraText = currentNode.text()
-      wordStats = stopwords(paraText, lang)
+    # Check if the node contains more than 5 common words
+    if wordStats.stopwordCount > minimumStopwordCount
+      boostable = true
+      return false
 
-      # Check if the node contains more than 5 common words
-      if wordStats.stopwordCount > minimumStopwordCount
-        boostable = true
-        return false
-
-      stepsAway += 1
+    stepsAway += 1
 
   boostable
 
@@ -290,30 +290,27 @@ addSiblings = (doc, topNode, lang) ->
   return topNode
 
 getSiblingsContent = (doc, lang, currentSibling, baselinescoreSiblingsPara) ->
+  return [currentSibling] if currentSibling[0].name == 'p' && currentSibling.text().length > 0
+    
+  potentialParagraphs = currentSibling.find("p")
+  return null if potentialParagraphs == null
+    
+  ps = []
+  potentialParagraphs.each () ->
+    firstParagraph = doc(this)
+    txt = firstParagraph.text()
+    return unless txt.length > 0
 
-  if currentSibling[0].name == 'p' && currentSibling.text().length > 0
-    return [currentSibling]
-  else
-    potentialParagraphs = currentSibling.find("p")
-    if potentialParagraphs == null
-      return null
-    else
-      ps = []
-      potentialParagraphs.each () ->
-        firstParagraph = doc(this)
-        txt = firstParagraph.text()
+    wordStats = stopwords(txt, lang)
+    paragraphScore = wordStats.stopwordCount
+    siblingBaselineScore = 0.30
+    highLinkDensity = isHighlinkDensity(doc, firstParagraph)
+    score = baselinescoreSiblingsPara * siblingBaselineScore
 
-        if txt.length > 0
-          wordStats = stopwords(txt, lang)
-          paragraphScore = wordStats.stopwordCount
-          siblingBaselineScore = 0.30
-          highLinkDensity = isHighlinkDensity(doc, firstParagraph)
-          score = baselinescoreSiblingsPara * siblingBaselineScore
+    if score < paragraphScore && !highLinkDensity
+      ps.push(txt)
 
-          if score < paragraphScore && !highLinkDensity
-            ps.push(txt)
-
-      return ps
+  return ps
 
 getSiblingsScore = (doc, topNode, lang) ->
   base = 100000
@@ -400,20 +397,14 @@ isTableAndNoParaExist = (doc, e) ->
       doc(p).remove()
 
   subParagraphs2 = e.find("p")
-  if subParagraphs2.length == 0 && e[0].name != "td"
-    return true
-  else
-    return false
+  return subParagraphs2.length == 0 && e[0].name != "td"
 
 isNodescoreThresholdMet = (doc, node, e) ->
   topNodeScore = getScore(node)
   currentNodeScore = getScore(e)
   thresholdScore = topNodeScore * 0.08
 
-  if (currentNodeScore < thresholdScore) && e[0].name != 'td'
-    return false
-  else
-    return true
+  return (currentNodeScore >= thresholdScore) || e[0].name == 'td'
 
 # Remove any remaining trash nodes (clusters of nodes with little/no content)
 postCleanup = (doc, targetNode, lang) ->
@@ -422,8 +413,8 @@ postCleanup = (doc, targetNode, lang) ->
   node.children().each () ->
     e = doc(this)
     eTag = e[0].name
-    if eTag not in ['p', 'a']
-      if isHighlinkDensity(doc, e) || isTableAndNoParaExist(doc, e) || !isNodescoreThresholdMet(doc, node, e)
-        doc(e).remove()
+    return if eTag in ['p', 'a']
+    if isHighlinkDensity(doc, e) || isTableAndNoParaExist(doc, e) || !isNodescoreThresholdMet(doc, node, e)
+      doc(e).remove()
 
   return node
