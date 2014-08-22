@@ -1,126 +1,217 @@
-cheerio = require("cheerio")
 _ = require("lodash")
-
-cleaner = require("./cleaner")
 stopwords = require("./stopwords")
 formatter = require("./formatter")
 
-module.exports = extractor = (html, language) ->
-  doc = cheerio.load(html)
-  lng = language || lang(doc)
+module.exports =  
+  # Grab the title of an html doc (excluding junk)
+  title: (doc) ->
+    titleElement = doc("title")
+    return null unless titleElement
 
-  pageData =
-    title: title(doc)
-    favicon: favicon(doc)
-    description: description(doc)
-    keywords: keywords(doc)
-    lang: lng
-    canonicalLink: canonicalLink(doc)
-    tags: extractTags(doc)
-    image: image(doc)
+    titleText = titleElement.text()
 
-  # Step 1: Clean the doc
-  cleaner(doc)
+    usedDelimeter = false
+    _.each ["|", " - ", "»", ":"], (c) ->
+      if titleText.indexOf(c) >= 0 && !usedDelimeter
+        titleText = biggestTitleChunk(titleText, c)
+        usedDelimeter = true
 
-  # Step 2: Find the doc node with the best text
-  topNode = calculateBestNode(doc, lng)
+    titleText.replace(/�/g, "").trim()
 
-  # Step 3: Extract text, videos, images
-  pageData.videos = videos(doc, topNode)
-  pageData.text = text(doc, topNode, lng)
+  # Grab the 'main' text chunk
+  text: (doc, topNode, lang) ->
+    if topNode
+      topNode = postCleanup(doc, topNode, lang)
+      formatter(doc, topNode, lang)
+    else
+      ""
 
-  pageData
+  # Grab an image for the page
+  image: (doc) ->
+    images = doc("meta[property='og:image'], meta[itemprop=image], meta[name='twitter:image:src'], meta[name='twitter:image'], meta[name='twitter:image0']")
 
-getDoc = (html) ->
-  @doc_ ?= cheerio.load(html)
+    if images.length > 0 && images.first().attr('content')
+      return images.first().attr('content')
 
-getTopNode = (doc, lng) ->
-  @topNode_ ?= calculateBestNode(doc, lng)
+    null
 
-getCleanedDoc = (html) ->
-  return @cleanedDoc_ if @cleanedDoc_?
-  @doc_ = cheerio.load(html)
-  @cleanedDoc_ = cleaner getDoc.call(this, html)
-  @cleanedDoc_
+  # Find any embedded videos in the doc
+  videos: (doc, topNode) ->
+    videoList = []
+    candidates = doc(topNode).find("iframe, embed, object, video")
 
-extractor.from = (html, language) ->
-  title: () ->
-    @title_ ?= title getDoc.call(this, html)
-  favicon: () ->
-    @favicon_ ?= favicon getDoc.call(this, html)
-  description: () ->
-    @description_ ?= description getDoc.call(this, html)
-  keywords: () ->
-    @keywords_ ?= keywords getDoc.call(this, html)
-  lang: () ->
-    @language_ ?= language or lang getDoc.call(this, html)
-  canonicalLink: () ->
-    @canonicalLink_ ?= canonicalLink getDoc.call(this, html)
-  tags: () ->
-    @tags_ ?= extractTags getDoc.call(this, html)
-  image: () ->
-    @image_ ?= image getDoc.call(this, html)
+    candidates.each () ->
+      candidate = doc(this)
+      tag = candidate[0].name
 
-  videos: () ->
-    return @videos_ if @videos_?
-    doc = getCleanedDoc.call(this, html)
-    topNode = getTopNode.call(this, doc, this.lang())
-    @videos_ = videos(doc, topNode)
-
-  text: () ->
-    return @text_ if @text_?
-    doc = getCleanedDoc.call(this, html)
-    topNode = getTopNode.call(this, doc, this.lang())
-    @text_ = text(doc, topNode, this.lang())
-
-# Grab the 'main' text chunk
-text = (doc, topNode, lang) ->
-  if topNode
-    topNode = postCleanup(doc, topNode, lang)
-    formatter(doc, topNode, lang)
-  else
-    ""
-
-# Grab an image for the page
-image = (doc) ->
-  # TODO: We could get images for a wider variety of pages by
-  #       downloading all the images and ranking them by size.
-  #       But so far, this works pretty well and is much faster.
-  images = doc("meta[property='og:image'], meta[itemprop=image], meta[name='twitter:image:src'], meta[name='twitter:image'], meta[name='twitter:image0']")
-
-  if images.length > 0 && images.first().attr('content')
-    return images.first().attr('content')
-
-  null
-
-# Find any embedded videos in the doc
-videos = (doc, topNode) ->
-  videoList = []
-  candidates = doc(topNode).find("iframe, embed, object, video")
-
-  candidates.each () ->
-    candidate = doc(this)
-    tag = candidate[0].name
-
-    if tag == "embed"
-      if candidate.parent() && candidate.parent()[0].name == "object"
+      if tag == "embed"
+        if candidate.parent() && candidate.parent()[0].name == "object"
+          videoList.push(getObjectTag(doc, candidate))
+        else
+          videoList.push(getVideoAttrs(doc, candidate))
+      else if tag == "object"
         videoList.push(getObjectTag(doc, candidate))
-      else
+      else if tag == "iframe" || tag == "video"
         videoList.push(getVideoAttrs(doc, candidate))
-    else if tag == "object"
-      videoList.push(getObjectTag(doc, candidate))
-    else if tag == "iframe" || tag == "video"
-      videoList.push(getVideoAttrs(doc, candidate))
 
-  # Filter out junky or duplicate videos
-  urls = []
-  results = []
-  _.each videoList, (vid) ->
-    if vid && vid.height && vid.width && urls.indexOf(vid.src) == -1
-      results.push(vid)
-      urls.push(vid.src)
+    # Filter out junky or duplicate videos
+    urls = []
+    results = []
+    _.each videoList, (vid) ->
+      if vid && vid.height && vid.width && urls.indexOf(vid.src) == -1
+        results.push(vid)
+        urls.push(vid.src)
 
-  results
+    results
+
+  # Grab the favicon from an html doc
+  favicon: (doc) ->
+    tag = doc('link').filter ->
+      doc(this).attr('rel')?.toLowerCase() == 'shortcut icon'
+    tag.attr('href')
+
+  # Determine the language of an html doc
+  lang: (doc) ->
+    # Check the <html> tag
+    l = doc("html")?.attr("lang")
+
+    if !l
+      # Otherwise look up for a content-language in meta
+      tag = doc("meta[name=lang]") || doc("meta[http-equiv=content-language]")
+      l = tag?.attr("content")
+
+    if l
+      # Just return the 2 letter ISO language code with no country
+      value = l[0..1]
+      if /^[A-Za-z]{2}$/.test(value)
+        return value.toLowerCase()
+
+    null
+
+  # Get the meta description of an html doc
+  description: (doc) ->
+    tag = doc("meta[name=description]")
+    tag?.attr("content")?.trim()
+
+  # Get the meta keywords of an html doc
+  keywords: (doc) ->
+    tag = doc("meta[name=keywords]")
+    tag?.attr("content")
+
+  # Get the canonical link of an html doc
+  canonicalLink: (doc) ->
+    tag = doc("link[rel=canonical]")
+    tag?.attr("href")
+
+  # Get any tags or keywords from an html doc
+  tags: (doc) ->
+    elements = doc("a[rel='tag']")
+
+    if elements.length == 0
+      elements = doc("a[href*='/tag/'], a[href*='/tags/'], a[href*='/topic/'], a[href*='?keyword=']")
+      if elements.length == 0
+        return []
+
+    tags = []
+    elements.each () ->
+      el = doc(this)
+      tag = el.text()
+      if tag && tag.length > 0
+        tags.push(tag)
+
+    _.uniq(tags)
+
+  # Walk the document's text nodes and find the most 'texty' node in the doc
+  calculateBestNode: (doc, lang) ->
+    topNode = null
+    nodesToCheck = doc("p, pre, td")
+
+    startingBoost = 1.0
+    cnt = 0
+    i = 0
+    parentNodes = []
+    nodesWithText = []
+
+    # Walk all the p, pre and td nodes
+    nodesToCheck.each () ->
+      node = doc(this)
+
+      textNode = node.text()
+      wordStats = stopwords(textNode, lang)
+      highLinkDensity = isHighlinkDensity(doc, node)
+
+      # If a node contains multiple common words and isn't just a bunch
+      # of links, it's worth consideration of being 'texty'
+      if wordStats.stopwordCount > 2 && !highLinkDensity
+        nodesWithText.push(node)
+
+    nodesNumber = nodesWithText.length
+    negativeScoring = 0
+    bottomNegativescoreNodes = nodesNumber * 0.25
+
+    # Walk all the potentially 'texty' nodes
+    _.each nodesWithText, (node) ->
+      boostScore = 0.0
+
+      # If this node has nearby nodes that contain
+      # some good text, give the node some boost points
+      if isBoostable(doc, node, lang) == true
+        if cnt >= 0
+          boostScore = (1.0 / startingBoost) * 50
+          startingBoost += 1
+
+      if nodesNumber > 15
+        if (nodesNumber - i) <= bottomNegativescoreNodes
+          booster = bottomNegativescoreNodes - (nodesNumber - i)
+          boostScore = -1.0 * Math.pow(booster, 2)
+          negscore = Math.abs(boostScore) + negativeScoring
+
+          if negscore > 40
+            boostScore = 5.0
+
+      # Give the current node a score of how many common words
+      # it contains plus any boost
+      textNode = node.text()
+      wordStats = stopwords(textNode, lang)
+      upscore = Math.floor(wordStats.stopwordCount + boostScore)
+
+      # Propigate the score upwards
+      parentNode = node.parent()
+      updateScore(parentNode, upscore)
+      updateNodeCount(parentNode, 1)
+
+      if parentNodes.indexOf(parentNode[0]) == -1
+        parentNodes.push(parentNode[0])
+
+      parentParentNode = parentNode.parent()
+
+      if parentParentNode
+        updateNodeCount(parentParentNode, 1)
+        updateScore(parentParentNode, upscore / 2)
+
+        if parentNodes.indexOf(parentParentNode[0]) == -1
+          parentNodes.push(parentParentNode[0])
+
+      cnt += 1
+      i += 1
+
+    topNodeScore = 0
+
+    # Walk each parent and parent-parent and find the one that
+    # contains the highest sum score of 'texty' child nodes.
+    # That's probably out best node!
+    _.each parentNodes, (e) ->
+      score = getScore(doc(e))
+
+      if score > topNodeScore
+        topNode = e
+        topNodeScore = score
+
+      if topNode == null
+        topNode = e
+
+    doc(topNode)
+
 
 getVideoAttrs = (doc, node) ->
   el = doc(node)
@@ -138,21 +229,6 @@ getObjectTag = (doc, node) ->
   video.src = src
   video
 
-# Grab the title of an html doc (excluding junk)
-title = (doc) ->
-  titleElement = doc("title")
-  return null unless titleElement
-
-  titleText = titleElement.text()
-
-  usedDelimeter = false
-  _.each ["|", " - ", "»", ":"], (c) ->
-    if titleText.indexOf(c) >= 0 && !usedDelimeter
-      titleText = biggestTitleChunk(titleText, c)
-      usedDelimeter = true
-
-  titleText.replace(/�/g, "").trim()
-
 # Find the biggest chunk of text in the title
 biggestTitleChunk = (title, splitter) ->
   largeTextLength = 0
@@ -167,154 +243,6 @@ biggestTitleChunk = (title, splitter) ->
       largeTextIndex = i
 
   titlePieces[largeTextIndex]
-
-# Grab the favicon from an html doc
-favicon = (doc) ->
-  tag = doc('link').filter ->
-    doc(this).attr('rel')?.toLowerCase() == 'shortcut icon'
-  tag.attr('href')
-
-# Determine the language of an html doc
-lang = (doc) ->
-  # Check the <html> tag
-  l = doc("html")?.attr("lang")
-
-  if !l
-    # Otherwise look up for a content-language in meta
-    tag = doc("meta[name=lang]") || doc("meta[http-equiv=content-language]")
-    l = tag?.attr("content")
-
-  if l
-    # Just return the 2 letter ISO language code with no country
-    value = l[0..1]
-    if /^[A-Za-z]{2}$/.test(value)
-      return value.toLowerCase()
-
-  null
-
-# Get the meta description of an html doc
-description = (doc) ->
-  tag = doc("meta[name=description]")
-  tag?.attr("content")?.trim()
-
-# Get the meta keywords of an html doc
-keywords = (doc) ->
-  tag = doc("meta[name=keywords]")
-  tag?.attr("content")
-
-# Get the canonical link of an html doc
-canonicalLink = (doc) ->
-  tag = doc("link[rel=canonical]")
-  tag?.attr("href")
-
-# Get any tags or keywords from an html doc
-extractTags = (doc) ->
-  elements = doc("a[rel='tag']")
-
-  if elements.length == 0
-    elements = doc("a[href*='/tag/'], a[href*='/tags/'], a[href*='/topic/'], a[href*='?keyword=']")
-    if elements.length == 0
-      return []
-
-  tags = []
-  elements.each () ->
-    el = doc(this)
-    tag = el.text()
-    if tag && tag.length > 0
-      tags.push(tag)
-
-  _.uniq(tags)
-
-# Walk the document's text nodes and find the most 'texty' node in the doc
-calculateBestNode = (doc, lang) ->
-  topNode = null
-  nodesToCheck = doc("p, pre, td")
-
-  startingBoost = 1.0
-  cnt = 0
-  i = 0
-  parentNodes = []
-  nodesWithText = []
-
-  # Walk all the p, pre and td nodes
-  nodesToCheck.each () ->
-    node = doc(this)
-
-    textNode = node.text()
-    wordStats = stopwords(textNode, lang)
-    highLinkDensity = isHighlinkDensity(doc, node)
-
-    # If a node contains multiple common words and isn't just a bunch
-    # of links, it's worth consideration of being 'texty'
-    if wordStats.stopwordCount > 2 && !highLinkDensity
-      nodesWithText.push(node)
-
-  nodesNumber = nodesWithText.length
-  negativeScoring = 0
-  bottomNegativescoreNodes = nodesNumber * 0.25
-
-  # Walk all the potentially 'texty' nodes
-  _.each nodesWithText, (node) ->
-    boostScore = 0.0
-
-    # If this node has nearby nodes that contain
-    # some good text, give the node some boost points
-    if isBoostable(doc, node, lang) == true
-      if cnt >= 0
-        boostScore = (1.0 / startingBoost) * 50
-        startingBoost += 1
-
-    if nodesNumber > 15
-      if (nodesNumber - i) <= bottomNegativescoreNodes
-        booster = bottomNegativescoreNodes - (nodesNumber - i)
-        boostScore = -1.0 * Math.pow(booster, 2)
-        negscore = Math.abs(boostScore) + negativeScoring
-
-        if negscore > 40
-          boostScore = 5.0
-
-    # Give the current node a score of how many common words
-    # it contains plus any boost
-    textNode = node.text()
-    wordStats = stopwords(textNode, lang)
-    upscore = Math.floor(wordStats.stopwordCount + boostScore)
-
-    # Propigate the score upwards
-    parentNode = node.parent()
-    updateScore(parentNode, upscore)
-    updateNodeCount(parentNode, 1)
-
-    if parentNodes.indexOf(parentNode[0]) == -1
-      parentNodes.push(parentNode[0])
-
-    parentParentNode = parentNode.parent()
-
-    if parentParentNode
-      updateNodeCount(parentParentNode, 1)
-      updateScore(parentParentNode, upscore / 2)
-
-      if parentNodes.indexOf(parentParentNode[0]) == -1
-        parentNodes.push(parentParentNode[0])
-
-    cnt += 1
-    i += 1
-
-  topNodeScore = 0
-
-  # Walk each parent and parent-parent and find the one that
-  # contains the highest sum score of 'texty' child nodes.
-  # That's probably out best node!
-  _.each parentNodes, (e) ->
-    score = getScore(doc(e))
-
-    if score > topNodeScore
-      topNode = e
-      topNodeScore = score
-
-    if topNode == null
-      topNode = e
-
-  doc(topNode)
 
 # Given a text node, check all previous siblings.
 # If the sibling node looks 'texty' and isn't too many

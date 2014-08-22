@@ -139,22 +139,39 @@ data = extractor(my_html_data);
 }
 ```
 
-#### `extractor.from(html, language)`
+#### `extractor.lazy(html, language)`
 
-Lazy variation of `extractor(html, language)`. Also returns an object but all fields in object provided above are changed to methods:
+Lazy variation of `extractor(html, language)`.
+
+The text extraction algorithm can be somewhat slow on large documents.  If you
+only need access to elements like `title` or `image`, you can use the
+lazy extractor to get them more quickly without running the full processing
+pipeline.
+
+This returns an object just like the regular extractor except all fields
+are replaced by functions and evaluation is only done when you call those
+functions.
 
 ```javascript
 extractor = require('unfluff', 'en');
 
-data = extractor.from(my_html_data);
+data = extractor.lazy(my_html_data);
 
+// Access whichever data elements you need directly.
 console.log(data.title());
-console.log(data.keywords());
+console.log(data.text());
+console.log(data.image());
+console.log(data.tags());
+console.log(data.videos());
+console.log(data.canonicalLink());
+console.log(data.lang());
+console.log(data.description());
+console.log(data.favicon());
 ```
 
-This is done to prevent doing additional job when you only need some simple stuff and not interested in grabbing text from a web page which can take a lot of time.
-
-All method results are cached and method will not re-calculate things after it is called more than once.
+Some of these data elements require calculating intermediate representations
+of the html document. Everything is cached so looking up multiple data elements
+and looking them up multiple times should be as fast as possible.
 
 ### Demo
 
