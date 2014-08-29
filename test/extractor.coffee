@@ -20,6 +20,16 @@ suite 'Extractor', ->
     title = extractor.title(doc)
     eq title, "This is my page"
 
+  test 'prefers the meta tag title', ->
+    doc = cheerio.load("<html><head><title>This is my page - mysite</title><meta property=\"og:title\" content=\"Open graph title\"></head></html>")
+    title = extractor.title(doc)
+    eq title, "Open graph title"
+
+  test 'falls back to title if empty meta tag', ->
+    doc = cheerio.load("<html><head><title>This is my page - mysite</title><meta property=\"og:title\" content=\"\"></head></html>")
+    title = extractor.title(doc)
+    eq title, "This is my page"
+
   test 'returns another simple title chunk', ->
     doc = cheerio.load("<html><head><title>coolsite.com: This is my page</title></head></html>")
     title = extractor.title(doc)

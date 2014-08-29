@@ -5,10 +5,14 @@ formatter = require("./formatter")
 module.exports =  
   # Grab the title of an html doc (excluding junk)
   title: (doc) ->
-    titleElement = doc("title")
-    return null unless titleElement
+    titleElement = doc("meta[property='og:title']")
+    titleText = titleElement.attr("content") if titleElement
 
-    titleText = titleElement.text()
+    if !titleText
+      titleElement = doc("title")
+      titleText = titleElement.text()
+
+    return null unless titleElement
 
     usedDelimeter = false
     _.each ["|", " - ", "»", ":"], (c) ->
