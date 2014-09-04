@@ -1,3 +1,6 @@
+### 0.8.0
+* Prefer <meta> og:title tag to <title> element when parsing title of document (Thanks to bradvogel)
+
 ### 0.7.0
 * Added extractor.lazy() function for lazy access to document properties (Thanks to franza)
 
