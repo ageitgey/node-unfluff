@@ -8,7 +8,7 @@ Automatically grab the main
 text out of a webpage like this:
 
 ```
-extractor = requivre('unfluff');
+extractor = require('unfluff');
 data = extractor(my_html_data);
 console.log(data.text);
 ```
