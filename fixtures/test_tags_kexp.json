@@ -1,11 +1,12 @@
 {
-    "url": "http://blogs.kusp.org/filmgang/2013/02/08/stand-up-guys/", 
+    "url": "http://blogs.kusp.org/filmgang/2013/02/08/stand-up-guys/",
     "expected": {
         "tags": [
-            "kusp film review", 
-            "Stand Up Guys", 
-            "film", 
+            "kusp film review",
+            "Stand Up Guys",
+            "film",
             "Dennis Morton"
-        ]
+        ],
+        "cleaned_text": "Listen to the review by Dennis Morton, above."
     }
 }

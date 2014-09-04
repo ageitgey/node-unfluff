@@ -87,4 +87,5 @@ getCleanedDoc = (html) ->
   return @cleanedDoc_ if @cleanedDoc_?
   doc = getParsedDoc.call(this, html)
   @cleanedDoc_ = cleaner(doc)
+  @doc_ = cheerio.load(html)
   @cleanedDoc_

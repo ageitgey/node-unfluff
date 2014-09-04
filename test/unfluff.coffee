@@ -94,6 +94,9 @@ suite 'Unfluff', ->
     checkFixture('tags_cnet' , ['tags'])
     checkFixture('tags_abcau' , ['tags'])
 
+  test 'cleaner side effects ignored', ->
+    checkFixture('tags_kexp', ['cleaned_text', 'tags'])
+
   test 'reads videos', ->
     checkFixture('embed' , ['videos'])
     checkFixture('iframe' , ['videos'])
