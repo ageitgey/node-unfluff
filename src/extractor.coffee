@@ -404,7 +404,7 @@ isTableAndNoParaExist = (doc, e) ->
       doc(p).remove()
 
   subParagraphs2 = e.find("p")
-  if subParagraphs2.length == 0 && e[0].name != "td"
+  if subParagraphs2.length == 0 && e[0].name != "td" && e[0].name != 'ul'
     return true
   else
     return false
@@ -414,7 +414,7 @@ isNodescoreThresholdMet = (doc, node, e) ->
   currentNodeScore = getScore(e)
   thresholdScore = topNodeScore * 0.08
 
-  if (currentNodeScore < thresholdScore) && e[0].name != 'td'
+  if (currentNodeScore < thresholdScore) && e[0].name != 'td' && e[0].name != 'ul'
     return false
   else
     return true
