@@ -16,6 +16,16 @@ linksToText = (doc, topNode) ->
   nodes.each () ->
     doc(this).replaceWith(doc(this).html())
 
+ulToText = (doc, node) ->
+  nodes = node.find('li')
+  txt = ""
+
+  nodes.each () ->
+    txt = txt + "\n * #{doc(this).text()}"
+
+  txt = txt + "\n"
+  txt
+
 replaceWithText = (doc, topNode) ->
   nodes = topNode.find('b, strong, i, br, sup')
   nodes.each () ->
@@ -38,12 +48,16 @@ convertToText = (doc, topNode) ->
   nodes.each () ->
     node = doc(this)
     nodeType = node[0].type
+    nodeName = node[0].name
 
     # Handle top level text nodes by adding them to a running list
     # and then treating all the hanging nodes as one paragraph tag
     if nodeType == "text"
       hangingText += node.text()
       # Same as 'continue'
+      return true
+    else if nodeName == "ul"
+      hangingText += ulToText(doc, node)
       return true
 
     # If we hit a real node and still have extra acculated text,

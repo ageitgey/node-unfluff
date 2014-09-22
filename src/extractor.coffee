@@ -2,7 +2,7 @@ _ = require("lodash")
 stopwords = require("./stopwords")
 formatter = require("./formatter")
 
-module.exports =  
+module.exports =
   # Grab the title of an html doc (excluding junk)
   title: (doc) ->
     titleElement = doc("meta[property='og:title']")
@@ -404,7 +404,7 @@ isTableAndNoParaExist = (doc, e) ->
       doc(p).remove()
 
   subParagraphs2 = e.find("p")
-  if subParagraphs2.length == 0 && e[0].name != "td"
+  if subParagraphs2.length == 0 && !(e[0].name in ["td", "ul", "ol"])
     return true
   else
     return false
@@ -414,7 +414,7 @@ isNodescoreThresholdMet = (doc, node, e) ->
   currentNodeScore = getScore(e)
   thresholdScore = topNodeScore * 0.08
 
-  if (currentNodeScore < thresholdScore) && e[0].name != 'td'
+  if (currentNodeScore < thresholdScore) && !(e[0].name in ["td", "ul", "ol"])
     return false
   else
     return true
