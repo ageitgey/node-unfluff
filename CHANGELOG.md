@@ -1,3 +1,6 @@
+### 0.9.0 
+* Bulleted lists in a webpage are now retained in the output.
+
 ### 0.8.0
 * Prefer <meta> og:title tag to <title> element when parsing title of document (Thanks to bradvogel)
 
