@@ -182,6 +182,7 @@ suite 'Unfluff', ->
 
   test 'gets cleaned text - USA Today', ->
     checkFixture('usatoday_issue_74' , ['cleaned_text'])
+    checkFixture('usatoday1' , ['cleaned_text'])
 
   test 'gets cleaned text - dcurt.is', ->
     checkFixture('dcurtis' , ['cleaned_text'])
