@@ -1,3 +1,6 @@
+### 0.10.0 
+* Fix an issue with junk being left on the page when parsing USA Today news story pages.
+
 ### 0.9.0 
 * Bulleted lists in a webpage are now retained in the output.
 
