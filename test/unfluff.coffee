@@ -105,6 +105,9 @@ suite 'Unfluff', ->
     checkFixture('polygon' , ['image'])
     checkFixture('theverge1' , ['image'])
 
+  test 'using domain extractor', ->
+    checkFixture('wikipedia1' , ['image','title'])
+
   test 'gets cleaned text - Polygon', ->
     checkFixture('polygon' , ['cleaned_text', 'title', 'link', 'description', 'lang', 'favicon'])
 

@@ -1,10 +1,18 @@
 _ = require("lodash")
 stopwords = require("./stopwords")
 formatter = require("./formatter")
+domainsExtractor = require("./domainExtractor")
 
 module.exports =
   # Grab the title of an html doc (excluding junk)
-  title: (doc) ->
+  title: (doc,url) ->
+    if url
+      domainExtractor = domainsExtractor(url)
+      if domainExtractor && domainExtractor.title != undefined
+        title = domainExtractor.title(doc)
+        return title unless ! title
+
+
     titleElement = doc("meta[property='og:title']")
     titleText = titleElement.attr("content") if titleElement
 
@@ -31,8 +39,14 @@ module.exports =
       ""
 
   # Grab an image for the page
-  image: (doc) ->
-    images = doc("meta[property='og:image'], meta[itemprop=image], meta[name='twitter:image:src'], meta[name='twitter:image'], meta[name='twitter:image0']")
+  image: (doc,url) ->
+    if url
+      domainExtractor = domainsExtractor(url)
+      if domainExtractor && domainExtractor.image != undefined
+        image = domainExtractor.image(doc)
+        return image unless ! image
+
+    images = doc("meta[property='og:image'], meta[itemprop=image], meta[name='twitter:image:src'], meta[name='twitter:image'], meta[name='twitter:image0'], .infobox img[src]")
 
     if images.length > 0 && images.first().attr('content')
       return images.first().attr('content')
