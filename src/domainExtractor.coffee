@@ -4,9 +4,10 @@ _ = require('lodash')
 {XRegExp} = require('xregexp')
 
 cache = {}
+extension = __filename.substr(__filename.lastIndexOf(".")+1)
 
 getFilePath = (domain) ->
-  path.join(__dirname, "domain_extractors", "#{domain}.coffee")
+  path.join(__dirname, "domain_extractors", "#{domain}.#{extension}")
 
 module.exports = domainExtractors = (url) ->
   domains = extractDomains(url)
