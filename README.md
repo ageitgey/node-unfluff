@@ -55,7 +55,7 @@ You can use `unfluff` from node or right on the command line!
 This is what `unfluff` will try to grab from a web page:
 - `title` - The document's title (from the &lt;title&gt; tag)
 - `text` - The main text of the document with all the junk thrown away
-- `image` - The main image for the document (what's use by facebook, etc.)
+- `image` - The main image for the document (what's used by facebook, etc.)
 - `videos` - An array of videos that were embedded in the article. Each video has src, width and height.
 - `tags`- Any tags or keywords that could be found by checking &lt;rel&gt; tags or by looking at href urls.
 - `canonicalLink` - The [canonical url](https://support.google.com/webmasters/answer/139066?hl=en) of the document, if given.
