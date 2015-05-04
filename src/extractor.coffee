@@ -119,7 +119,10 @@ module.exports =
     tags = []
     elements.each () ->
       el = doc(this)
-      tag = el.text()
+
+      tag = el.text().trim()
+      tag.replace(/[\s\t\n]+/g, '')
+
       if tag && tag.length > 0
         tags.push(tag)
 
