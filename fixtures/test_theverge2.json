@@ -1,0 +1,22 @@
+{
+    "url": "http://www.theverge.com/2015/4/6/8357987/star-wars-digital-hd-collection-itunes-google-play",
+    "expected": {
+        "meta_description": "(The Star Wars movies are coming to smartphones. All six movies — yes, even The Phantom Menace, unfortunately — will be launched on digital video services such as iTunes, Google Play, Amazon Instant...",
+        "tags": [
+          "Architecture",
+          "Typography",
+          "Concepts",
+          "Politics",
+          "National Security",
+          "itunes",
+          "google",
+          "star wars",
+          "microsoft",
+          "movie",
+          "film",
+          "apple",
+          "google play",
+          "xbox video"
+        ]
+    }
+}

@@ -111,6 +111,9 @@ suite 'Unfluff', ->
   test 'gets cleaned text - The Verge', ->
     checkFixture('theverge1' , ['cleaned_text', 'title', 'link', 'description', 'lang', 'favicon'])
 
+  test 'gets cleaned tags - The Verge', ->
+    checkFixture('theverge2' , ['tags'])
+
   test 'gets cleaned text - McSweeneys', ->
     checkFixture('mcsweeney', ['cleaned_text', 'link', 'lang', 'favicon'])
 
