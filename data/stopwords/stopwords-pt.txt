@@ -1,5 +1,3 @@
-# http://www.linguateca.pt/chave/stopwords/
-
 a
 à
 abril
