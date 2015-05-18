@@ -10,7 +10,7 @@ module.exports =
 
     if !titleText
       titleElement = doc("title")
-      titleText = titleElement.text()
+      titleText = titleElement.first().text()
 
     return null unless titleElement
 
