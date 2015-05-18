@@ -40,6 +40,11 @@ suite 'Extractor', ->
     title = extractor.title(doc)
     eq title, "This is my page"
 
+  test 'returns the first title;', ->
+    doc = cheerio.load("<html><head><title>This is my page</title></head><svg xmlns=\"http://www.w3.org/2000/svg\"><title>svg title</title></svg></html>")
+    title = extractor.title(doc)
+    eq title, "This is my page"
+
   test 'handles missing favicons', ->
     doc = cheerio.load("<html><head><title></title></head></html>")
     favicon = extractor.favicon(doc)
