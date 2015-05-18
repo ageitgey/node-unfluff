@@ -9,8 +9,8 @@ module.exports =
     titleText = titleElement.attr("content") if titleElement
 
     if !titleText
-      titleElement = doc("title")
-      titleText = titleElement.first().text()
+      titleElement = doc("title").first()
+      titleText = titleElement.text()
 
     return null unless titleElement
 
