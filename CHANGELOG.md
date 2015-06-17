@@ -1,3 +1,10 @@
+### 0.11.0 
+* Add support for pulling the page description out of og:description tags
+* Fix a hidden but where unrelated words were joined together when counting number of words in a block of text
+* Fixed an issue where page tags were returning line breaks in the tag names for some pages
+* Fix issue where an SVG image embedded in the page will have it's title concatenated with the page title
+* Updated Portuguese stopwords file
+
 ### 0.10.0 
 * Fix an issue with junk being left on the page when parsing USA Today news story pages.
 
