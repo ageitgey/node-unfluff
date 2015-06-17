@@ -78,6 +78,9 @@ suite 'Unfluff', ->
   test 'reads description', ->
     checkFixture('allnewlyrics1' , ['description'])
 
+  test 'reads open graph description', ->
+    checkFixture('twitter' , ['description'])
+
   test 'reads keywords', ->
     checkFixture('allnewlyrics1' , ['keywords'])
 

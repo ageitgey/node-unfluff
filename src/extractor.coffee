@@ -94,8 +94,8 @@ module.exports =
 
   # Get the meta description of an html doc
   description: (doc) ->
-    tag = doc("meta[name=description]")
-    tag?.attr("content")?.trim()
+    tag = doc("meta[name=description], meta[property='og:description']")
+    tag?.first()?.attr("content")?.trim()
 
   # Get the meta keywords of an html doc
   keywords: (doc) ->
