@@ -372,18 +372,18 @@ isHighlinkDensity = (doc, node) ->
 
   txt = node.text()
   words = txt.split(' ')
-  wordsNumber = words.length
+  numberOfWords = words.length
 
   sb = []
   links.each () ->
     sb.push(doc(this).text())
 
-  linkText = sb.join('')
+  linkText = sb.join(' ')
   linkWords = linkText.split(' ')
   numberOfLinkWords = linkWords.length
   numberOfLinks = links.length
-  linkDivisor = numberOfLinkWords / wordsNumber
-  score = linkDivisor * numberOfLinks
+  percentLinkWords = numberOfLinkWords / numberOfWords
+  score = percentLinkWords * numberOfLinks
 
   score >= 1.0
 

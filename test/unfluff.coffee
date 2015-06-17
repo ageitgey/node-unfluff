@@ -98,7 +98,6 @@ suite 'Unfluff', ->
     checkFixture('embed' , ['videos'])
     checkFixture('iframe' , ['videos'])
     checkFixture('object' , ['videos'])
-    checkFixture('polygon_video' , ['videos'])
 
   test 'images', ->
     checkFixture('aolNews' , ['image'])
