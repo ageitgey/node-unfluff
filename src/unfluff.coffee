@@ -5,16 +5,17 @@ cleaner = require("./cleaner")
 module.exports = unfluff = (html, language) ->
   doc = cheerio.load(html)
   lng = language || extractor.lang(doc)
+  url = extractor.canonicalLink(doc) || extractor.favicon(doc)
 
   pageData =
-    title: extractor.title(doc)
+    title: extractor.title(doc,url)
     favicon: extractor.favicon(doc)
     description: extractor.description(doc)
     keywords: extractor.keywords(doc)
     lang: lng
     canonicalLink: extractor.canonicalLink(doc)
     tags: extractor.tags(doc)
-    image: extractor.image(doc)
+    image: extractor.image(doc,url)
 
   # Step 1: Clean the doc
   cleaner(doc)
@@ -32,7 +33,8 @@ module.exports = unfluff = (html, language) ->
 unfluff.lazy = (html, language) ->
   title: () ->
     doc = getParsedDoc.call(this, html)
-    @title_ ?= extractor.title(doc)
+    url = extractor.canonicalLink(doc) || extractor.favicon(doc)
+    @title_ ?= extractor.title(doc,url)
 
   favicon: () ->
     doc = getParsedDoc.call(this, html)
@@ -60,7 +62,8 @@ unfluff.lazy = (html, language) ->
 
   image: () ->
     doc = getParsedDoc.call(this, html)
-    @image_ ?= extractor.image(doc)
+    url = extractor.canonicalLink(doc) || extractor.favicon(doc)
+    @image_ ?= extractor.image(doc,url)
 
   videos: () ->
     return @videos_ if @videos_?

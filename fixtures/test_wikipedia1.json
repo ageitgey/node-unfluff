@@ -1,0 +1,11 @@
+{
+    "url": "http://en.wikipedia.org/wiki/Now_and_Then,_Here_and_There", 
+    "expected": {
+        "domain": "en.wikipedia.org", 
+        "title": "Now and Then, Here and There",
+        "cleaned_text": "SAN FRANCISCO (AP) \u2014 Steve Jobs, the mind behind the iPhone", 
+        "meta_favicon": "//bits.wikimedia.org/favicon/wikipedia.ico", 
+        "meta_lang": "en",
+        "image": "//upload.wikimedia.org/wikipedia/en/thumb/1/10/Now_and_Then_Here_and_There.png/230px-Now_and_Then_Here_and_There.png"
+    }
+}
