@@ -8,6 +8,10 @@ module.exports = unfluff = (html, language) ->
 
   pageData =
     title: extractor.title(doc)
+    softTitle: extractor.softTitle(doc)
+    date: extractor.date(doc)
+    author: extractor.author(doc)
+    copyright: extractor.copyright(doc)
     favicon: extractor.favicon(doc)
     description: extractor.description(doc)
     keywords: extractor.keywords(doc)
@@ -33,6 +37,22 @@ unfluff.lazy = (html, language) ->
   title: () ->
     doc = getParsedDoc.call(this, html)
     @title_ ?= extractor.title(doc)
+
+  softTitle: () ->
+    doc = getParsedDoc.call(this, html)
+    @softTitle_ ?= extractor.softTitle(doc)
+
+  date: () ->
+    doc = getParsedDoc.call(this, html)
+    @date_ ?= extractor.date(doc)
+
+  copyright: () ->
+    doc = getParsedDoc.call(this, html)
+    @copyright_ ?= extractor.copyright(doc)
+
+  author: () ->
+    doc = getParsedDoc.call(this, html)
+    @author_ ?= extractor.author(doc)
 
   favicon: () ->
     doc = getParsedDoc.call(this, html)

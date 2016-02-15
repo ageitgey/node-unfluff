@@ -3,24 +3,65 @@ stopwords = require("./stopwords")
 formatter = require("./formatter")
 
 module.exports =
+  # Grab the date of an html doc
+  date: (doc) ->
+    dateCandidates = doc("meta[property='article:published_time'], \
+    meta[itemprop*='datePublished'], meta[name='dcterms.modified'], \
+    meta[name='dcterms.date'], \
+    meta[name='DC.date.issued'],  meta[name='dc.date.issued'], \
+    meta[name='dc.date.modified'], meta[name='dc.date.created'], \
+    meta[name='DC.date'], \
+    meta[name='dc.date'], \
+    meta[name*='date'], \
+    time[itemprop='pubDate'], \
+    time[itemprop='pubdate'], \
+    span[property*='datePublished'], \
+    p[property*='datePublished'], \
+    div[property*='datePublished'], \
+    li[property*='datePublished'], \
+    time, \
+    div[class*='date'], \
+    p[class*='date'], \
+    span[class*='date']")
+    dateCandidates?.first()?.attr("content")?.trim() || dateCandidates?.first()?.attr("datetime")?.trim() || cleanText(dateCandidates?.first()?.text())
+
+  # Grab the copyright line
+  copyright: (doc) ->
+    copyrightCandidates = doc("p[class*='copyright'], div[class*='copyright'], span[class*='copyright'], li[class*='copyright'], \
+    p[id*='copyright'], div[id*='copyright'], span[id*='copyright'], li[id*='copyright']")
+    copyright = copyrightCandidates?.first()?.text()
+    cleanText(copyright)
+
+  # Grab the author of an html doc
+  author: (doc) ->
+    authorCandidates = doc("meta[property='article:author'], \
+    meta[property='og:article:author'], meta[name='author'], \
+    meta[name='dcterms.creator'], \
+    meta[name='DC.creator'], \
+    meta[name='dc.creator'], \
+    meta[name='creator'], meta[property='og:site_name']")
+    authorList = []
+    authorCandidates.each () ->
+      author = doc(this).attr("content")?.trim()
+      if author
+        authorList.push(author)
+    # fallback to a named author div
+    if !authorList
+      fallbackAuthor = doc("div[class*='author']").first()?.text()
+      authorList.push(cleanText(fallbackAuthor))
+    authorList
+
   # Grab the title of an html doc (excluding junk)
+  # Hard-truncates titles containing colon or spaced dash
   title: (doc) ->
-    titleElement = doc("meta[property='og:title']")
-    titleText = titleElement.attr("content") if titleElement
+    titleText = rawTitle(doc)
+    return cleanTitle(titleText, ["|", " - ", "»", ":"])
 
-    if !titleText
-      titleElement = doc("title").first()
-      titleText = titleElement.text()
+  # Grab the title with soft truncation
+  softTitle: (doc) ->
+    titleText = rawTitle(doc)
+    return cleanTitle(titleText, ["|", " - ", "»"])
 
-    return null unless titleElement
-
-    usedDelimeter = false
-    _.each ["|", " - ", "»", ":"], (c) ->
-      if titleText.indexOf(c) >= 0 && !usedDelimeter
-        titleText = biggestTitleChunk(titleText, c)
-        usedDelimeter = true
-
-    titleText.replace(/�/g, "").trim()
 
   # Grab the 'main' text chunk
   text: (doc, topNode, lang) ->
@@ -434,3 +475,33 @@ postCleanup = (doc, targetNode, lang) ->
         doc(e).remove()
 
   return node
+
+
+cleanText = (text) ->
+  return text.replace(/[\r\n\t]/g, " ").replace(/\s\s+/g, " ").replace(/<!--.+?-->/g, "").replace(/�/g, "").trim()
+
+
+cleanTitle = (title, delimiters) ->
+  titleText = title || ""
+  usedDelimeter = false
+  _.each delimiters, (c) ->
+    if titleText.indexOf(c) >= 0 && !usedDelimeter
+      titleText = biggestTitleChunk(titleText, c)
+      usedDelimeter = true
+  return cleanText(titleText)
+
+
+rawTitle = (doc) ->
+  gotTitle = false
+  titleText = ""
+  # The first h1 or h2 is a useful fallback
+  _.each [doc("meta[property='og:title']")?.first()?.attr("content"), \
+  doc("h1[class*='title']")?.first()?.text(), \
+  doc("title")?.first()?.text(), \
+  doc("h1")?.first()?.text(), \
+  doc("h2")?.first()?.text()], (candidate) ->
+    if candidate && candidate.trim() && !gotTitle
+      titleText = candidate.trim()
+      gotTitle = true
+
+  return titleText
