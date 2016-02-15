@@ -11,6 +11,7 @@ module.exports =
     meta[name='DC.date.issued'],  meta[name='dc.date.issued'], \
     meta[name='dc.date.modified'], meta[name='dc.date.created'], \
     meta[name='DC.date'], \
+    meta[name='DC.Date'], \
     meta[name='dc.date'], \
     meta[name*='date'], \
     time[itemprop='pubDate'], \
@@ -25,12 +26,18 @@ module.exports =
     span[class*='date']")
     dateCandidates?.first()?.attr("content")?.trim() || dateCandidates?.first()?.attr("datetime")?.trim() || cleanText(dateCandidates?.first()?.text())
 
+
   # Grab the copyright line
   copyright: (doc) ->
     copyrightCandidates = doc("p[class*='copyright'], div[class*='copyright'], span[class*='copyright'], li[class*='copyright'], \
     p[id*='copyright'], div[id*='copyright'], span[id*='copyright'], li[id*='copyright']")
-    copyright = copyrightCandidates?.first()?.text()
+    text = copyrightCandidates?.first()?.text()
+    if !text
+      # try to find the copyright in the text
+      text = doc("body").text().replace(/[\r\n]+/g, ".")
+    copyright = text.replace(/.*?©(\s*copyright)?([^,;:.\r\n]+).*/gi, "$2").trim()
     cleanText(copyright)
+
 
   # Grab the author of an html doc
   author: (doc) ->
@@ -38,6 +45,7 @@ module.exports =
     meta[property='og:article:author'], meta[name='author'], \
     meta[name='dcterms.creator'], \
     meta[name='DC.creator'], \
+    meta[name='DC.Creator'], \
     meta[name='dc.creator'], \
     meta[name='creator'], meta[property='og:site_name']")
     authorList = []
@@ -47,9 +55,11 @@ module.exports =
         authorList.push(author)
     # fallback to a named author div
     if !authorList
-      fallbackAuthor = doc("div[class*='author']").first()?.text()
+      fallbackAuthor = doc("span[class*='author']").first()?.text() || doc("p[class*='author']").first()?.text()
       authorList.push(cleanText(fallbackAuthor))
+
     authorList
+
 
   # Grab the title of an html doc (excluding junk)
   # Hard-truncates titles containing colon or spaced dash

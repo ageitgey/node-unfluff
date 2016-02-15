@@ -78,7 +78,12 @@ suite 'Extractor', ->
   test 'returns the copyright line element', ->
     doc = cheerio.load("<html><head></head><body><div>Some stuff</div><ul><li class='copyright'><!-- // some garbage -->© 2016 The World Bank Group, All Rights Reserved.</li></ul></body></html>")
     copyright = extractor.copyright(doc)
-    eq copyright, "© 2016 The World Bank Group, All Rights Reserved."
+    eq copyright, "2016 The World Bank Group"
+
+  test 'returns the copyright found in the text', ->
+    doc = cheerio.load("<html><head></head><body><div>Some stuff</div><ul>© 2016 The World Bank Group, All Rights Reserved\nSome garbage following</li></ul></body></html>")
+    copyright = extractor.copyright(doc)
+    eq copyright, "2016 The World Bank Group"
 
   test 'returns the article published meta author', ->
     doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"Joe Bloggs\" /></head></html>")
