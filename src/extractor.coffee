@@ -55,7 +55,8 @@ module.exports =
         authorList.push(author)
     # fallback to a named author div
     if authorList.length == 0
-      fallbackAuthor = doc("span[class*='author']").first()?.text() || doc("p[class*='author']").first()?.text() || doc("div[class*='author']").first()?.text()
+      fallbackAuthor = doc("span[class*='author']").first()?.text() || doc("p[class*='author']").first()?.text() || doc("div[class*='author']").first()?.text() || \
+      doc("span[class*='byline']").first()?.text() || doc("p[class*='byline']").first()?.text() || doc("div[class*='byline']").first()?.text()
       authorList.push(cleanText(fallbackAuthor))
 
     authorList
