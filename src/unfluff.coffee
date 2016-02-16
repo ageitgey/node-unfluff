@@ -11,6 +11,7 @@ module.exports = unfluff = (html, language) ->
     softTitle: extractor.softTitle(doc)
     date: extractor.date(doc)
     author: extractor.author(doc)
+    publisher: extractor.publisher(doc)
     copyright: extractor.copyright(doc)
     favicon: extractor.favicon(doc)
     description: extractor.description(doc)
@@ -53,6 +54,10 @@ unfluff.lazy = (html, language) ->
   author: () ->
     doc = getParsedDoc.call(this, html)
     @author_ ?= extractor.author(doc)
+
+  publisher: () ->
+    doc = getParsedDoc.call(this, html)
+    @publisher ?= extractor.publisher(doc)
 
   favicon: () ->
     doc = getParsedDoc.call(this, html)

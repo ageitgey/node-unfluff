@@ -34,7 +34,7 @@ module.exports =
     text = copyrightCandidates?.first()?.text()
     if !text
       # try to find the copyright in the text
-      text = doc("body").text().replace(/[\r\n]+/g, ".")
+      text = doc("body").text().replace(/\s*[\r\n]+\s*/g, ". ")
     copyright = text.replace(/.*?©(\s*copyright)?([^,;:.\r\n]+).*/gi, "$2").trim()
     cleanText(copyright)
 
@@ -47,7 +47,7 @@ module.exports =
     meta[name='DC.creator'], \
     meta[name='DC.Creator'], \
     meta[name='dc.creator'], \
-    meta[name='creator'], meta[property='og:site_name']")
+    meta[name='creator']")
     authorList = []
     authorCandidates.each () ->
       author = doc(this).attr("content")?.trim()
@@ -55,10 +55,19 @@ module.exports =
         authorList.push(author)
     # fallback to a named author div
     if !authorList
-      fallbackAuthor = doc("span[class*='author']").first()?.text() || doc("p[class*='author']").first()?.text()
+      fallbackAuthor = doc("span[class*='author']").first()?.text() || doc("p[class*='author']").first()?.text() || doc("div[class*='author']").first()?.text()
       authorList.push(cleanText(fallbackAuthor))
 
     authorList
+
+
+  # Grab the publisher of the page/site
+  publisher: (doc) ->
+    publisherCandidates = doc("meta[property='og:site_name'], \
+    meta[name='dc.publisher'], \
+    meta[name='DC.publisher'], \
+    meta[name='DC.Publisher']")
+    publisherCandidates?.first()?.attr("content")?.trim()
 
 
   # Grab the title of an html doc (excluding junk)

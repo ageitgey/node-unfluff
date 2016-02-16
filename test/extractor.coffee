@@ -95,3 +95,8 @@ suite 'Extractor', ->
     author = extractor.author(doc)
     eq JSON.stringify(author), JSON.stringify(["Sarah Smith", "Joe Bloggs"])
 
+  test 'returns the meta publisher', ->
+    doc = cheerio.load("<html><head><meta property=\"og:site_name\" content=\"Polygon\" /><meta name=\"author\" content=\"Griffin McElroy\" /></head></html>")
+    publisher = extractor.publisher(doc)
+    eq publisher, "Polygon"
+
