@@ -57,7 +57,7 @@ unfluff.lazy = (html, language) ->
 
   publisher: () ->
     doc = getParsedDoc.call(this, html)
-    @publisher ?= extractor.publisher(doc)
+    @publisher_ ?= extractor.publisher(doc)
 
   favicon: () ->
     doc = getParsedDoc.call(this, html)
