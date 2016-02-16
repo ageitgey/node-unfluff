@@ -13,17 +13,21 @@ module.exports =
     meta[name='DC.date'], \
     meta[name='DC.Date'], \
     meta[name='dc.date'], \
-    meta[name*='date'], \
-    time[itemprop='pubDate'], \
-    time[itemprop='pubdate'], \
+    meta[name='date'], \
+    time[itemprop*='pubDate'], \
+    time[itemprop*='pubdate'], \
+    span[itemprop*='datePublished'], \
     span[property*='datePublished'], \
+    p[itemprop*='datePublished'], \
     p[property*='datePublished'], \
+    div[itemprop*='datePublished'], \
     div[property*='datePublished'], \
+    li[itemprop*='datePublished'], \
     li[property*='datePublished'], \
     time, \
-    div[class*='date'], \
-    p[class*='date'], \
-    span[class*='date']")
+    span[class='date'], \
+    p[class='date'], \
+    div[class='date']")
     dateCandidates?.first()?.attr("content")?.trim() || dateCandidates?.first()?.attr("datetime")?.trim() || cleanText(dateCandidates?.first()?.text())
 
 
@@ -35,7 +39,7 @@ module.exports =
     if !text
       # try to find the copyright in the text
       text = doc("body").text().replace(/\s*[\r\n]+\s*/g, ". ")
-    copyright = text.replace(/.*?©(\s*copyright)?([^,;:.\r\n]+).*/gi, "$2").trim()
+    copyright = text.replace(/.*?©(\s*copyright)?([^,;:.|\r\n]+).*/gi, "$2").trim()
     cleanText(copyright)
 
 
