@@ -85,6 +85,11 @@ suite 'Extractor', ->
     copyright = extractor.copyright(doc)
     eq copyright, "2016 The World Bank Group"
 
+  test 'returns nothing if no copyright in the text', ->
+    doc = cheerio.load("<html><head></head><body></body></html>")
+    copyright = extractor.copyright(doc)
+    eq copyright, null
+
   test 'returns the article published meta author', ->
     doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"Joe Bloggs\" /></head></html>")
     author = extractor.author(doc)

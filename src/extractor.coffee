@@ -25,10 +25,10 @@ module.exports =
     li[itemprop*='datePublished'], \
     li[property*='datePublished'], \
     time, \
-    span[class='date'], \
-    p[class='date'], \
-    div[class='date']")
-    dateCandidates?.first()?.attr("content")?.trim() || dateCandidates?.first()?.attr("datetime")?.trim() || cleanText(dateCandidates?.first()?.text())
+    span[class*='date'], \
+    p[class*='date'], \
+    div[class*='date']")
+    dateCandidates?.first()?.attr("content")?.trim() || dateCandidates?.first()?.attr("datetime")?.trim() || cleanText(dateCandidates?.first()?.text()) || null
 
 
   # Grab the copyright line
@@ -39,6 +39,7 @@ module.exports =
     if !text
       # try to find the copyright in the text
       text = doc("body").text().replace(/\s*[\r\n]+\s*/g, ". ")
+      return null unless text.indexOf("©") > 0
     copyright = text.replace(/.*?©(\s*copyright)?([^,;:.|\r\n]+).*/gi, "$2").trim()
     cleanText(copyright)
 
@@ -54,14 +55,15 @@ module.exports =
     meta[name='creator']")
     authorList = []
     authorCandidates.each () ->
-      author = doc(this).attr("content")?.trim()
+      author = doc(this)?.attr("content")?.trim()
       if author
         authorList.push(author)
     # fallback to a named author div
     if authorList.length == 0
       fallbackAuthor = doc("span[class*='author']").first()?.text() || doc("p[class*='author']").first()?.text() || doc("div[class*='author']").first()?.text() || \
       doc("span[class*='byline']").first()?.text() || doc("p[class*='byline']").first()?.text() || doc("div[class*='byline']").first()?.text()
-      authorList.push(cleanText(fallbackAuthor))
+      if fallbackAuthor
+        authorList.push(cleanText(fallbackAuthor))
 
     authorList
 
