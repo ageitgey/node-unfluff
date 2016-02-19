@@ -1,41 +1,19 @@
 _ = require("lodash")
 stopwords = require("./stopwords")
 formatter = require("./formatter")
+definitions = require("./definitions")
 
 module.exports =
   # Grab the date of an html doc
   date: (doc) ->
-    dateCandidates = doc("meta[property='article:published_time'], \
-    meta[itemprop*='datePublished'], meta[name='dcterms.modified'], \
-    meta[name='dcterms.date'], \
-    meta[name='DC.date.issued'],  meta[name='dc.date.issued'], \
-    meta[name='dc.date.modified'], meta[name='dc.date.created'], \
-    meta[name='DC.date'], \
-    meta[name='DC.Date'], \
-    meta[name='dc.date'], \
-    meta[name='date'], \
-    time[itemprop*='pubDate'], \
-    time[itemprop*='pubdate'], \
-    span[itemprop*='datePublished'], \
-    span[property*='datePublished'], \
-    p[itemprop*='datePublished'], \
-    p[property*='datePublished'], \
-    div[itemprop*='datePublished'], \
-    div[property*='datePublished'], \
-    li[itemprop*='datePublished'], \
-    li[property*='datePublished'], \
-    time, \
-    span[class*='date'], \
-    p[class*='date'], \
-    div[class*='date']")
-    dateCandidates?.first()?.attr("content")?.trim() || dateCandidates?.first()?.attr("datetime")?.trim() || cleanText(dateCandidates?.first()?.text()) || null
+    candidates = generateCandidates(doc, 'date')
+    return getFirstNonEmptyCandidate(candidates)
 
 
   # Grab the copyright line
   copyright: (doc) ->
-    copyrightCandidates = doc("p[class*='copyright'], div[class*='copyright'], span[class*='copyright'], li[class*='copyright'], \
-    p[id*='copyright'], div[id*='copyright'], span[id*='copyright'], li[id*='copyright']")
-    text = copyrightCandidates?.first()?.text()
+    candidates = generateCandidates(doc, 'copyright')
+    text = getFirstNonEmptyCandidate(candidates)
     if !text
       # try to find the copyright in the text
       text = doc("body").text().replace(/\s*[\r\n]+\s*/g, ". ")
@@ -46,35 +24,25 @@ module.exports =
 
   # Grab the author of an html doc
   author: (doc) ->
-    authorCandidates = doc("meta[property='article:author'], \
-    meta[property='og:article:author'], meta[name='author'], \
-    meta[name='dcterms.creator'], \
-    meta[name='DC.creator'], \
-    meta[name='DC.Creator'], \
-    meta[name='dc.creator'], \
-    meta[name='creator']")
     authorList = []
-    authorCandidates.each () ->
-      author = doc(this)?.attr("content")?.trim()
-      if author
-        authorList.push(author)
-    # fallback to a named author div
+    # Get all authors, then filter empty ones
+    authorCandidates = generateCandidates(doc, 'author')
+    _.each authorCandidates, (candidate) ->
+      if candidate
+        authorList.push(candidate)
     if authorList.length == 0
-      fallbackAuthor = doc("span[class*='author']").first()?.text() || doc("p[class*='author']").first()?.text() || doc("div[class*='author']").first()?.text() || \
-      doc("span[class*='byline']").first()?.text() || doc("p[class*='byline']").first()?.text() || doc("div[class*='byline']").first()?.text()
+      # Get fallback author from body text
+      candidates = generateCandidates(doc, 'fallbackAuthor')
+      fallbackAuthor = getFirstNonEmptyCandidate(candidates)
       if fallbackAuthor
         authorList.push(cleanText(fallbackAuthor))
-
     authorList
 
 
   # Grab the publisher of the page/site
   publisher: (doc) ->
-    publisherCandidates = doc("meta[property='og:site_name'], \
-    meta[name='dc.publisher'], \
-    meta[name='DC.publisher'], \
-    meta[name='DC.Publisher']")
-    publisherCandidates?.first()?.attr("content")?.trim()
+    candidates = generateCandidates(doc, 'publisher')
+    return getFirstNonEmptyCandidate(candidates)
 
 
   # Grab the title of an html doc (excluding junk)
@@ -85,8 +53,9 @@ module.exports =
 
   # Grab the title with soft truncation
   softTitle: (doc) ->
+    # TODO might want to return all candidates rather than just the first
     titleText = rawTitle(doc)
-    return cleanTitle(titleText, ["|", " - ", "»"])
+    return cleanTitle(titleText, ["|", "»"])
 
 
   # Grab the 'main' text chunk
@@ -518,16 +487,36 @@ cleanTitle = (title, delimiters) ->
 
 
 rawTitle = (doc) ->
-  gotTitle = false
-  titleText = ""
-  # The first h1 or h2 is a useful fallback
-  _.each [doc("meta[property='og:title']")?.first()?.attr("content"), \
-  doc("h1[class*='title']")?.first()?.text(), \
-  doc("title")?.first()?.text(), \
-  doc("h1")?.first()?.text(), \
-  doc("h2")?.first()?.text()], (candidate) ->
-    if candidate && candidate.trim() && !gotTitle
-      titleText = candidate.trim()
-      gotTitle = true
+  candidates = generateCandidates(doc, 'title')
+  return getFirstNonEmptyCandidate(candidates)
 
-  return titleText
+
+getFirstNonEmptyCandidate = (candidates) ->
+  searching = true
+  bestCandidate = null
+  _.each candidates, (candidate) ->
+    if candidate && candidate.trim() && searching
+      bestCandidate = candidate.trim()
+      searching = false
+  return bestCandidate
+
+
+# Generate dom query candidates from imported definitions object and a given key
+generateCandidates = (doc, key) ->
+  queries = []
+  _.each definitions[key], (selector) ->
+    _.each selector.elements, (e) ->
+      query = e
+      if selector.select == 'first' then dom = doc(query).first() else dom = doc(query)
+      queries.push(dom?.text()) unless (selector.selectors or selector.attributes)
+      _.each selector.attributes, (a) -> unless selector.selectors
+        queries.push(dom?.attr(a))
+      _.each selector.selectors, (s) ->
+        _.each selector.filters, (f) ->
+          query = e + "[" + s + "='" + f + "']"
+          if selector.select == 'first' then dom = doc(query).first() else dom = doc(query)
+          queries.push(dom?.text()) unless selector.attributes
+          _.each selector.attributes, (a) ->
+            queries.push(dom?.attr(a))
+
+  return queries

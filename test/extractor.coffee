@@ -91,9 +91,14 @@ suite 'Extractor', ->
     eq copyright, null
 
   test 'returns the article published meta author', ->
-    doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"Joe Bloggs\" /></head></html>")
+    doc = cheerio.load("<html><head><meta property=\"og:article:author\" content=\"Joe Bloggs\" /></head></html>")
     author = extractor.author(doc)
     eq JSON.stringify(author), JSON.stringify(["Joe Bloggs"])
+
+  test 'returns the dublin core meta author', ->
+     doc = cheerio.load("<html><head><meta name=\"dc.creator\" content=\"Joe Bloggs\" /></head></html>")
+     author = extractor.author(doc)
+     eq JSON.stringify(author), JSON.stringify(["Joe Bloggs"])
 
   test 'returns the meta author', ->
     doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"Sarah Smith\" /><meta name=\"author\" content=\"Joe Bloggs\" /></head></html>")
