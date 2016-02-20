@@ -54,6 +54,11 @@ You can use `unfluff` from node or right on the command line!
 
 This is what `unfluff` will try to grab from a web page:
 - `title` - The document's title (from the &lt;title&gt; tag)
+- `softTitle` - A version of `title` with less truncation
+- `date` - The document's publication date
+- `copyright` - The document's copyright line, if present
+- `author` - The document's author
+- `publisher` - The document's publisher (website name)
 - `text` - The main text of the document with all the junk thrown away
 - `image` - The main image for the document (what's used by facebook, etc.)
 - `videos` - An array of videos that were embedded in the article. Each video has src, width and height.
@@ -127,7 +132,14 @@ data = extractor(my_html_data, 'en');
 
 ```json
 {
-  "title": "Shovel Knight review: rewrite history",
+  "title": "Shovel Knight review",
+  "softTitle": "Shovel Knight review: rewrite history",
+  "date": "2014-06-26T13:00:03Z",
+  "copyright": "2016 Vox Media Inc Designed in house",
+  "author": [
+    "Griffin McElroy"
+  ],
+  "publisher": "Polygon",
   "text": "Shovel Knight is inspired by the past in all the right ways — but it's far from stuck in it. [.. snip ..]",
   "image": "http://cdn2.vox-cdn.com/uploads/chorus_image/image/34834129/jellyfish_hero.0_cinema_1280.0.png",  
   "tags": [],
@@ -159,6 +171,11 @@ data = extractor.lazy(my_html_data, 'en');
 
 // Access whichever data elements you need directly.
 console.log(data.title());
+console.log(data.softTitle());
+console.log(data.date());
+console.log(data.copyright());
+console.log(data.author());
+console.log(data.publisher());
 console.log(data.text());
 console.log(data.image());
 console.log(data.tags());
