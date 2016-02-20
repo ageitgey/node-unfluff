@@ -1,3 +1,6 @@
+### 1.0.0
+* Add support for extracting out `softTitle`, `date`, `copyright`, `author`, `publisher` thanks to @philgooch. See [#49](https://github.com/ageitgey/node-unfluff/pull/49).
+
 ### 0.11.0 
 * Add support for pulling the page description out of og:description tags
 * Fix a hidden but where unrelated words were joined together when counting number of words in a block of text
@@ -12,7 +15,7 @@
 * Bulleted lists in a webpage are now retained in the output.
 
 ### 0.8.0
-* Prefer <meta> og:title tag to <title> element when parsing title of document (Thanks to bradvogel)
+* Prefer &lt;meta&gt; og:title tag to &lt;title&gt; element when parsing title of document (Thanks to bradvogel)
 
 ### 0.7.0
 * Added extractor.lazy() function for lazy access to document properties (Thanks to franza)
