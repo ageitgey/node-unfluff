@@ -190,6 +190,32 @@ Some of these data elements require calculating intermediate representations
 of the html document. Everything is cached so looking up multiple data elements
 and looking them up multiple times should be as fast as possible.
 
+### Customisation
+
+The extraction patterns for title, date, author and publisher are now in an external
+file `definitions.coffee`, which you can customise according to your needs. 
+
+For each field, the extraction patterns are defined in order of priority. 
+For example for `title` first the `meta` `property` is tested for the value
+`og:title`, then `meta` `name`, then the first `h1` `class` for the value `title`, and so on.
+
+The patterns are as follows:
+
+- `elements`:  a list of element names to select, in order of priority.
+- `selectors`: a list of element attribute names to select, in order of priority. 
+  If a name ends in `*`, this will use wildcards when testing the value of that attribute,
+  rather than requiring an exact match.
+- `filters`: filter `selectors` by any of these values. For example, if one of the selectors
+  is `class*`, and one of the `filters` is `title`, then any `class` containing the string
+  `title` will be selected, rather than requiring an exact match for the string `title`.
+- `attributes`: if a selector matches, then return, in order, the value of this attribute.
+  For example, if `attributes` is `['content', 'value']`, then, if a match is made, the values
+  of both the `content` and `value` attributes will be returned. If `attributes` is omitted,
+  then the `text()` content of the matching element in `elements` will be returned.
+- `select`: if set to `first`, then only the first match will be returned. If `select` is
+  omitted, then all matches will be returned.
+
+
 ### Demo
 
 The easiest way to try out `unfluff` is to just install it:
