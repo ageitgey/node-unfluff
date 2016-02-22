@@ -3,14 +3,14 @@ module.exports = definitions = {
   title: [
     {
       elements: ['meta'],
-      selectors: ['property', 'name'],
+      selectors: ['property', 'name', 'itemprop'],
       filters: ['og:title'],
       attributes: ['content'],
     },
     {
       elements: ['h1', 'h2'],
-      selectors: ['class*'],
-      filters: ['title'],
+      selectors: ['itemprop*', 'class*'],
+      filters: ['headline', 'title'],
       select:  'first'
     },
     {
@@ -64,7 +64,7 @@ module.exports = definitions = {
     {
       elements: ['meta'],
       selectors: ['name*', 'property*', 'itemprop*'],
-      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-', 'date.'],
+      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-'],
       attributes: ['content'],
       select:  'first'
     },
@@ -82,18 +82,18 @@ module.exports = definitions = {
     {
       elements: ['span', 'p', 'div', 'li'],
       selectors: ['itemprop*', 'property*', 'rel*'],
-      filters: ['datePublished', 'pubdate', 'pubDate', 'publicationDate', 'datepub'],
+      filters: ['datePublished', 'pubdate', 'publicationDate', 'datepub'],
+      select:  'first'
+    },
+    {
+      elements: ['span', 'p', 'div', 'li'],
+      selectors: ['class*', 'id*', 'rel*'],
+      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-'],
       select:  'first'
     },
     {
       elements: ['time'],
       select: 'first'
-    },
-    {
-      elements: ['span', 'p', 'div', 'li'],
-      selectors: ['class*', 'id*', 'rel*'],
-      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-', 'date.'],
-      select:  'first'
     }
   ],
   copyright: [
@@ -176,6 +176,12 @@ module.exports = definitions = {
       elements: ['a'],
       selectors: ['id*'],
       filters: ['author', 'byline', 'instructor', 'contributor'],
+      select: 'first'
+    },
+    {
+      elements: ['span'],
+      selectors: ['itemprop'],
+      filters: ['name'],
       select: 'first'
     },
   ]
