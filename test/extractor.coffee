@@ -110,6 +110,11 @@ suite 'Extractor', ->
     author = extractor.author(doc)
     eq JSON.stringify(author), JSON.stringify(["Sarah Smith", "Joe Bloggs"])
 
+  test 'returns the meta author but not if it is a url', ->
+    doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"http://www.theguardian.com/profile/carolinedavies\" /><meta name=\"author\" content=\"Caroline Davies\" /></head></html>")
+    author = extractor.author(doc)
+    eq JSON.stringify(author), JSON.stringify(["Caroline Davies"])
+
   test 'returns the named author in the text as fallback', ->
       doc = cheerio.load("<html><head></head><body><span class=\"author\"><a href=\"/author/gary-trust-6318\" class=\"article__author-link\">Gary Trust</a></span></body></html>")
       author = extractor.author(doc)

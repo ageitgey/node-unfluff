@@ -5,7 +5,7 @@ module.exports = definitions = {
     {
       elements: ['meta'],
       selectors: ['property', 'name', 'itemprop'],
-      filters: ['og:title'],
+      filters: ['og:title', 'dc:title', 'dc:Title', 'DC.title', 'DC.Title'],
       attributes: ['content'],
     },
     {
@@ -59,44 +59,51 @@ module.exports = definitions = {
       elements: ['meta'],
       selectors: ['name*', 'property*', 'itemprop*'],
       filters: ['pubdate', 'publicationDate', 'publishdate', 'datepub', 'displaydate', 'lastmod', 'modified',
-      'updated', 'created', 'published', 'issued', 'reviewed', 'byline'],
+      'updated', 'created', 'published', 'issued'],
       attributes: ['content'],
+      select:  'first'
     },
     {
       elements: ['meta'],
       selectors: ['name*', 'property*', 'itemprop*'],
       filters: ['_date', '-date', '.date', ':date', 'date_', 'date-', 'Date'],
       attributes: ['content'],
+      select:  'first'
     },
     {
       elements: ['time'],
       attributes: ['datetime'],
+      select:  'first'
     },
     {
       elements: ['time'],
       selectors: ['itemprop*', 'property*', 'rel*'],
       filters: ['date'],
+      select:  'first'
     },
     {
       elements: ['span', 'p', 'div', 'li'],
       selectors: ['itemprop*', 'property*', 'class*', 'rel*'],
       filters: ['pubdate', 'publicationDate', 'publishdate', 'datepub', 'displaydate', 'lastmod', 'modified',
-      'updated', 'created', 'published', 'issued', 'reviewed', 'byline'],
+      'updated', 'created', 'published', 'issued'],
+      select:  'first'
     },
     {
       elements: ['span', 'p', 'div', 'li'],
       selectors: ['itemprop*', 'property*', 'class*', 'id*', 'rel*'],
-      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-', 'Date'],
+      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-', 'Date', 'reviewed', 'byline']
     },
     {
-      elements: ['time']
+      elements: ['time'],
+      select:  'first'
     }
   ],
   copyright: [
     {
       elements: ['span', 'p', 'div', 'li'],
       selectors: ['id*', 'class*', 'rel*'],
-      filters: ['copyright', 'Copyright']
+      filters: ['copyright', 'Copyright'],
+      select:  'first'
     }
   ],
   publisher: [
@@ -104,26 +111,28 @@ module.exports = definitions = {
       elements: ['meta'],
       selectors: ['property', 'name', 'itemprop'],
       filters: ['og:site_name'],
-      attributes: ['content']
+      attributes: ['content'],
+      select:  'first'
     },
     {
       elements: ['meta'],
       selectors: ['name$', 'property$', 'itemprop$'],
       filters: ['publisher', 'Publisher'],
-      attributes: ['content']
+      attributes: ['content'],
+      select:  'first'
     }
   ],
   author: [
     {
       elements: ['meta'],
       selectors: ['property*', 'name*', 'itemprop*'],
-      filters: ['dcterms.creator'],
+      filters: ['dcterms.creator', 'dcterms.Creator'],
       attributes: ['content']
     },
     {
       elements: ['meta'],
       selectors: ['property', 'name', 'itemprop'],
-      filters: ['dc.creator', 'DC.creator', 'DC.Creator', 'dc:creator', 'dc:Creator'],
+      filters: ['dc.creator', 'dc.Creator', 'DC.creator', 'DC.Creator', 'dc:creator', 'dc:Creator'],
       attributes: ['content']
     },
     {
@@ -135,14 +144,13 @@ module.exports = definitions = {
     {
       elements: ['meta'],
       selectors: ['property*', 'name*', 'itemprop*'],
-      filters: ['contributor', 'Contributor', 'attributionName', 'AttributionName'],
+      filters: ['contributor', 'Contributor', 'attribution', 'Attribution'],
       attributes: ['content']
     },
     {
-      elements: ['span'],
-      selectors: ['class*', 'itemprop*'],
-      filters: ['author', 'byline', 'instructor', 'contributor'],
-      select: 'first'
+      elements: ['a'],
+      selectors: ['rel*', 'itemprop*'],
+      filters: ['byline', 'author', 'instructor', 'contributor', 'attribution', 'Attribution']
     },
     {
       elements: ['meta'],
@@ -153,15 +161,15 @@ module.exports = definitions = {
   ],
   fallbackAuthor: [
     {
-      elements: ['span', 'p', 'div'],
-      selectors: ['class*', 'itemprop*'],
-      filters: ['author', 'byline', 'instructor', 'contributor'],
-      select: 'first'
+      elements: ['span'],
+      selectors: ['rel*', 'class*', 'itemprop*'],
+      filters: ['byline', 'author', 'instructor', 'contributor', 'attribution', 'Attribution'],
+      select:  'first'
     },
     {
-      elements: ['a'],
-      selectors: ['rel*', 'class*', 'itemprop*'],
-      filters: ['author', 'byline', 'instructor', 'contributor'],
+      elements: ['p', 'div'],
+      selectors: ['class*', 'itemprop*'],
+      filters: ['byline', 'author', 'instructor', 'contributor'],
       select: 'first'
     },
     {
@@ -171,13 +179,13 @@ module.exports = definitions = {
     {
       elements: ['span', 'p', 'div'],
       selectors: ['id*'],
-      filters: ['author', 'byline', 'instructor', 'contributor'],
+      filters: ['byline', 'author', 'instructor', 'contributor'],
       select: 'first'
     },
     {
       elements: ['a'],
-      selectors: ['id*'],
-      filters: ['author', 'byline', 'instructor', 'contributor'],
+      selectors: ['class*', 'id*'],
+      filters: ['byline', 'author', 'instructor', 'contributor'],
       select: 'first'
     },
     {

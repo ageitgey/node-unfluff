@@ -29,7 +29,7 @@ module.exports =
     authorCandidates = generateCandidates(doc, 'author')
     _.each authorCandidates, (candidate) ->
       if isValidAuthor(candidate)
-        authorList.push(candidate)
+        authorList.push(cleanText(candidate))
     if authorList.length == 0
       # Get fallback author from body text
       candidates = generateCandidates(doc, 'fallbackAuthor')
@@ -473,7 +473,7 @@ postCleanup = (doc, targetNode, lang) ->
 
 
 isValidAuthor = (text) ->
-  return text && !text.startsWith('http') && !text.startsWith('@')
+  return text && !text.match('^http') && !text.match('^@') && !looksLikeDate(text)
 
 
 cleanText = (text) ->
@@ -530,13 +530,20 @@ generateCandidates = (doc, key) ->
           textPusher(doc, queries, dom) unless selector.attributes
           _.each selector.attributes, (a) ->
             attrPusher(doc, queries, dom, a)
+          if selector.select == 'first' && queries.length > 0
+            return queries
 
   return queries
 
+
 textPusher = (doc, list, dom) ->
   dom.each () ->
-    list.push(doc(this).text())
+    value = doc(this)?.text()?.trim()
+    if value
+      list.push(value)
 
 attrPusher = (doc, list, dom, attName) ->
   dom.each () ->
-    list.push(doc(this).attr(attName))
+    value = doc(this)?.attr(attName)?.trim()
+    if value
+      list.push(value)
