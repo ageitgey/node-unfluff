@@ -1,4 +1,5 @@
 # For each field, priority ordered list of selectors
+# NB wildcard * is still case-sensitive
 module.exports = definitions = {
   title: [
     {
@@ -22,7 +23,7 @@ module.exports = definitions = {
     {
       elements: ['meta'],
       selectors: ['property', 'name', 'itemprop'],
-      filters: ['article:published_time'],
+      filters: ['article:modified_time', 'article:published_time'],
       attributes: ['content'],
       select:  'first'
     },
@@ -57,50 +58,45 @@ module.exports = definitions = {
     {
       elements: ['meta'],
       selectors: ['name*', 'property*', 'itemprop*'],
-      filters: ['pubdate', 'publicationDate', 'datepub'],
+      filters: ['pubdate', 'publicationDate', 'publishdate', 'datepub', 'displaydate', 'lastmod', 'modified',
+      'updated', 'created', 'published', 'issued', 'reviewed', 'byline'],
       attributes: ['content'],
-      select:  'first'
     },
     {
       elements: ['meta'],
       selectors: ['name*', 'property*', 'itemprop*'],
-      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-'],
+      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-', 'Date'],
       attributes: ['content'],
-      select:  'first'
     },
     {
       elements: ['time'],
       attributes: ['datetime'],
-      select:  'first'
     },
     {
       elements: ['time'],
       selectors: ['itemprop*', 'property*', 'rel*'],
       filters: ['date'],
-      select:  'first'
     },
     {
       elements: ['span', 'p', 'div', 'li'],
-      selectors: ['itemprop*', 'property*', 'rel*'],
-      filters: ['datePublished', 'pubdate', 'publicationDate', 'datepub'],
-      select:  'first'
+      selectors: ['itemprop*', 'property*', 'class*', 'rel*'],
+      filters: ['pubdate', 'publicationDate', 'publishdate', 'datepub', 'displaydate', 'lastmod', 'modified',
+      'updated', 'created', 'published', 'issued', 'reviewed', 'byline'],
     },
     {
       elements: ['span', 'p', 'div', 'li'],
-      selectors: ['class*', 'id*', 'rel*'],
-      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-'],
-      select:  'first'
+      selectors: ['itemprop*', 'property*', 'class*', 'id*', 'rel*'],
+      filters: ['_date', '-date', '.date', ':date', 'date_', 'date-', 'Date'],
     },
     {
-      elements: ['time'],
-      select: 'first'
+      elements: ['time']
     }
   ],
   copyright: [
     {
       elements: ['span', 'p', 'div', 'li'],
       selectors: ['id*', 'class*', 'rel*'],
-      filters: ['copyright']
+      filters: ['copyright', 'Copyright']
     }
   ],
   publisher: [
@@ -112,18 +108,12 @@ module.exports = definitions = {
     },
     {
       elements: ['meta'],
-      selectors: ['name*', 'property*', 'itemprop*'],
-      filters: ['publisher'],
+      selectors: ['name$', 'property$', 'itemprop$'],
+      filters: ['publisher', 'Publisher'],
       attributes: ['content']
     }
   ],
   author: [
-    {
-      elements: ['meta'],
-      selectors: ['property*', 'name*', 'itemprop*'],
-      filters: ['author'],
-      attributes: ['content']
-    },
     {
       elements: ['meta'],
       selectors: ['property*', 'name*', 'itemprop*'],
@@ -132,20 +122,32 @@ module.exports = definitions = {
     },
     {
       elements: ['meta'],
-      selectors: ['property*', 'name*', 'itemprop*'],
-      filters: ['dc.creator', 'dc:creator'],
+      selectors: ['property', 'name', 'itemprop'],
+      filters: ['dc.creator', 'DC.creator', 'DC.Creator', 'dc:creator', 'dc:Creator'],
       attributes: ['content']
     },
     {
       elements: ['meta'],
       selectors: ['property', 'name', 'itemprop'],
-      filters: ['creator'],
+      filters: ['creator', 'Creator'],
       attributes: ['content']
     },
     {
       elements: ['meta'],
       selectors: ['property*', 'name*', 'itemprop*'],
-      filters: ['contributor', 'cc:attributionName'],
+      filters: ['contributor', 'Contributor', 'attributionName', 'AttributionName'],
+      attributes: ['content']
+    },
+    {
+      elements: ['span'],
+      selectors: ['class*', 'itemprop*'],
+      filters: ['author', 'byline', 'instructor', 'contributor'],
+      select: 'first'
+    },
+    {
+      elements: ['meta'],
+      selectors: ['property*', 'name*', 'itemprop*'],
+      filters: ['author', 'Author'],
       attributes: ['content']
     }
   ],
@@ -153,7 +155,7 @@ module.exports = definitions = {
     {
       elements: ['span', 'p', 'div'],
       selectors: ['class*', 'itemprop*'],
-      filters: ['author', 'byline', 'instructorName', 'contributor'],
+      filters: ['author', 'byline', 'instructor', 'contributor'],
       select: 'first'
     },
     {

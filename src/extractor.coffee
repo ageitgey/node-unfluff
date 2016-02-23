@@ -7,7 +7,7 @@ module.exports =
   # Grab the date of an html doc
   date: (doc) ->
     candidates = generateCandidates(doc, 'date')
-    return getFirstNonEmptyCandidate(candidates)
+    return getFirstNonEmptyCandidate(candidates, looksLikeDate)
 
 
   # Grab the copyright line
@@ -28,13 +28,13 @@ module.exports =
     # Get all authors, then filter empty ones
     authorCandidates = generateCandidates(doc, 'author')
     _.each authorCandidates, (candidate) ->
-      if candidate
+      if isValidAuthor(candidate)
         authorList.push(candidate)
     if authorList.length == 0
       # Get fallback author from body text
       candidates = generateCandidates(doc, 'fallbackAuthor')
       fallbackAuthor = getFirstNonEmptyCandidate(candidates)
-      if fallbackAuthor
+      if isValidAuthor(fallbackAuthor)
         authorList.push(cleanText(fallbackAuthor))
     authorList
 
@@ -472,6 +472,10 @@ postCleanup = (doc, targetNode, lang) ->
   return node
 
 
+isValidAuthor = (text) ->
+  return text && !text.startsWith('http') && !text.startsWith('@')
+
+
 cleanText = (text) ->
   return text.replace(/[\r\n\t]/g, " ").replace(/\s\s+/g, " ").replace(/<!--.+?-->/g, "").replace(/�/g, "").trim()
 
@@ -491,15 +495,23 @@ rawTitle = (doc) ->
   return getFirstNonEmptyCandidate(candidates)
 
 
-getFirstNonEmptyCandidate = (candidates) ->
+getFirstNonEmptyCandidate = (candidates, validationFn) ->
   searching = true
   bestCandidate = null
+  if typeof validationFn != 'function'
+    validationFn = baseValidation
   _.each candidates, (candidate) ->
-    if candidate && candidate.trim() && searching
+    if validationFn(candidate) && searching
       bestCandidate = candidate.trim()
       searching = false
   return bestCandidate
 
+
+baseValidation = (candidate) ->
+  return candidate && candidate.trim()
+
+looksLikeDate = (candidate) ->
+  return baseValidation(candidate) && candidate.match(/\b[12]\d{3}\b/g)
 
 # Generate dom query candidates from imported definitions object and a given key
 generateCandidates = (doc, key) ->
@@ -508,15 +520,23 @@ generateCandidates = (doc, key) ->
     _.each selector.elements, (e) ->
       query = e
       if selector.select == 'first' then dom = doc(query).first() else dom = doc(query)
-      queries.push(dom?.text()) unless (selector.selectors or selector.attributes)
+      textPusher(doc, queries, dom) unless (selector.selectors or selector.attributes)
       _.each selector.attributes, (a) -> unless selector.selectors
-        queries.push(dom?.attr(a))
+        attrPusher(doc, queries, dom, a)
       _.each selector.selectors, (s) ->
         _.each selector.filters, (f) ->
           query = e + "[" + s + "='" + f + "']"
           if selector.select == 'first' then dom = doc(query).first() else dom = doc(query)
-          queries.push(dom?.text()) unless selector.attributes
+          textPusher(doc, queries, dom) unless selector.attributes
           _.each selector.attributes, (a) ->
-            queries.push(dom?.attr(a))
+            attrPusher(doc, queries, dom, a)
 
   return queries
+
+textPusher = (doc, list, dom) ->
+  dom.each () ->
+    list.push(doc(this).text())
+
+attrPusher = (doc, list, dom, attName) ->
+  dom.each () ->
+    list.push(doc(this).attr(attName))

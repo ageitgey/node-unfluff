@@ -75,6 +75,11 @@ suite 'Extractor', ->
     date = extractor.date(doc)
     eq date, "2010-05-24T13:47:52+0000"
 
+  test 'returns the first valid-looking date', ->
+    doc = cheerio.load("<html><head></head><body><span class=\"reviewed\">Amy Jane</span>\n<span class=\"reviewed\">24 June, 2014</span></body></html>")
+    date = extractor.date(doc)
+    eq date, "24 June, 2014"
+
   test 'returns the copyright line element', ->
     doc = cheerio.load("<html><head></head><body><div>Some stuff</div><ul><li class='copyright'><!-- // some garbage -->© 2016 The World Bank Group, All Rights Reserved.</li></ul></body></html>")
     copyright = extractor.copyright(doc)
