@@ -75,6 +75,11 @@ suite 'Extractor', ->
     date = extractor.date(doc)
     eq date, "2010-05-24T13:47:52+0000"
 
+  test 'returns the first valid-looking date', ->
+    doc = cheerio.load("<html><head></head><body><span class=\"reviewed\">Amy Jane</span>\n<span class=\"reviewed\">24 June, 2014</span></body></html>")
+    date = extractor.date(doc)
+    eq date, "24 June, 2014"
+
   test 'returns the copyright line element', ->
     doc = cheerio.load("<html><head></head><body><div>Some stuff</div><ul><li class='copyright'><!-- // some garbage -->© 2016 The World Bank Group, All Rights Reserved.</li></ul></body></html>")
     copyright = extractor.copyright(doc)
@@ -91,14 +96,24 @@ suite 'Extractor', ->
     eq copyright, null
 
   test 'returns the article published meta author', ->
-    doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"Joe Bloggs\" /></head></html>")
+    doc = cheerio.load("<html><head><meta property=\"og:article:author\" content=\"Joe Bloggs\" /></head></html>")
     author = extractor.author(doc)
     eq JSON.stringify(author), JSON.stringify(["Joe Bloggs"])
+
+  test 'returns the dublin core meta author', ->
+     doc = cheerio.load("<html><head><meta name=\"dc.creator\" content=\"Joe Bloggs\" /></head></html>")
+     author = extractor.author(doc)
+     eq JSON.stringify(author), JSON.stringify(["Joe Bloggs"])
 
   test 'returns the meta author', ->
     doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"Sarah Smith\" /><meta name=\"author\" content=\"Joe Bloggs\" /></head></html>")
     author = extractor.author(doc)
     eq JSON.stringify(author), JSON.stringify(["Sarah Smith", "Joe Bloggs"])
+
+  test 'returns the meta author but not if it is a url', ->
+    doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"http://www.theguardian.com/profile/carolinedavies\" /><meta name=\"author\" content=\"Caroline Davies\" /></head></html>")
+    author = extractor.author(doc)
+    eq JSON.stringify(author), JSON.stringify(["Caroline Davies"])
 
   test 'returns the named author in the text as fallback', ->
       doc = cheerio.load("<html><head></head><body><span class=\"author\"><a href=\"/author/gary-trust-6318\" class=\"article__author-link\">Gary Trust</a></span></body></html>")
