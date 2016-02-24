@@ -33,6 +33,14 @@ module.exports = unfluff = (html, language) ->
 
   pageData
 
+
+# Expose the extractor directly so we can use
+# it with an existing parsed DOM rather than
+# needing to pass html text to `lazy`
+unfluff.extractor = () ->
+  extractor
+
+
 # Allow access to document properties with lazy evaluation
 unfluff.lazy = (html, language) ->
   title: () ->
