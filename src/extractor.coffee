@@ -106,6 +106,31 @@ module.exports =
 
     null
 
+  # Find any links in the doc
+  links: (doc, topNode, lang) ->
+    gravityItems = []
+    links = []
+    removeGravityItems = (gravityItems) ->
+      gravityItems.each () ->
+        item = doc(this)
+        score = parseInt(item.attr('gravityScore'), 10) || 0
+        if score > 1
+          doc(item).remove()
+    gatherLinks = (doc, topNode) ->
+      nodes = topNode.find('a')
+      nodes.each () ->
+        links.push({
+            text: doc(this).html(),
+            href: doc(this).attr('href')
+        })
+      
+    if topNode
+      topNode = postCleanup(doc, topNode, lang)
+      gravityItems = topNode.find('*[gravityScore]')
+      removeGravityItems(gravityItems)
+      gatherLinks(doc, topNode)
+    links
+      
   # Find any embedded videos in the doc
   videos: (doc, topNode) ->
     videoList = []
