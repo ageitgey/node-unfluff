@@ -68,6 +68,7 @@ convertToText = (doc, topNode) ->
       hangingText = ""
 
     txt = cleanParagraphText(node.text())
+    txt = txt.replace(/(\w+\.)([A-Z]+)/, '$1 $2')
     txts = txts.concat(txt.split(/\r?\n/))
 
   # Catch any left-over hanging text nodes
