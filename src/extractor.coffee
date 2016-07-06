@@ -484,7 +484,7 @@ isNodescoreThresholdMet = (doc, node, e) ->
   currentNodeScore = getScore(e)
   thresholdScore = topNodeScore * 0.08
 
-  if (currentNodeScore < thresholdScore) && !(e[0].name in ["td", "ul", "ol"])
+  if (currentNodeScore < thresholdScore) && !(e[0].name in ["td", "ul", "ol", "blockquote"])
     return false
   else
     return true
