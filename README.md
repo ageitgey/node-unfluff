@@ -150,7 +150,7 @@ data = extractor(my_html_data, 'en');
   "description": "Shovel Knight is inspired by the past in all the right ways — but it's far from stuck in it.",
   "favicon": "http://cdn1.vox-cdn.com/community_logos/42931/favicon.ico",
   "links": [
-    { text: 'Six Thirty', href: 'http://www.sixthirty.co/' }
+    { "text": "Six Thirty", "href": "http://www.sixthirty.co/" }
   ]
 }
 ```
