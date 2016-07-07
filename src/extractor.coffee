@@ -119,10 +119,13 @@ module.exports =
     gatherLinks = (doc, topNode) ->
       nodes = topNode.find('a')
       nodes.each () ->
-        links.push({
-            text: doc(this).html(),
-            href: doc(this).attr('href')
-        })
+        href = doc(this).attr('href')
+        text = doc(this).html()
+        if href && text
+          links.push({
+            text: text,
+            href: href
+          })
       
     if topNode
       topNode = postCleanup(doc, topNode, lang)
