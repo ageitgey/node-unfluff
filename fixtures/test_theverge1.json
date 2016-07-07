@@ -9,6 +9,20 @@
         "title": "Facebook offers explanation for controversial News Feed psychology experiment",
         "meta_favicon": "http://cdn0.vox-cdn.com/images/verge/favicon.vc44a54f.ico",
         "meta_lang": "en",
-        "image": "http://cdn2.vox-cdn.com/uploads/chorus_image/image/34985243/fbappicon1_1020.0_cinema_1200.0.jpg"
+        "image": "http://cdn2.vox-cdn.com/uploads/chorus_image/image/34985243/fbappicon1_1020.0_cinema_1200.0.jpg",
+        "links": [
+            {
+                "text": "altering the content of some users&apos; News Feeds",
+                "href": "http://www.theverge.com/2014/6/28/5852652/facebook-altered-689000-users-news-feeds-for-a-psychology-experiment"
+            },
+            {
+                "text": "posted an explanation",
+                "href": "https://www.facebook.com/akramer/posts/10152987150867796"
+            },
+            {
+                "text": "provided to <i>The Guardian</i>",
+                "href": "http://www.theguardian.com/technology/2014/jun/29/facebook-users-emotions-news-feeds"
+            }
+        ]
     }
 }
