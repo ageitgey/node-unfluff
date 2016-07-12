@@ -27,8 +27,9 @@ module.exports = unfluff = (html, language) ->
   # Step 2: Find the doc node with the best text
   topNode = extractor.calculateBestNode(doc, lng)
 
-  # Step 3: Extract text, videos, images
+  # Step 3: Extract text, videos, images, links
   pageData.videos = extractor.videos(doc, topNode)
+  pageData.links = extractor.links(doc, topNode, lng)
   pageData.text = extractor.text(doc, topNode, lng)
 
   pageData
@@ -98,6 +99,12 @@ unfluff.lazy = (html, language) ->
     doc = getCleanedDoc.call(this, html)
     topNode = getTopNode.call(this, doc, this.lang())
     @text_ = extractor.text(doc, topNode, this.lang())
+
+  links: () ->
+    return @links_ if @links_?
+    doc = getCleanedDoc.call(this, html)
+    topNode = getTopNode.call(this, doc, this.lang())
+    @links_ = extractor.links(doc, topNode, this.lang())
 
 # Load the doc in cheerio and cache it
 getParsedDoc = (html) ->

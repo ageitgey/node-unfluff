@@ -67,6 +67,7 @@ This is what `unfluff` will try to grab from a web page:
 - `lang` - The language of the document, either detected or supplied by you.
 - `description` - The description of the document, from &lt;meta&gt; tags
 - `favicon` - The url of the document's [favicon](http://en.wikipedia.org/wiki/Favicon).
+- `links` - An array of links embedded within the article text. (text and href for each)
 
 This is returned as a simple json object.
 
@@ -147,7 +148,10 @@ data = extractor(my_html_data, 'en');
   "canonicalLink": "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u",
   "lang": "en",
   "description": "Shovel Knight is inspired by the past in all the right ways — but it's far from stuck in it.",
-  "favicon": "http://cdn1.vox-cdn.com/community_logos/42931/favicon.ico"
+  "favicon": "http://cdn1.vox-cdn.com/community_logos/42931/favicon.ico",
+  "links": [
+    { "text": "Six Thirty", "href": "http://www.sixthirty.co/" }
+  ]
 }
 ```
 

@@ -106,6 +106,25 @@ module.exports =
 
     null
 
+  # Find any links in the doc
+  links: (doc, topNode, lang) ->
+    links = []
+    gatherLinks = (doc, topNode) ->
+      nodes = topNode.find('a')
+      nodes.each () ->
+        href = doc(this).attr('href')
+        text = doc(this).html()
+        if href && text
+          links.push({
+            text: text,
+            href: href
+          })
+      
+    if topNode
+      topNode = postCleanup(doc, topNode, lang)
+      gatherLinks(doc, topNode)
+    links
+      
   # Find any embedded videos in the doc
   videos: (doc, topNode) ->
     videoList = []
@@ -484,7 +503,7 @@ isNodescoreThresholdMet = (doc, node, e) ->
   currentNodeScore = getScore(e)
   thresholdScore = topNodeScore * 0.08
 
-  if (currentNodeScore < thresholdScore) && !(e[0].name in ["td", "ul", "ol"])
+  if (currentNodeScore < thresholdScore) && !(e[0].name in ["td", "ul", "ol", "blockquote"])
     return false
   else
     return true

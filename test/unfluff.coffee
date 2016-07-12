@@ -57,6 +57,15 @@ suite 'Unfluff', ->
         arrayEq orig.expected.tags.sort(), sortedTags, "#{site}: meta tags didn't match expected value"
         arrayEq sortedTags, dataLazy.tags().sort(), "#{site}: meta tags from partial extraction didn't match expected value"
 
+      else if field == 'links'
+        sortedLinks = data.links.sort()
+        sortedLazyLinks = dataLazy.links().sort()
+        if !orig.expected.links
+          orig.expected.links = sortedLinks
+          fs.writeFileSync("./fixtures/test_#{site}.json", JSON.stringify(orig, null, 4))
+        deepEq orig.expected.links.sort(), sortedLinks, "#{site}: links didn't match expected value"
+        deepEq orig.expected.links.sort(), sortedLazyLinks, "#{site}: links from partial extraction didn't match expected value"
+
       else if field == 'videos'
         sortedVideos = data.videos.sort()
         deepEq orig.expected.movies.sort(), sortedVideos, "#{site}: videos didn't match expected value"
@@ -101,6 +110,11 @@ suite 'Unfluff', ->
     checkFixture('embed' , ['videos'])
     checkFixture('iframe' , ['videos'])
     checkFixture('object' , ['videos'])
+
+  test 'links', ->
+    checkFixture('theverge1' , ['links'])
+    checkFixture('techcrunch1' , ['links'])
+    checkFixture('polygon' , ['links'])
 
   test 'images', ->
     checkFixture('aolNews' , ['image'])

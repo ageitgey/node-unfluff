@@ -1,16 +1,38 @@
 {
-    "url": "http://techcrunch.com/2011/08/13/2005-zuckerberg-didnt-want-to-take-over-the-world/", 
+    "url": "http://techcrunch.com/2011/08/13/2005-zuckerberg-didnt-want-to-take-over-the-world/",
     "expected": {
-        "meta_description": "", 
-        "domain": "techcrunch.com", 
-        "final_url": "http://techcrunch.com/2011/08/13/2005-zuckerberg-didnt-want-to-take-over-the-world/", 
-        "meta_keywords": "", 
-        "cleaned_text": "The Huffington Post has come across this fascinating five-minute interview", 
+        "meta_description": "",
+        "domain": "techcrunch.com",
+        "final_url": "http://techcrunch.com/2011/08/13/2005-zuckerberg-didnt-want-to-take-over-the-world/",
+        "meta_keywords": "",
+        "cleaned_text": "The Huffington Post has come across this fascinating five-minute interview",
         "tags": [
             "facebook"
-        ], 
-        "title": "2005 Zuckerberg Didn\u2019t Want To Take Over The World", 
-        "meta_favicon": "http://s2.wp.com/wp-content/themes/vip/tctechcrunch2/images/favicon.ico?m=1310283187g", 
-        "meta_lang": "en"
+        ],
+        "title": "2005 Zuckerberg Didn’t Want To Take Over The World",
+        "meta_favicon": "http://s2.wp.com/wp-content/themes/vip/tctechcrunch2/images/favicon.ico?m=1310283187g",
+        "meta_lang": "en",
+        "links": [
+            {
+                "text": "come across this fascinating five-minute interview",
+                "href": "http://www.huffingtonpost.com/2011/08/11/facebook-mark-zuckerberg-2005-interview_n_924628.html"
+            },
+            {
+                "text": "Dustin Moskovitz",
+                "href": "http://www.crunchbase.com/person/dustin-moskovitz"
+            },
+            {
+                "text": "penetrated 800&#xA0;",
+                "href": "http://techcrunch.com/2005/09/07/85-of-college-students-use-facebook/"
+            },
+            {
+                "text": "&#x201C;10 People Who Don&#x2019;t Matter List&#x201D;",
+                "href": "http://money.cnn.com/popups/2006/biz2/peoplewhodontmatter/frameset.exclude.html"
+            },
+            {
+                "text": "<img src=\"http://tctechcrunch2011.files.wordpress.com/2011/08/screen-shot-2011-08-13-at-6-43-20-pm1.png?w=620&amp;h=393\" alt=\"\" title=\"Screen Shot 2011-08-13 at 6.43.20 PM\" width=\"620\" height=\"393\" class=\"alignnone size-full wp-image-406259\">",
+                "href": "http://tctechcrunch2011.files.wordpress.com/2011/08/screen-shot-2011-08-13-at-6-43-20-pm1.png"
+            }
+        ]
     }
 }
