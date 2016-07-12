@@ -64,9 +64,6 @@ suite 'Unfluff', ->
           orig.expected.links = sortedLinks
           fs.writeFileSync("./fixtures/test_#{site}.json", JSON.stringify(orig, null, 4))
         deepEq orig.expected.links.sort(), sortedLinks, "#{site}: links didn't match expected value"
-        # console.log(sortedLinks)
-        # console.log('-------------------------------------')
-        # console.log(dataLazy.links().sort())
         deepEq orig.expected.links.sort(), sortedLazyLinks, "#{site}: links from partial extraction didn't match expected value"
 
       else if field == 'videos'
