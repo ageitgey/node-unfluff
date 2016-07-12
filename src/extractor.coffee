@@ -108,14 +108,7 @@ module.exports =
 
   # Find any links in the doc
   links: (doc, topNode, lang) ->
-    gravityItems = []
     links = []
-    removeGravityItems = (gravityItems) ->
-      gravityItems.each () ->
-        item = doc(this)
-        score = parseInt(item.attr('gravityScore'), 10) || 0
-        if score > 1
-          doc(item).remove()
     gatherLinks = (doc, topNode) ->
       nodes = topNode.find('a')
       nodes.each () ->
@@ -129,8 +122,6 @@ module.exports =
       
     if topNode
       topNode = postCleanup(doc, topNode, lang)
-      gravityItems = topNode.find('*[gravityScore]')
-      removeGravityItems(gravityItems)
       gatherLinks(doc, topNode)
     links
       
