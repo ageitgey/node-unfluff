@@ -522,10 +522,10 @@ postCleanup = (doc, targetNode, lang) ->
   return node
 
 cleanNull = (text) ->
-  return text.replace(/^null$/g, "")
+  return text?.replace(/^null$/g, "")
 
 cleanText = (text) ->
-  return text.replace(/[\r\n\t]/g, " ").replace(/\s\s+/g, " ").replace(/<!--.+?-->/g, "").replace(/�/g, "").trim()
+  return text?.replace(/[\r\n\t]/g, " ").replace(/\s\s+/g, " ").replace(/<!--.+?-->/g, "").replace(/�/g, "").trim()
 
 
 cleanTitle = (title, delimiters) ->
