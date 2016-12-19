@@ -14,11 +14,11 @@ module.exports = stopwords = (content, language = 'en') ->
     stopWords = stepwords(language)
     cache[language] = stopWords
 
+  strippedInput = removePunctuation(content)
+  words = candiateWords(strippedInput)
   overlappingStopwords = []
 
   count = 0
-  strippedInput = removePunctuation(content)
-  words = candiateWords(strippedInput)
 
   _.each words, (w) ->
     count += 1
