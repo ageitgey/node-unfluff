@@ -28,4 +28,3 @@ module.exports = stopwords = (content, language = 'en') ->
     stopwordCount: overlappingStopwords.length,
     stopWords: overlappingStopwords
   }
-
