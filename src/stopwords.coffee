@@ -17,8 +17,10 @@ module.exports = stopwords = (content, language = 'en') ->
   overlappingStopwords = []
 
   count = 0
+  strippedInput = removePunctuation(content)
+  words = candiateWords(strippedInput)
 
-  _.each stopWords, (w) ->
+  _.each words, (w) ->
     count += 1
     if stopWords.indexOf(w.toLowerCase()) > -1
       overlappingStopwords.push(w.toLowerCase())
@@ -28,3 +30,9 @@ module.exports = stopwords = (content, language = 'en') ->
     stopwordCount: overlappingStopwords.length,
     stopWords: overlappingStopwords
   }
+
+removePunctuation = (content) ->
+  content.replace(/[\|\@\<\>\[\]\"\'\.,-\/#\?!$%\^&\*\+;:{}=\-_`~()]/g,"")
+
+candiateWords = (strippedInput) ->
+  strippedInput.split(' ')
