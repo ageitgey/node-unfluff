@@ -12,6 +12,6 @@ module.exports = function(language) {
     console.error("WARNING: No stopwords found for '" + language + "' - defaulting to English!")
     words = require(stepwordsJSON('en'))
   } finally {
-    return words.stepwords
+    return words.stopwords
   }
 }

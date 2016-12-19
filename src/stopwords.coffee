@@ -1,7 +1,7 @@
 path = require('path')
 fs = require('fs')
 _ = require('lodash')
-stepwords = require('../data/stopwords/index')
+stepwords = require('../data/stopwords')
 
 cache = {}
 
@@ -17,7 +17,7 @@ module.exports = stopwords = (content, language = 'en') ->
   overlappingStopwords = []
 
   count = 0
-
+  console.log stopWords
   _.each stopWords, (w) ->
     count += 1
     if stopWords.indexOf(w.toLowerCase()) > -1
