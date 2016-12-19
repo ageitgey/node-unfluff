@@ -1,17 +1,17 @@
-function stepwordsJSON(lang) {
+function stopwordsJSON(lang) {
   return './stopwords-' + lang + '.json'
 };
 
 
 module.exports = function(language) {
-  var words;
+  var stopwords;
 
   try {
-    words = require(stepwordsJSON(language))
+    stopwords = require(stopwordsJSON(language))
   } catch (e) {
     console.error("WARNING: No stopwords found for '" + language + "' - defaulting to English!")
-    words = require(stepwordsJSON('en'))
+    stopwords = require(stopwordsJSON('en'))
   } finally {
-    return words.stopwords
+    return stopwords
   }
 }
