@@ -1,5 +1,4 @@
 path = require('path')
-fs = require('fs')
 _ = require('lodash')
 stepwords = require('../data/stopwords')
 
