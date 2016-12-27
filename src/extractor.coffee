@@ -74,7 +74,7 @@ module.exports =
     meta[name='dc.publisher'], \
     meta[name='DC.publisher'], \
     meta[name='DC.Publisher']")
-    cleanNull(publisherCandidates?.first()?.attr("content"))?.trim()
+    cleanNull(publisherCandidates?.first()?.attr("content"))?.trim() || null
 
 
   # Grab the title of an html doc (excluding junk)
