@@ -1,6 +1,6 @@
 path = require('path')
 _ = require('lodash')
-stepwords = require('../data/stopwords')
+sw = require('../data/stopwords')
 
 cache = {}
 
@@ -10,7 +10,7 @@ module.exports = stopwords = (content, language = 'en') ->
   if cache.hasOwnProperty(language)
     stopWords = cache[language]
   else
-    stopWords = stepwords(language)
+    stopWords = sw(language)
     cache[language] = stopWords
 
   strippedInput = removePunctuation(content)
