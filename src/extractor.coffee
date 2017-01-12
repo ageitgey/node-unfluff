@@ -28,7 +28,7 @@ module.exports =
     span[class*='date'], \
     p[class*='date'], \
     div[class*='date']")
-    dateCandidates?.first()?.attr("content")?.trim() || dateCandidates?.first()?.attr("datetime")?.trim() || cleanText(dateCandidates?.first()?.text()) || null
+    cleanNull(dateCandidates?.first()?.attr("content"))?.trim() || cleanNull(dateCandidates?.first()?.attr("datetime"))?.trim() || cleanText(dateCandidates?.first()?.text()) || null
 
 
   # Grab the copyright line
@@ -55,7 +55,7 @@ module.exports =
     meta[name='creator']")
     authorList = []
     authorCandidates.each () ->
-      author = doc(this)?.attr("content")?.trim()
+      author = cleanNull(doc(this)?.attr("content"))?.trim()
       if author
         authorList.push(author)
     # fallback to a named author div
@@ -74,7 +74,7 @@ module.exports =
     meta[name='dc.publisher'], \
     meta[name='DC.publisher'], \
     meta[name='DC.Publisher']")
-    publisherCandidates?.first()?.attr("content")?.trim()
+    cleanNull(publisherCandidates?.first()?.attr("content"))?.trim() || null
 
 
   # Grab the title of an html doc (excluding junk)
@@ -101,8 +101,8 @@ module.exports =
   image: (doc) ->
     images = doc("meta[property='og:image'], meta[itemprop=image], meta[name='twitter:image:src'], meta[name='twitter:image'], meta[name='twitter:image0']")
 
-    if images.length > 0 && images.first().attr('content')
-      return images.first().attr('content')
+    if images.length > 0 && cleanNull(images.first().attr('content'))
+      return cleanNull(images.first().attr('content'))
 
     null
 
@@ -181,17 +181,17 @@ module.exports =
   # Get the meta description of an html doc
   description: (doc) ->
     tag = doc("meta[name=description], meta[property='og:description']")
-    tag?.first()?.attr("content")?.trim()
+    cleanNull(tag?.first()?.attr("content"))?.trim()
 
   # Get the meta keywords of an html doc
   keywords: (doc) ->
     tag = doc("meta[name=keywords]")
-    tag?.attr("content")
+    cleanNull(tag?.attr("content"))
 
   # Get the canonical link of an html doc
   canonicalLink: (doc) ->
     tag = doc("link[rel=canonical]")
-    tag?.attr("href")
+    cleanNull(tag?.attr("href"))
 
   # Get any tags or keywords from an html doc
   tags: (doc) ->
@@ -521,9 +521,11 @@ postCleanup = (doc, targetNode, lang) ->
 
   return node
 
+cleanNull = (text) ->
+  return text?.replace(/^null$/g, "")
 
 cleanText = (text) ->
-  return text.replace(/[\r\n\t]/g, " ").replace(/\s\s+/g, " ").replace(/<!--.+?-->/g, "").replace(/�/g, "").trim()
+  return text?.replace(/[\r\n\t]/g, " ").replace(/\s\s+/g, " ").replace(/<!--.+?-->/g, "").replace(/�/g, "").trim()
 
 
 cleanTitle = (title, delimiters) ->

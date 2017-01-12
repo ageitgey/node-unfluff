@@ -75,6 +75,11 @@ suite 'Extractor', ->
     date = extractor.date(doc)
     eq date, "2010-05-24T13:47:52+0000"
 
+  test 'returns nothing if date eq "null"', ->
+    doc = cheerio.load("<html><head><meta property=\"article:published_time\" content=\"null\" /></head></html>")
+    date = extractor.date(doc)
+    eq date, null
+
   test 'returns the copyright line element', ->
     doc = cheerio.load("<html><head></head><body><div>Some stuff</div><ul><li class='copyright'><!-- // some garbage -->© 2016 The World Bank Group, All Rights Reserved.</li></ul></body></html>")
     copyright = extractor.copyright(doc)
@@ -105,8 +110,22 @@ suite 'Extractor', ->
       author = extractor.author(doc)
       eq JSON.stringify(author), JSON.stringify(["Gary Trust"])
 
+  test 'returns the meta author but ignore "null" value', ->
+    doc = cheerio.load("<html><head><meta property=\"article:author\" content=\"null\" /><meta name=\"author\" content=\"Joe Bloggs\" /></head></html>")
+    author = extractor.author(doc)
+    eq JSON.stringify(author), JSON.stringify(["Joe Bloggs"])
+
   test 'returns the meta publisher', ->
     doc = cheerio.load("<html><head><meta property=\"og:site_name\" content=\"Polygon\" /><meta name=\"author\" content=\"Griffin McElroy\" /></head></html>")
     publisher = extractor.publisher(doc)
     eq publisher, "Polygon"
 
+  test 'returns nothing if publisher eq "null"', ->
+    doc = cheerio.load("<html><head><meta property=\"og:site_name\" content=\"null\" /></head></html>")
+    publisher = extractor.publisher(doc)
+    eq publisher, null
+
+  test 'returns nothing if image eq "null"', ->
+    doc = cheerio.load("<html><head><meta property=\"og:image\" content=\"null\" /></head></html>")
+    image = extractor.image(doc)
+    eq image, null
