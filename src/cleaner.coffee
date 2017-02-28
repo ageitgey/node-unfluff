@@ -14,6 +14,7 @@ module.exports = cleaner = (doc) ->
   removeNodesRegex(doc, /[^-]facebook/)
   removeNodesRegex(doc, /facebook-broadcasting/)
   removeNodesRegex(doc, /[^-]twitter/)
+  cleanSelector(doc, 'blockquote.instagram-media')
   cleanParaSpans(doc)
   cleanUnderlines(doc)
   cleanErrantLinebreaks(doc)
@@ -57,6 +58,9 @@ removeScriptsStyles = (doc) ->
 
   doc(comments).remove()
 
+cleanSelector = (doc, selector) ->
+  doc(selector).remove()
+  
 cleanBadTags = (doc) ->
   removeNodesRe = "^side$|combx|retweet|mediaarticlerelated|menucontainer|navbar|partner-gravity-ad|video-full-transcript|storytopbar-bucket|utility-bar|inline-share-tools|comment|PopularQuestions|contact|foot|footer|Footer|footnote|cnn_strycaptiontxt|cnn_html_slideshow|cnn_strylftcntnt|links|meta$|shoutbox|sponsor|tags|socialnetworking|socialNetworking|cnnStryHghLght|cnn_stryspcvbx|^inset$|pagetools|post-attributes|welcome_form|contentTools2|the_answers|communitypromo|runaroundLeft|subscribe|vcard|articleheadings|date|^print$|popup|author-dropdown|tools|socialtools|byline|konafilter|KonaFilter|breadcrumbs|^fn$|wp-caption-text|legende|ajoutVideo|timestamp|js_replies"
   re = new RegExp(removeNodesRe, "i");
