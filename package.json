@@ -1,8 +1,8 @@
 {
-  "name": "article-extractor",
+  "name": "node-article-extractor",
   "version": "1.1.2",
   "description": "A web page content extractor",
-  "homepage": "https://github.com/ahkimkoo/article-extractor",
+  "homepage": "https://github.com/ahkimkoo/node-article-extractor",
   "keywords": [
     "content extraction",
     "html",
@@ -17,9 +17,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ahkimkoo/article-extractor"
+    "url": "git://github.com/ahkimkoo/node-article-extractor"
   },
-  "bugs": "https://github.com/ahkimkoo/article-extractor/issues",
+  "bugs": "https://github.com/ahkimkoo/node-article-extractor/issues",
   "engines": {
     "node": "0.8.x || 0.9.x || 0.10.x"
   },
@@ -49,7 +49,7 @@
   "licenses": [
     {
       "type": "Apache",
-      "url": "https://github.com/ahkimkoo/article-extractor/blob/master/LICENSE"
+      "url": "https://github.com/ahkimkoo/node-article-extractor/blob/master/LICENSE"
     }
   ]
 }

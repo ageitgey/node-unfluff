@@ -1,14 +1,14 @@
-# article-extractor
+# node-article-extractor
 
 An automatic web page content extractor for Node.js! based on https://github.com/ageitgey/node-unfluff, but support Chinese.
 
-[![Build Status](https://api.travis-ci.org/ahkimkoo/article-extractor.svg?branch=master)](https://travis-ci.org/ahkimkoo/article-extractor)
+[![Build Status](https://api.travis-ci.org/ahkimkoo/node-article-extractor.svg?branch=master)](https://travis-ci.org/ahkimkoo/node-article-extractor)
 
 Automatically grab the main
 text out of a webpage like this:
 
 ```
-extractor = require('article-extractor');
+extractor = require('node-article-extractor');
 data = extractor(my_html_data);
 console.log(data.text);
 ```
@@ -38,21 +38,21 @@ check out those libraries!
 
 ## Install
 
-To install the command-line `article-extractor` utility:
+To install the command-line `node-article-extractor` utility:
 
-    npm install -g article-extractor
+    npm install -g node-article-extractor
 
-To install the `article-extractor` module for use in your Node.js project:
+To install the `node-article-extractor` module for use in your Node.js project:
 
-    npm install --save article-extractor
+    npm install --save node-article-extractor
 
 ## Usage
 
-You can use `article-extractor` from node or right on the command line!
+You can use `node-article-extractor` from node or right on the command line!
 
 ### Extracted data elements
 
-This is what `article-extractor` will try to grab from a web page:
+This is what `node-article-extractor` will try to grab from a web page:
 - `title` - The document's title (from the &lt;title&gt; tag)
 - `softTitle` - A version of `title` with less truncation
 - `date` - The document's publication date
@@ -73,19 +73,19 @@ This is returned as a simple json object.
 
 ### Command line interface
 
-You can pass a webpage to article-extractor and it will try to parse out the interesting
+You can pass a webpage to node-article-extractor and it will try to parse out the interesting
 bits.
 
 You can either pass in a file name:
 
 ```
-article-extractor my_file.html
+node-article-extractor my_file.html
 ```
 
 Or you can pipe it in:
 
 ```
-curl -s "http://somesite.com/page" | article-extractor
+curl -s "http://somesite.com/page" | node-article-extractor
 ```
 
 You can easily chain this together with other unix commands to do cool stuff.
@@ -93,13 +93,13 @@ For example, you can download a web page, parse it and then use
 [jq](http://stedolan.github.io/jq/) to print it just the body text.
 
 ```
-curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | article-extractor | jq -r .text
+curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | node-article-extractor | jq -r .text
 ```
 
 And here's how to find the top 10 most common words in an article:
 
 ```
-curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | article-extractor |  tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -10
+curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | node-article-extractor |  tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -10
 ```
 
 ### Module Interface
@@ -116,7 +116,7 @@ The extraction algorithm depends heavily on the language, so it probably won't w
 if you have the language set incorrectly.
 
 ```javascript
-extractor = require('article-extractor');
+extractor = require('node-article-extractor');
 
 data = extractor(my_html_data);
 ```
@@ -124,7 +124,7 @@ data = extractor(my_html_data);
 Or supply the language code yourself:
 
 ```javascript
-extractor = require('article-extractor');
+extractor = require('node-article-extractor');
 
 data = extractor(my_html_data, 'en');
 ```
@@ -169,7 +169,7 @@ are replaced by functions and evaluation is only done when you call those
 functions.
 
 ```javascript
-extractor = require('article-extractor');
+extractor = require('node-article-extractor');
 
 data = extractor.lazy(my_html_data, 'en');
 
@@ -196,15 +196,15 @@ and looking them up multiple times should be as fast as possible.
 
 ### Demo
 
-The easiest way to try out `article-extractor` is to just install it:
+The easiest way to try out `node-article-extractor` is to just install it:
 
 ```
-$ npm install -g article-extractor
-$ curl -s "http://www.cnn.com/2014/07/07/world/americas/mexico-earthquake/index.html" | article-extractor
+$ npm install -g node-article-extractor
+$ curl -s "http://www.cnn.com/2014/07/07/world/americas/mexico-earthquake/index.html" | node-article-extractor
 ```
 
 But if you can't be bothered, you can check out
 [fetch text](http://fetchtext.herokuapp.com/). It's a site by
-[Andy Jiang](https://twitter.com/andyjiang) that uses `article-extractor`. You send an
+[Andy Jiang](https://twitter.com/andyjiang) that uses `node-article-extractor`. You send an
 email with a url and it emails back with the cleaned content of that url. It
-should give you a good idea of how `article-extractor` handles different urls.
+should give you a good idea of how `node-article-extractor` handles different urls.
