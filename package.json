@@ -1,8 +1,8 @@
 {
-  "name": "unfluff",
-  "version": "1.1.0",
+  "name": "article-extractor",
+  "version": "1.1.2",
   "description": "A web page content extractor",
-  "homepage": "https://github.com/ageitgey/node-unfluff",
+  "homepage": "https://github.com/ahkimkoo/article-extractor",
   "keywords": [
     "content extraction",
     "html",
@@ -12,14 +12,14 @@
     "body text"
   ],
   "author": {
-    "name": "Adam Geitgey",
-    "email": "ageitgey@gmail.com"
+    "name": "Cherokee Liu",
+    "email": "successage@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ageitgey/node-unfluff"
+    "url": "git://github.com/ahkimkoo/article-extractor"
   },
-  "bugs": "https://github.com/ageitgey/node-unfluff/issues",
+  "bugs": "https://github.com/ahkimkoo/article-extractor/issues",
   "engines": {
     "node": "0.8.x || 0.9.x || 0.10.x"
   },
@@ -31,12 +31,12 @@
   },
   "dependencies": {
     "cheerio": "~0.17.0",
-    "optimist": "~0.6.1",
     "lodash": "~2.4.1",
+    "nodejieba": "^2.2.5",
+    "optimist": "~0.6.1",
     "xregexp": "~2.0.0"
   },
   "devDependencies": {
-    "coffee-script-redux": "2.0.0-beta7",
     "commonjs-everywhere": "0.9.x",
     "mocha": "~1.12.1",
     "scopedfs": "~0.1.0",
@@ -49,7 +49,7 @@
   "licenses": [
     {
       "type": "Apache",
-      "url": "https://github.com/ageitgey/node-unfluff/blob/master/LICENSE"
+      "url": "https://github.com/ahkimkoo/article-extractor/blob/master/LICENSE"
     }
   ]
 }

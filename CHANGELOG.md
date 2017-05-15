@@ -1,3 +1,6 @@
+###1.1.2
+* Add support for Chinese.
+
 ### 1.0.0
 * Add support for extracting out `softTitle`, `date`, `copyright`, `author`, `publisher` thanks to @philgooch. See [#49](https://github.com/ageitgey/node-unfluff/pull/49).
 
