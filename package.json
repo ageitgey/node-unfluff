@@ -30,18 +30,18 @@
     "test": "test"
   },
   "dependencies": {
-    "cheerio": "~0.17.0",
-    "lodash": "~2.4.1",
+    "cheerio": "~0.22.0",
+    "lodash": "~4.17.4",
     "nodejieba": "^2.2.5",
     "optimist": "~0.6.1",
-    "xregexp": "~2.0.0"
+    "xregexp": "~3.2.0"
   },
   "devDependencies": {
     "commonjs-everywhere": "0.9.x",
-    "mocha": "~1.12.1",
+    "mocha": "~3.4.1",
     "scopedfs": "~0.1.0",
-    "semver": "~2.1.0",
-    "deep-equal": "~0.2.1"
+    "semver": "~5.3.0",
+    "deep-equal": "~1.0.1"
   },
   "scripts": {
     "test": "make test"
