@@ -10,6 +10,9 @@ argvParser = require('optimist')
     alias: 'v'
     describe: 'Show version information'
     boolean: true
+  field:
+    alias: 'f'
+    describe: 'Get specific field, e.g., text.'
   help:
     alias: 'h'
     describe: 'Show this. See: https://github.com/ageitgey/node-unfluff'
@@ -33,13 +36,15 @@ language = undefined
 if argv.lang
   language = argv.lang
 
+if argv.field
+  field = argv.field
+  
 file = argv._.shift()
 html = ""
 
 
 if file
   html = fs.readFileSync(file).toString()
-  process.stdout.write(JSON.stringify(extractor(html, language)))
 else
   process.stdin.setEncoding('utf8')
 
@@ -49,4 +54,9 @@ else
       html += chunk
 
   process.stdin.on 'end', () ->
-    process.stdout.write(JSON.stringify(extractor(html, language)))
+
+unfluffedData = extractor(html, language)
+if field
+  process.stdout.write(unfluffedData[field])
+else
+  process.stdout.write(JSON.stringify(unfluffedData))
