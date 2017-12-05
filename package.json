@@ -30,7 +30,7 @@
     "test": "test"
   },
   "dependencies": {
-    "cheerio": "~0.17.0",
+    "cheerio": "~0.22.0",
     "optimist": "~0.6.1",
     "lodash": "~2.4.1",
     "xregexp": "~2.0.0"
@@ -40,7 +40,7 @@
     "commonjs-everywhere": "0.9.x",
     "mocha": "~1.12.1",
     "scopedfs": "~0.1.0",
-    "semver": "~2.1.0",
+    "semver": "~4.3.2",
     "deep-equal": "~0.2.1"
   },
   "scripts": {

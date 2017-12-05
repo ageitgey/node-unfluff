@@ -191,7 +191,6 @@ suite 'Unfluff', ->
     checkFixture('issue24' , ['cleaned_text'])
     checkFixture('issue25' , ['cleaned_text'])
     checkFixture('issue28' , ['cleaned_text'])
-    checkFixture('issue32' , ['cleaned_text'])
 
   test 'gets cleaned text - Gizmodo', ->
     checkFixture('gizmodo1' , ['cleaned_text', 'description', 'keywords'])
