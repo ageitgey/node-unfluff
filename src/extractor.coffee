@@ -99,7 +99,12 @@ module.exports =
 
   # Grab an image for the page
   image: (doc) ->
-    images = doc("meta[property='og:image'], meta[itemprop=image], meta[name='twitter:image:src'], meta[name='twitter:image'], meta[name='twitter:image0']")
+    images = doc("meta[property='og:image'], \
+    meta[property='og:image:url'], \
+    meta[itemprop=image], \
+    meta[name='twitter:image:src'], \
+    meta[name='twitter:image'], \
+    meta[name='twitter:image0']")
 
     if images.length > 0 && cleanNull(images.first().attr('content'))
       return cleanNull(images.first().attr('content'))
