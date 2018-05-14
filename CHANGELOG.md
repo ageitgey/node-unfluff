@@ -1,3 +1,9 @@
+### 3.0.1
+* Removed engine limitaitons in package.json since they no longer are useful.
+
+### 3.0.0
+* Updated cheerio dependencies
+
 ### 1.0.0
 * Add support for extracting out `softTitle`, `date`, `copyright`, `author`, `publisher` thanks to @philgooch. See [#49](https://github.com/ageitgey/node-unfluff/pull/49).
 
