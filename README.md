@@ -93,13 +93,13 @@ For example, you can download a web page, parse it and then use
 [jq](http://stedolan.github.io/jq/) to print it just the body text.
 
 ```
-curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | unfluff | jq -r .text
+curl -s "https://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | unfluff | jq -r .text
 ```
 
 And here's how to find the top 10 most common words in an article:
 
 ```
-curl -s "http://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | unfluff |  tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -10
+curl -s "https://www.polygon.com/2014/6/26/5842180/shovel-knight-review-pc-3ds-wii-u" | unfluff |  tr -c '[:alnum:]' '[\n*]' | sort | uniq -c | sort -nr | head -10
 ```
 
 ### Module Interface
