@@ -71,6 +71,7 @@ module.exports =
   # Grab the publisher of the page/site
   publisher: (doc) ->
     publisherCandidates = doc("meta[property='og:site_name'], \
+    meta[itemprop=name], \
     meta[name='dc.publisher'], \
     meta[name='DC.publisher'], \
     meta[name='DC.Publisher']")
