@@ -120,6 +120,10 @@ suite 'Extractor', ->
     publisher = extractor.publisher(doc)
     eq publisher, "Polygon"
 
+    doc2 = cheerio.load("<html><head><meta itemProp=\"name\" content=\"The New York Times\"></head></html>")
+    publisher2 = extractor.publisher(doc2)
+    eq publisher2, "The New York Times"
+
   test 'returns nothing if publisher eq "null"', ->
     doc = cheerio.load("<html><head><meta property=\"og:site_name\" content=\"null\" /></head></html>")
     publisher = extractor.publisher(doc)
