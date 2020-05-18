@@ -47,6 +47,7 @@
     "semver": "~4.3.2"
   },
   "scripts": {
+    "build": "babel src -d lib",
     "test": "./node_modules/.bin/babel-node ./node_modules/.bin/mocha --ui tdd test-setup.js test/**/*.js"
   },
   "babel": {
