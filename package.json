@@ -20,28 +20,47 @@
     "url": "git://github.com/ageitgey/node-unfluff"
   },
   "bugs": "https://github.com/ageitgey/node-unfluff/issues",
-  "main": "lib/unfluff.js",
+  "main": "src/unfluff.js",
   "directories": {
     "bin": "bin",
     "lib": "lib",
     "test": "test"
   },
   "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-async-to-generator": "^7.7.4",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-flow": "^7.8.3",
     "cheerio": "~0.22.0",
-    "optimist": "~0.6.1",
     "lodash": "~4.17.10",
+    "mocha": "^7.1.2",
+    "optimist": "~0.6.1",
     "xregexp": "~2.0.0"
   },
   "devDependencies": {
     "coffee-script-redux": "2.0.0-beta7",
     "commonjs-everywhere": "0.9.x",
-    "mocha": "~1.12.1",
+    "deep-equal": "~0.2.1",
     "scopedfs": "~0.1.0",
-    "semver": "~4.3.2",
-    "deep-equal": "~0.2.1"
+    "semver": "~4.3.2"
   },
   "scripts": {
-    "test": "make test"
+    "test": "./node_modules/.bin/babel-node ./node_modules/.bin/mocha --ui tdd test-setup.js test/**/*.js"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "13"
+          }
+        }
+      ],
+      "@babel/preset-flow"
+    ]
   },
   "licenses": [
     {
