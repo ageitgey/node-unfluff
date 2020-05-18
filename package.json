@@ -33,8 +33,8 @@
     "@babel/plugin-transform-async-to-generator": "^7.7.4",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-flow": "^7.8.3",
-    "cheerio": "~0.22.0",
-    "lodash": "~4.17.10",
+    "cheerio": "^1.0.0-rc.3",
+    "lodash": "^4.17.15",
     "mocha": "^7.1.2",
     "optimist": "~0.6.1",
     "xregexp": "~2.0.0"

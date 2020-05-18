@@ -13,7 +13,7 @@ suite('Formatter', function() {
     const html = fs.readFileSync("./fixtures/test_businessWeek1.html").toString();
     const origDoc = cheerio.load(html);
 
-    eq(origDoc("a").length, 232);
+    eq(origDoc("a").length, 223);
 
     formatter(origDoc, origDoc('body'), 'en');
     return eq(origDoc("a").length, 0);
