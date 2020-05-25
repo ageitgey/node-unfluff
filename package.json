@@ -37,6 +37,7 @@
     "lodash": "^4.17.15",
     "mocha": "^7.1.2",
     "optimist": "~0.6.1",
+    "request": "^2.88.2",
     "xregexp": "~2.0.0"
   },
   "devDependencies": {
@@ -48,7 +49,9 @@
   },
   "scripts": {
     "build": "babel src -d lib",
-    "test": "./node_modules/.bin/babel-node ./node_modules/.bin/mocha --ui tdd test-setup.js test/**/*.js"
+    "test": "./node_modules/.bin/babel-node ./node_modules/.bin/mocha --ui tdd test-setup.js test/**/*.js",
+    "2date": "./node_modules/.bin/babel-node ./test/date_extractor.js",
+    "1get-url-content": "./node_modules/.bin/babel-node ./node_modules/.bin/mocha --timeout 40000 --ui tdd test-setup.js test/**/content*.js"
   },
   "babel": {
     "presets": [

@@ -36,7 +36,8 @@ span[class*='date'], \
 p[class*='date'], \
 div[class*='date'], \
 span[itemprop*='dateModified'], \
-span[class*='source']
+span[class*='source'], \
+time[itemprop*='datetime']
 `);
     return __guard__(cleanNull(__guard__(dateCandidates != null ? dateCandidates.first() : undefined, x1 => x1.attr("content"))), x => x.trim()) || __guard__(cleanNull(__guard__(dateCandidates != null ? dateCandidates.first() : undefined, x3 => x3.attr("datetime"))), x2 => x2.trim()) || cleanText(__guard__(dateCandidates != null ? dateCandidates.first() : undefined, x4 => x4.text())) || null;
   },
