@@ -1,12 +1,6 @@
 //@flow
 import pythonBridge from 'python-bridge';
 
-export default {
-    date(doc) {
-        return new PythonAdapter().find_date(doc)
-    }
-}
-
 class PythonAdapter {
     _py: pythonBridge.PythonBridge;
     constructor() {
@@ -41,6 +35,14 @@ class PythonAdapter {
         return this._py`getDate(${htmldoc})`
     }
 
+}
+
+const python =  new PythonAdapter()
+
+export default {
+    date(doc) {
+        return python.find_date(doc).then(x=>{console.log(`MAMY TO ${x}`); return x;})
+    }
 }
 
 // export default PythonAdapter;
