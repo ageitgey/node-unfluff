@@ -27,18 +27,18 @@
     "test": "test"
   },
   "dependencies": {
-    "cheerio": "~0.22.0",
-    "optimist": "~0.6.1",
+    "cheerio": "^1.0.0-rc.12",
     "lodash": "~4.17.10",
+    "optimist": "^0.5.2",
     "xregexp": "~2.0.0"
   },
   "devDependencies": {
     "coffee-script-redux": "2.0.0-beta7",
     "commonjs-everywhere": "0.9.x",
-    "mocha": "~1.12.1",
+    "deep-equal": "~0.2.1",
+    "mocha": "^10.2.0",
     "scopedfs": "~0.1.0",
-    "semver": "~4.3.2",
-    "deep-equal": "~0.2.1"
+    "semver": "~4.3.2"
   },
   "scripts": {
     "test": "make test"
